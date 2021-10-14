@@ -58,22 +58,25 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: "rotate(180deg)",
   },
-  avatar: {
-    // backgroundColor: red[500],
-  },
+  avatar: {},
   journalDescTitle: {
-    // marginTop: "1.5em",
+    paddingBottom: "0.5em",
+    color: "#000",
+    opacity: "0.65",
+    
   },
   journalDesc: {
+    width: "95%",
     border: `0px solid ${theme.palette.common.blue}`,
     borderRadius: 5,
+    backgroundColor: theme.palette.secondary.light,
+    paddingLeft: "3px",
+    paddingRight: "3px",
   },
   journalButton: {
     margin: "1em",
   },
-  submitGrid: {
-    marginTop: "1.5em",
-  },
+  submitGrid: {},
   curJournals: { marginTop: "1em", width: "100%" },
   curJournalsSpace: {
     width: "100%",
@@ -148,7 +151,7 @@ export default function NewJournal(props) {
 
   return (
     <Card className={classes.root}>
-      <Grid container style={{ border: "0px solid" }} alignItems="center">
+      {/* <Grid container style={{ border: "0px solid" }} alignItems="center">
         <Grid item style={{ width: "80%" }}>
           <CardHeader
             title="New Journal"
@@ -160,199 +163,184 @@ export default function NewJournal(props) {
           />
         </Grid>
         <Grid item style={{ width: "20%" }}>
-          <CardActions disableSpacing>
-            <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded,
-              })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-              size="small"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-          </CardActions>
         </Grid>
-      </Grid>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent style={{ border: "0px solid", padding: "0" }}>
-          <Grid container direction="column" style={{ width: "100%" }}>
-            <Grid item style={{ width: "100%" }}>
-              <TextField
-                required
-                id="standard-required"
-                label="Journal Name"
-                onChange={updateJournal}
-                name="jName"
-                value={fullJournal.jName}
-                fullWidth
-                className={classes.journalInput}
-                margin="dense"
-              />
-            </Grid>
+      </Grid> */}
+      {/* <Collapse in={"true"} timeout="auto" unmountOnExit style={{border: "1px solid"}}> */}
+      <CardContent style={{ border: "0px solid", padding: "0" }}>
+        <Grid container direction="column" style={{ width: "100%" }}>
+          <Grid item style={{ width: "100%" }}>
+            <TextField
+              required
+              id="standard-required"
+              label="New Journal Name"
+              onChange={updateJournal}
+              name="jName"
+              value={fullJournal.jName}
+              fullWidth
+              className={classes.journalInput}
+              margin="dense"
+            />
+          </Grid>
 
-            <Grid item style={{ width: "100%", marginTop: "1em" }}>
-              <FormControl
-                className={classes.formControl}
+          <Grid item style={{ width: "100%", marginTop: "1em" }}>
+            <FormControl
+              className={classes.formControl}
+              style={{ width: "100%" }}
+            >
+              <InputLabel id="demo-simple-select-label">Room Type</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
                 style={{ width: "100%" }}
+                name="roomType"
+                onChange={updateJournal}
+                value={fullJournal.roomType}
               >
-                <InputLabel id="demo-simple-select-label">Room Type</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  style={{ width: "100%" }}
-                  name="roomType"
-                  onChange={updateJournal}
-                  value={fullJournal.roomType}
-                >
-                  <MenuItem value={"Indoor"}>Indoor</MenuItem>
-                  <MenuItem value={"Outdoor"}>Outdoor</MenuItem>
-                  <MenuItem value={"Greenhouse"}>Greenhouse</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item style={{ width: "100%", marginTop: "1em" }}>
-              <FormControl
-                className={classes.formControl}
+                <MenuItem value={"Indoor"}>Indoor</MenuItem>
+                <MenuItem value={"Outdoor"}>Outdoor</MenuItem>
+                <MenuItem value={"Greenhouse"}>Greenhouse</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item style={{ width: "100%", marginTop: "1em" }}>
+            <FormControl
+              className={classes.formControl}
+              style={{ width: "100%" }}
+            >
+              <InputLabel id="demo-simple-select-label">
+                Watering Type
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
                 style={{ width: "100%" }}
+                name="waterType"
+                onChange={updateJournal}
+                value={fullJournal.waterType}
               >
-                <InputLabel id="demo-simple-select-label">
-                  Watering Type
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  style={{ width: "100%" }}
-                  name="waterType"
-                  onChange={updateJournal}
-                  value={fullJournal.waterType}
-                >
-                  <MenuItem value={"Manual"}>Manual</MenuItem>
-                  <MenuItem value={"Drip"}>Drip</MenuItem>
-                  <MenuItem value={"Hydroponic"}>Hydroponic</MenuItem>
-                  <MenuItem value={"Aeroponic"}>Aeroponic</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item style={{ width: "100%", marginTop: "1em" }}>
-              <FormControl
-                className={classes.formControl}
+                <MenuItem value={"Manual"}>Manual</MenuItem>
+                <MenuItem value={"Drip"}>Drip</MenuItem>
+                <MenuItem value={"Hydroponic"}>Hydroponic</MenuItem>
+                <MenuItem value={"Aeroponic"}>Aeroponic</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item style={{ width: "100%", marginTop: "1em" }}>
+            <FormControl
+              className={classes.formControl}
+              style={{ width: "100%" }}
+            >
+              <InputLabel id="demo-simple-select-label">Veg. Light</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
                 style={{ width: "100%" }}
+                name="vegLight"
+                onChange={updateJournal}
+                value={fullJournal.vegLight}
               >
-                <InputLabel id="demo-simple-select-label">
-                  Veg. Light
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  style={{ width: "100%" }}
-                  name="vegLight"
-                  onChange={updateJournal}
-                  value={fullJournal.vegLight}
-                >
-                  <MenuItem value={"LED"}>LED</MenuItem>
-                  <MenuItem value={"HPS"}>HPS</MenuItem>
-                  <MenuItem value={"HID"}>HID</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item style={{ width: "100%", marginTop: "1em" }}>
-              <FormControl
-                className={classes.formControl}
+                <MenuItem value={"LED"}>LED</MenuItem>
+                <MenuItem value={"HPS"}>HPS</MenuItem>
+                <MenuItem value={"HID"}>HID</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item style={{ width: "100%", marginTop: "1em" }}>
+            <FormControl
+              className={classes.formControl}
+              style={{ width: "100%" }}
+            >
+              <InputLabel id="demo-simple-select-label">
+                Flower. Light
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
                 style={{ width: "100%" }}
+                name="flowLight"
+                onChange={updateJournal}
+                value={fullJournal.flowLight}
               >
-                <InputLabel id="demo-simple-select-label">
-                  Flower. Light
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  style={{ width: "100%" }}
-                  name="flowLight"
-                  onChange={updateJournal}
-                  value={fullJournal.flowLight}
-                >
-                  <MenuItem value={"LED"}>LED</MenuItem>
-                  <MenuItem value={"HPS"}>HPS</MenuItem>
-                  <MenuItem value={"HID"}>HID</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item style={{ width: "100%", marginTop: "1em" }}>
-              <FormControl
-                className={classes.formControl}
+                <MenuItem value={"LED"}>LED</MenuItem>
+                <MenuItem value={"HPS"}>HPS</MenuItem>
+                <MenuItem value={"HID"}>HID</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item style={{ width: "100%", marginTop: "1em" }}>
+            <FormControl
+              className={classes.formControl}
+              style={{ width: "100%" }}
+            >
+              <InputLabel id="demo-simple-select-label">Grow Medium</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
                 style={{ width: "100%" }}
+                name="growMedium"
+                onChange={updateJournal}
+                value={fullJournal.growMedium}
               >
-                <InputLabel id="demo-simple-select-label">
-                  Grow Medium
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  style={{ width: "100%" }}
-                  name="growMedium"
-                  onChange={updateJournal}
-                  value={fullJournal.growMedium}
-                >
-                  <MenuItem value={"Soil"}>Soil</MenuItem>
-                  <MenuItem value={"Perlite"}>Perlite</MenuItem>
-                  <MenuItem value={"Vermiculite"}>Vermiculite</MenuItem>
-                  <MenuItem value={"Expanded Clay"}>Expanded Clay</MenuItem>
-                  <MenuItem value={"Coco Coir"}>Coco Coir</MenuItem>
-                  <MenuItem value={"Mineral Wood"}>Mineral Wood</MenuItem>
-                  <MenuItem value={"Other"}>Other</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <br />
-            <Grid item style={{ width: "100%" }}>
-              <Typography className={classes.journalDescTitle}>
-                Journal Description
-              </Typography>
+                <MenuItem value={"Soil"}>Soil</MenuItem>
+                <MenuItem value={"Perlite"}>Perlite</MenuItem>
+                <MenuItem value={"Vermiculite"}>Vermiculite</MenuItem>
+                <MenuItem value={"Expanded Clay"}>Expanded Clay</MenuItem>
+                <MenuItem value={"Coco Coir"}>Coco Coir</MenuItem>
+                <MenuItem value={"Mineral Wood"}>Mineral Wood</MenuItem>
+                <MenuItem value={"Other"}>Other</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <br />
+          <Grid item style={{ width: "100%" }}>
+            <Typography className={classes.journalDescTitle}>
+              Journal Description
+            </Typography>
+            <Grid item container justifyContent="center">
               <TextField
                 InputProps={{ disableUnderline: true }}
                 value={fullJournal.jDesc}
                 className={classes.journalDesc}
                 multiline
                 fullWidth
-                rows={4}
+                rows={3}
                 name="jDesc"
                 id="message"
                 onChange={updateJournal}
               />
             </Grid>
-            <Grid
-              item
-              container
-              direction="row"
-              className={classes.submitGrid}
-              justifyContent="center"
-            >
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.journalButton}
-                  onClick={createJournal}
-                >
-                  Create
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  className={classes.journalButton}
-                  onClick={cancelNewJournal}
-                >
-                  Cancel
-                </Button>
-              </Grid>
+          </Grid>
+          <Grid
+            item
+            container
+            direction="row"
+            className={classes.submitGrid}
+            justifyContent="center"
+          >
+            <Grid item>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.journalButton}
+                onClick={createJournal}
+              >
+                Create
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.journalButton}
+                onClick={cancelNewJournal}
+              >
+                Cancel
+              </Button>
             </Grid>
           </Grid>
-        </CardContent>
-      </Collapse>
+        </Grid>
+      </CardContent>
+      {/* </Collapse> */}
     </Card>
   );
 }

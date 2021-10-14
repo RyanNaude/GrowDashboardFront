@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paperStyle: {
     backgroundColor: "#d6ffb5",
-    // border: "1px solid",
     marginTop: "0.5em",
+    height: "200px",
   },
   journalTitle: {
     width: "90%",
@@ -45,6 +45,12 @@ const useStyles = makeStyles((theme) => ({
   journalIcon: {
     marginRight: "3px",
     marginTop: "3px",
+    color: theme.palette.primary.dark,
+  },
+  journalDesc: {
+    paddingLeft: "0.5em",
+    height: "100px",
+    // border: "1px solid",
   },
 }));
 
@@ -120,7 +126,7 @@ export default function CurrentJournals(props) {
                   />
                 </Grid>
               </Grid>
-              <Grid item style={{ paddingLeft: "0.5em" }}>
+              <Grid item className={classes.journalDesc}>
                 <p>{item.description}</p>
               </Grid>
               <Grid item container justifyContent="center">
