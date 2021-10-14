@@ -9,6 +9,7 @@ import GalleryChipGroup from "./ui/galleryChipGroup";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../redux/user/user.selector";
 import { Typography } from "@material-ui/core";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   chipGroup: {
     borderRadius: "25px",
     border: "3px solid",
+    marginTop: "0.5em",
     marginBottom: "0.5em",
     borderColor: theme.palette.primary.main,
   },
@@ -102,9 +104,9 @@ export default function Gallery(props) {
     <Grid container direction="column" className={classes.mainPageStyle}>
       {/* {userLoggedIn ? ( */}
       <Grid item container direction="column">
-        <Grid item>
+        {/* <Grid item>
           <Typography variant="h5">Gallery</Typography>
-        </Grid>
+        </Grid> */}
         <Grid item className={classes.chipGroup}>
           <GalleryChipGroup />
         </Grid>
@@ -118,7 +120,9 @@ export default function Gallery(props) {
                 srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                 alt={item.title}
                 loading="lazy"
+                style={{ width: "168px", height: "164px" }}
               />
+              {/* <Skeleton variant="rect" width={"168px"} height={"164px"} /> */}
             </ImageListItem>
           ))}
         </ImageList>
