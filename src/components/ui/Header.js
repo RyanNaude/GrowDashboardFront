@@ -1,5 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import clsx from "clsx";
+
+//Custom Components
+import SignUp from "./signup.component";
+import SignIn from "./signin.component";
+
+//Material UI Components
+import Grid from "@material-ui/core/Grid";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import Typography from "@material-ui/core/Typography";
+import Toolbar from "@material-ui/core/Toolbar";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+
+//Import Icons
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import BubbleChartIcon from "@material-ui/icons/BubbleChart";
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import HomeIcon from "@material-ui/icons/Home";
+import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
+import SettingsIcon from "@material-ui/icons/Settings";
+import { useCookies } from "react-cookie";
+
+//Redux imports
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectCurrentUser,
@@ -12,41 +39,9 @@ import {
   setSignUpState,
 } from "../../redux/user/user.actions";
 
-import SignUp from "./signup.component";
-import SignIn from "./signin.component";
-
-import clsx from "clsx";
-
-//Import Material UI components
-import Grid from "@material-ui/core/Grid";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-// import Divider from "@material-ui/core/Divider";
-// import Drawer from "@material-ui/core/Drawer";
-// import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import Typography from "@material-ui/core/Typography";
-import Toolbar from "@material-ui/core/Toolbar";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-
-//Import Icons
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-import BubbleChartIcon from "@material-ui/icons/BubbleChart";
-import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import HomeIcon from "@material-ui/icons/Home";
-import MenuIcon from "@material-ui/icons/Menu";
-import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
-import SettingsIcon from "@material-ui/icons/Settings";
-import { useCookies } from "react-cookie";
-
 const drawerWidth = 240;
 
+//Custom useStyles
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -68,8 +63,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary,
   },
   loginButGrid: {
-    // width: "30%",
-    // backgroundColor: "red"
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -144,19 +137,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// function ElevationScroll(props) {
-//   const { children } = props;
-
-//   const trigger = useScrollTrigger({
-//     disableHysteresis: true,
-//     threshold: 0,
-//   });
-
-//   return React.cloneElement(children, {
-//     elevation: trigger ? 4 : 0,
-//   });
-// }
-
 //Appbar elevation scroll, Make heaser look integrated.
 function ElevationScroll(props) {
   const { children } = props;
@@ -176,13 +156,13 @@ export default function Header(props) {
   const theme = useTheme();
   const dispatch = useDispatch();
 
+  //Setup Local State
   const [value, setValue] = useState(0);
   const [currentLoggedIn, setCurrentLoggedIn] = useState("default");
   const [cookies, setCookies] = useCookies();
 
+  //Get Global State
   const userLoggedIn = useSelector(selectCurrentUser);
-  console.log("userLoggedIn Head");
-  console.log(userLoggedIn);
   const signInCur = useSelector(selectSignInState);
   const signUpCur = useSelector(selectSignUpState);
 
@@ -361,71 +341,5 @@ export default function Header(props) {
         />
       ) : null}
     </div>
-    // <React.Fragment>
-
-    //   <Drawer
-    //     variant="permanent"
-    //     className={clsx(classes.drawer, {
-    //       [classes.drawerOpen]: props.open,
-    //       [classes.drawerClose]: !props.open,
-    //     })}
-    //     classes={{
-    //       paper: clsx({
-    //         [classes.drawerOpen]: props.open,
-    //         [classes.drawerClose]: !props.open,
-    //       }),
-    //     }}
-    //   >
-    //     <div className={classes.toolbar}>
-    //       <IconButton onClick={handleDrawerClose}>
-    //         {theme.direction === "rtl" ? (
-    //           <ChevronRightIcon />
-    //         ) : (
-    //           <ChevronLeftIcon />
-    //         )}
-    //       </IconButton>
-    //     </div>
-    //     <Divider />
-    //     <List>
-    //       {menu.map((text, index) => (
-    //         <ListItem
-    //           button
-    //           key={text}
-    //           component={Link}
-    //           to={links[index]}
-    //           onClick={userPageSelect}
-    //           selected={index === value ? true : false}
-    //         >
-    //           <ListItemIcon>
-    //             {text === "Home" ? (
-    //               <HomeIcon color="primary" />
-    //             ) : text === "Env. Breakdown" ? (
-    //               <BubbleChartIcon color="primary" />
-    //             ) : text === "Cost Management" ? (
-    //               <AttachMoneyIcon color="primary" />
-    //             ) : text === "Env. Settings" ? (
-    //               <SettingsIcon color="primary" />
-    //             ) : text === "Photo Library" ? (
-    //               <PhotoLibraryIcon color="primary" />
-    //             ) : text === "Calander" ? (
-    //               <CalendarTodayIcon color="primary" />
-    //             ) : null}
-    //           </ListItemIcon>
-    //           <ListItemText primary={text} />
-    //         </ListItem>
-    //       ))}
-    //     </List>
-    //     <Divider />
-    //   </Drawer>
-    //   <div className={classes.toolbarMargin} />
-
-    //   {signUpCur ? <SignUp /> : null}
-    //   {signInCur ? (
-    //     <SignIn
-    //       currentLoggedIn={currentLoggedIn}
-    //       setCurrentLoggedIn={setCurrentLoggedIn}
-    //     />
-    //   ) : null}
-    // </React.Fragment>
   );
 }

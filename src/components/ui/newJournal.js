@@ -2,23 +2,31 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import clsx from "clsx";
 
+//Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import { Card, Divider } from "@material-ui/core";
-import { CardHeader } from "@material-ui/core";
-import { CardContent } from "@material-ui/core";
-import { CardActions } from "@material-ui/core";
-import { TextField } from "@material-ui/core";
-import { InputLabel } from "@material-ui/core";
-import { Select } from "@material-ui/core";
-import { MenuItem } from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
+
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Button } from "@material-ui/core";
-import { IconButton } from "@material-ui/core";
-import { Typography } from "@material-ui/core";
+import FormControl from "@material-ui/core/FormControl";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
 
+//Redux imports
+import { useSelector, useDispatch } from "react-redux";
+import { displayNewJournal } from "../../redux/siteNav/siteNav.actions";
+import { selectDispNewJournal } from "../../redux/siteNav/siteNav.selector";
+
+//Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
     marginTop: "6em",
@@ -81,7 +89,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewJournal(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  //Get Global State
+  const dispNewJournal = useSelector(selectDispNewJournal);
 
+  //Setup Local State
   const [expanded, setExpanded] = useState(false);
   const [fullJournal, setFullJournal] = useState({
     jName: "",
@@ -108,6 +120,9 @@ export default function NewJournal(props) {
 
   const cancelNewJournal = () => {
     setExpanded(false);
+
+    console.log("togNewJournalDisplay");
+    dispatch(displayNewJournal(!dispNewJournal));
   };
 
   //Journal Data Processing

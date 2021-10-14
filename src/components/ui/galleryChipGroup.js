@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 
+//Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Chip from "@material-ui/core/Chip";
 
+//Custom useStyles
 const useStyles = makeStyles((theme) => ({
   chip: {
     marginTop: "1px",

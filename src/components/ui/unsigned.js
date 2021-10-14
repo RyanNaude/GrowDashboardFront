@@ -1,8 +1,11 @@
 import React from "react";
+
+//Material UI Components
 import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
+//Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
     width: "98.5vw",

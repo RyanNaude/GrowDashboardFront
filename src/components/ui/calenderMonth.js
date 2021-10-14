@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
-// import { useState } from "react";
-// import clsx from "clsx";
 
+//Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import { Typography } from "@material-ui/core";
+
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 
+//Custom useStyles
 const useStyles = makeStyles((theme) => ({
   arrowBack: { marginRight: "10px" },
   arrowForward: { marginLeft: "10px" },
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Test Data
 const month = "January";
 const year = "2021";
 
@@ -47,6 +49,7 @@ export default function CalanderMonth(props) {
 
   useEffect(() => {}, []);
 
+  //Test Data
   const testMonth = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25, 26, 27, 28, 29, 30,

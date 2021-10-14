@@ -1,25 +1,31 @@
 import React from "react";
+
+//Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
+
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+
+//Component Import
+import CostOFElec from "./ui/costOfElec";
 import Unsigned from "./ui/unsigned";
 
-import CostOFElec from "./ui/costOfElec";
-
+//Redux imports
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../redux/user/user.selector";
-import { Typography } from "@material-ui/core";
 
+//Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
     marginTop: "6em",
   },
-  mainPageSub: {    
-    // border: "1px solid black",
+  mainPageSub: {
   },
 }));
 
 export default function CostManagement(props) {
   const classes = useStyles();
+  //Get Global State
   const userLoggedIn = useSelector(selectCurrentUser);
 
   return (
@@ -27,17 +33,15 @@ export default function CostManagement(props) {
       container
       direction="column"
       className={classes.mainPageStyle}
-      style={{
-       
-      }}
+      style={{}}
     >
       {/* {userLoggedIn ? ( */}
-        <Grid item>
-          <Typography variant="h5">Cost Management</Typography>
-        </Grid>
-        <Grid item className={classes.mainPageSub}>
-          <CostOFElec />
-        </Grid>
+      <Grid item>
+        <Typography variant="h5">Cost Management</Typography>
+      </Grid>
+      <Grid item className={classes.mainPageSub}>
+        <CostOFElec />
+      </Grid>
       {/* ) : (
         <Grid item>
           <Unsigned />

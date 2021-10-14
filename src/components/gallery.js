@@ -1,16 +1,21 @@
 import React from "react";
+
+//Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
+
+import GalleryChipGroup from "./ui/galleryChipGroup";
+import Grid from "@material-ui/core/Grid";
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
-import Grid from "@material-ui/core/Grid";
+import Skeleton from "@material-ui/lab/Skeleton";
 import Unsigned from "./ui/unsigned";
-import GalleryChipGroup from "./ui/galleryChipGroup";
 
+//Redux imports
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../redux/user/user.selector";
-import { Typography } from "@material-ui/core";
-import Skeleton from "@material-ui/lab/Skeleton";
 
+//Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
     marginTop: "6em",
@@ -98,6 +103,7 @@ const itemData = [
 
 export default function Gallery(props) {
   const classes = useStyles();
+  //Get Global State
   const userLoggedIn = useSelector(selectCurrentUser);
 
   return (

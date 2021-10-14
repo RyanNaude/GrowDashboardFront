@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-// import { useState } from "react";
-// import clsx from "clsx";
 
+//Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import { Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import DeleteIcon from "@material-ui/icons/Delete";
 
+import DeleteIcon from "@material-ui/icons/Delete";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+
+//Custom useStyles
 const useStyles = makeStyles((theme) => ({
   appointGrid: {
     width: "100%",
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Test Data
 const time = "17:00 | 18:00";
 const date = "1 JAN | 2021";
 

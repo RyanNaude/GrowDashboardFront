@@ -1,12 +1,20 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 
+//Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import { Card } from "@material-ui/core";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import Button from "@material-ui/core/Button";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Button } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 
+//Redux imports
+import { useSelector, useDispatch } from "react-redux";
+import { displayNewJournal } from "../../redux/siteNav/siteNav.actions";
+import { selectDispNewJournal } from "../../redux/siteNav/siteNav.selector";
+
+//Custom useStyles
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "3em",
@@ -28,50 +36,44 @@ const useStyles = makeStyles((theme) => ({
     // border: "1px solid",
     marginTop: "0.5em",
   },
-  buttonGrid: {
-    width: "50%",
+  journalTitle: {
+    width: "90%",
+  },
+  journalAddIcon: {
+    width: "10%",
+  },
+  journalIcon: {
+    marginRight: "3px",
+    marginTop: "3px",
   },
 }));
 
-function Item(props) {
-  console.log(props);
-  return (
-    <Paper className={props.classes.paperStyle}>
-      <Grid container direction="column">
-        <Grid item>
-          <h2>{props.item.name}</h2>
-        </Grid>
-        <Grid item>
-          <p>{props.item.description}</p>
-        </Grid>
-        <Grid item container justifyContent="center">
-          <Grid item className={props.classes.buttonGrid}>
-            <Button className={props.classes.CheckButton}>Select</Button>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Paper>
-  );
-}
-
 export default function CurrentJournals(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  //Get Global State
+  const dispNewJournal = useSelector(selectDispNewJournal);
 
+  //Test Data
   const test = [
     {
-      name: "Random Name #1",
-      description: "Hello World!",
+      name: "Tempus",
+      description:
+        "Et sollicitudin ac orci phasellus egestas tellus rutrum tellus. Quam pellentesque nec nam aliquam sem. Nunc pulvinar sapien et ligula ullamcorper.",
     },
     {
-      name: "Random Name #2",
-      description: "Hello, Hello?",
+      name: "Pellentesque",
+      description:
+        "Enim tortor at auctor urna nunc. Placerat duis ultricies lacus sed turpis tincidunt id.",
     },
     {
-      name: "Random Name #3",
-      description: "Hello World!?",
+      name: "Pharetra",
+      description:
+        "Facilisis leo vel fringilla est ullamcorper. Ut consequat semper viverra nam libero justo laoreet. Ut sem nulla pharetra diam sit amet nisl. Semper eget duis at tellus at urna condimentum mattis pellentesque.",
     },
   ];
 
+  //Setup Local State
   const [expanded, setExpanded] = useState(false);
   const [fullJournal, setFullJournal] = useState({
     jName: "",
@@ -85,14 +87,54 @@ export default function CurrentJournals(props) {
 
   useEffect(() => {}, []);
 
+  const togNewJournalDisplay = () => {
+    console.log("togNewJournalDisplay");
+    dispatch(displayNewJournal(!dispNewJournal));
+  };
+
   return (
     <div>
-      <Carousel
-        next={(next, active) => console.log(``)}
-        prev={(prev, active) => console.log(``)}
-      >
+      <Carousel next={(next, active) => {}} prev={(prev, active) => {}}>
         {test.map((item, i) => (
-          <Item key={i} item={item} classes={classes} />
+          <Paper className={classes.paperStyle}>
+            <Grid container direction="column">
+              <Grid item container alignItems="flex-start">
+                <Grid
+                  item
+                  className={classes.journalTitle}
+                  style={{ paddingLeft: "0.5em" }}
+                  alignItems="flex-start"
+                >
+                  <h2>{item.name}</h2>
+                </Grid>
+                <Grid
+                  item
+                  container
+                  className={classes.journalAddIcon}
+                  justifyContent="flex-end"
+                >
+                  <AddCircleOutlineIcon
+                    className={classes.journalIcon}
+                    style={{ zIndex: 1 }}
+                    onClick={() => togNewJournalDisplay()}
+                  />
+                </Grid>
+              </Grid>
+              <Grid item style={{ paddingLeft: "0.5em" }}>
+                <p>{item.description}</p>
+              </Grid>
+              <Grid item container justifyContent="center">
+                <Grid item className={classes.buttonGrid}>
+                  <Button
+                    className={classes.CheckButton}
+                    onClick={() => console.log("But Clicked")}
+                  >
+                    Select
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Paper>
         ))}
       </Carousel>
     </div>

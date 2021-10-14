@@ -1,14 +1,20 @@
 import React from "react";
+
+//Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+
+//Component Import
 import Unsigned from "./ui/unsigned";
 import CalanderMonth from "./ui/calenderMonth";
 import CalanderEntry from "./ui/calanderEntry";
 
+//Redux imports
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../redux/user/user.selector";
 import { Typography } from "@material-ui/core";
 
+//Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
     marginTop: "6.5em",
@@ -40,6 +46,7 @@ const bodyArray = [
 
 export default function Calander(props) {
   const classes = useStyles();
+  //Get Global State
   const userLoggedIn = useSelector(selectCurrentUser);
 
   return (
@@ -52,19 +59,14 @@ export default function Calander(props) {
         <CalanderMonth />
       </Grid>
       <Grid item style={{ marginTop: "0.5em" }}>
-        {timeArray.map(
-          (time, index) => (
-            console.log(dateArray[index]),
-            (
-              <CalanderEntry
-                time={time}
-                date={dateArray[index]}
-                title={titleArray[index]}
-                body={bodyArray[index]}
-              />
-            )
-          )
-        )}
+        {timeArray.map((time, index) => (
+          <CalanderEntry
+            time={time}
+            date={dateArray[index]}
+            title={titleArray[index]}
+            body={bodyArray[index]}
+          />
+        ))}
       </Grid>
       {/* ) : (
         <Grid item>

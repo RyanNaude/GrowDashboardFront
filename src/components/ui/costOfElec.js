@@ -2,16 +2,19 @@ import React, { useEffect } from "react";
 // import { useState } from "react";
 // import clsx from "clsx";
 
+//Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
+
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 
+//Custom useStyles
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: "100%",
@@ -32,6 +35,7 @@ function createData(name, kwh, cost) {
   return { name, kwh, cost };
 }
 
+//Test Data
 const elecRows = [
   createData("Quantum Light", 81.84, "R 219.33"),
   createData("Fan x2", 44.64, "R 119.64"),
