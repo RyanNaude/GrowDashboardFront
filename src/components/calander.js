@@ -12,7 +12,6 @@ import CalanderEntry from "./ui/calanderEntry";
 //Redux imports
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../redux/user/user.selector";
-import { Typography } from "@material-ui/core";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
