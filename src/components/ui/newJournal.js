@@ -58,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "0.5em",
     color: "#000",
     opacity: "0.65",
-    
   },
   journalDesc: {
     width: "95%",
@@ -302,6 +301,7 @@ export default function NewJournal(props) {
                 name="jDesc"
                 id="message"
                 onChange={updateJournal}
+                placeholder="Short description of journal..."
               />
             </Grid>
           </Grid>
