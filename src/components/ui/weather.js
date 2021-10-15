@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mainPageStyle: {
     marginBottom: "0.5em",
+    // border: "1px solid",
   },
   root: {
     backgroundColor: theme.palette.secondary.light,
@@ -85,11 +86,11 @@ export default function Weather(props) {
     <Grid
       container
       className={classes.mainPageStyle}
-      justifyContent="space-between"
+      justifyContent="space-evenly"
     >
       {summTemp.map((summ, index) => (
-        <Grid item container key={index} className={classes.dayGrid}>
-          <Paper variant="outlined" key={index} style={{ border: "1px solid" }}>
+        <Grid item container key={index} className={classes.dayGrid}s>
+          <Paper variant="outlined" key={index} style={{ width: "100%" }}>
             <Grid item container direction="column" className={classes.root}>
               <Grid item container justifyContent="center">
                 <Typography className={classes.summMaxTemp}>

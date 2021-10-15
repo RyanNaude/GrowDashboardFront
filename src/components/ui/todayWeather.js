@@ -11,17 +11,6 @@ import { Typography } from "@material-ui/core";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
-  summMaxTemp: {
-    fontWeight: "bold",
-    fontSize: "15pt",
-  },
-  weekDay: {
-    fontWeight: "bold",
-    fontSize: "10pt",
-  },
-  summDate: {
-    fontSize: "9pt",
-  },
   mainPageStyle: {
     marginBottom: "0.5em",
   },
@@ -72,44 +61,24 @@ export default function TodayWeather(props) {
   ];
 
   return (
-    <Grid
-      container
-      className={classes.mainPageStyle}
-      justifyContent="space-around"
-    >
-      <h1>Today Weather</h1>
-      {/* {summTemp.map((summ, index) => (
-        <Grid item style={{ width: "18%", border: "1px solid" }} key={index}>
-          <Paper variant="outlined">
-            <Grid item container direction="column" className={classes.root}>
-              <Grid item container justifyContent="center">
-                <Typography className={classes.summMaxTemp}>
-                  {summ.maxTemp}
-                </Typography>
-              </Grid>
-              <Grid item container justifyContent="center">
-                <Divider style={{ width: "80%", color: "black" }} />
-              </Grid>
-              <Grid item container justifyContent="center">
-                <Typography>{summ.minTemp}</Typography>
-              </Grid>
-              <Grid item container justifyContent="center">
-                <CloudIcon />
-              </Grid>
-              <Grid item container justifyContent="center">
-                <Typography className={classes.weekDay}>
-                  {summ.weekDay}
-                </Typography>
-              </Grid>
-              <Grid item container justifyContent="center">
-                <Typography className={classes.summDate}>
-                  {summ.date}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Paper>
+    <Grid container className={classes.mainPageStyle} direction="column">
+      <Grid item container style={{ border: "1px solid" }} direction="row">
+        <Grid item style={{ border: "1px solid", width: "50%" }}>
+          <h1>Grid 1</h1>
         </Grid>
-      ))} */}
+        <Grid item style={{ border: "1px solid", width: "50%" }}>
+          <h1>Grid 2</h1>
+        </Grid>
+      </Grid>
+      <Grid item container style={{ border: "1px solid" }} direction="row">
+        <Grid item style={{ border: "1px solid", width: "50%" }}>
+          <h1>Grid 3</h1>
+        </Grid>
+        <Grid item style={{ border: "1px solid", width: "50%" }}>
+          <h1>Grid 4</h1>
+        </Grid>
+      </Grid>
+      {/* <h1>Today Weather</h1> */}
     </Grid>
   );
 }
