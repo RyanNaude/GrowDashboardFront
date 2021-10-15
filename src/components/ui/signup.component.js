@@ -77,10 +77,10 @@ export default function SignUp() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        userFirstNameField: newUser.firstName,
-        userLastNameField: newUser.lastName,
-        userEmailField: newUser.email,
-        userPasswordField: md5(newUser.password),
+        // userFirstNameField: newUser.firstName,
+        // userLastNameField: newUser.lastName,
+        username: newUser.email,
+        password: md5(newUser.password),
       }),
     };
     fetch("http://localhost:4000/createUser", requestOptions)
