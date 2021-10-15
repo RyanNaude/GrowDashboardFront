@@ -25,6 +25,8 @@ import Typography from "@material-ui/core/Typography";
 //Component Import
 import defaultGreen from "../assets/images.jfif";
 import Unsigned from "./ui/unsigned";
+import Weather from "./ui/weather";
+import TodayWeather from "./ui/todayWeather";
 
 //Redux imports
 import { useSelector } from "react-redux";
@@ -33,8 +35,7 @@ import { selectCurrentUser } from "../redux/user/user.selector";
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
-    marginLeft: "5em",
-    width: "95%",
+    marginTop: "6.5em",
   },
   mainPageSub: {
     border: "1px solid black",
@@ -92,142 +93,13 @@ export default function Enviroment(props) {
   };
 
   return (
-    <Grid
-      container
-      direction="column"
-      className={classes.mainPageStyle}
-      style={{
-        marginLeft: "0.5em",
-        marginRight: "0.5em",
-        marginTop: "6em",
-      }}
-    >
-      {/* {userLoggedIn ? ( */}
-      <Card className={classes.root}>
-        <Grid container>
-          <Grid item style={{ width: "80%" }}>
-            <CardHeader title="Setup Enviroment" subheader="" />
-          </Grid>
-          <Grid item style={{ width: "20%" }}>
-            <CardActions disableSpacing>
-              <IconButton
-                className={clsx(classes.expand, {
-                  [classes.expandOpen]: expanded,
-                })}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </CardActions>
-          </Grid>
-        </Grid>
-        <CardMedia
-          className={classes.media}
-          image={defaultGreen}
-          title="Paella dish"
-        />
-
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Grid container>
-              <Grid item style={{ width: "100%" }}>
-                <TextField
-                  required
-                  id="standard-required"
-                  label="Enviroment Name"
-                  onChange={(event) => setJournalName(event.target.value)}
-                  value={journalName}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item style={{ width: "100%" }}>
-                <Typography className={classes.journalDescTitle}>
-                  Enviroment Description
-                </Typography>
-                <TextField
-                  InputProps={{ disableUnderline: true }}
-                  value={journalDesc}
-                  className={classes.journalDesc}
-                  multiline
-                  fullWidth
-                  rows={2}
-                  id="message"
-                  onChange={(event) => setJournalDesc(event.target.value)}
-                />
-              </Grid>
-              <Grid item style={{ width: "100%", marginTop: "1em" }}>
-                <FormControl
-                  className={classes.formControl}
-                  style={{ width: "100%" }}
-                >
-                  <InputLabel id="demo-simple-select-label">
-                    Room Type
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    style={{ width: "100%" }}
-                    // value={age}
-                    // onChange={handleChange}
-                  >
-                    <MenuItem value={"Indoor"}>Indoor</MenuItem>
-                    <MenuItem value={"Outdoor"}>Outdoor</MenuItem>
-                    <MenuItem value={"Greenhouse"}>Greenhouse</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item style={{ width: "100%", marginTop: "1em" }}>
-                <FormControl
-                  className={classes.formControl}
-                  style={{ width: "100%" }}
-                >
-                  <InputLabel id="vegLight">Veg. Light</InputLabel>
-                  <Select
-                    labelId="vegLight-label"
-                    id="vegLight"
-                    style={{ width: "100%" }}
-                    // value={age}
-                    // onChange={handleChange}
-                  >
-                    <MenuItem value={"LED"}>LED</MenuItem>
-                    <MenuItem value={"HPS"}>HPS</MenuItem>
-                    <MenuItem value={"HID"}>HID</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid
-                item
-                container
-                direction="row"
-                className={classes.submitGrid}
-                justifyContent="center"
-              >
-                <Grid item>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.journalButton}
-                    // onClick={createJournal}
-                  >
-                    Create
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    className={classes.journalButton}
-                  >
-                    Cancel
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Collapse>
-      </Card>
+    <Grid container direction="column" className={classes.mainPageStyle}>
+      <Weather />
+      <TodayWeather />
+      <Weather />
+      <Weather />
+      <Weather />
+      <Weather />
       {/* ) : (
         <div>
           <Unsigned />

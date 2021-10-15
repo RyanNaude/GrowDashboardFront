@@ -15,6 +15,7 @@ import { selectDispNewJournal } from "../redux/siteNav/siteNav.selector";
 import Unsigned from "./ui/unsigned";
 import NewJournal from "./ui/newJournal";
 import CurrentJournals from "./ui/currentJournals";
+import WeatherSummary from "./ui/weatherSummary";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
@@ -221,6 +222,7 @@ export default function Home(props) {
         <Grid item style={{ border: "0px solid", width: "100%" }}>
           {dispNewJournal ? null : <CurrentJournals />}
           {dispNewJournal ? <NewJournal /> : null}
+          <WeatherSummary />
         </Grid>
         {/* <Grid item>{activeJournals.map(displayJournals)}</Grid> */}
       </Grid>
