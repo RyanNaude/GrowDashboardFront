@@ -89,7 +89,7 @@ export default function Weather(props) {
       justifyContent="space-evenly"
     >
       {summTemp.map((summ, index) => (
-        <Grid item container key={index} className={classes.dayGrid}s>
+        <Grid item container key={index} className={classes.dayGrid}>
           <Paper variant="outlined" key={index} style={{ width: "100%" }}>
             <Grid item container direction="column" className={classes.root}>
               <Grid item container justifyContent="center">
