@@ -14,3 +14,8 @@ export const setSignUpState = (signUpState) => ({
   type: userActionTypes.SET_SIGN_UP,
   payload: signUpState,
 });
+
+export const setTokenState = (tokenState) => ({
+  type: userActionTypes.SET_TOKEN_STATE,
+  payload: tokenState,
+});

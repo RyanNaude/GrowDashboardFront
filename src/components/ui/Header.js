@@ -31,12 +31,14 @@ import {
   selectCurrentUser,
   selectSignInState,
   selectSignUpState,
+  selectTokenState,
 } from "../../redux/user/user.selector";
 import {
   setCurrentUser,
   setSignInState,
   setSignUpState,
 } from "../../redux/user/user.actions";
+import { ContactlessOutlined } from "@material-ui/icons";
 
 const drawerWidth = 240;
 
@@ -61,8 +63,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: theme.palette.secondary,
   },
-  loginButGrid: {
-  },
+  loginButGrid: {},
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
@@ -164,6 +165,9 @@ export default function Header(props) {
   const userLoggedIn = useSelector(selectCurrentUser);
   const signInCur = useSelector(selectSignInState);
   const signUpCur = useSelector(selectSignUpState);
+  const tokenState = useSelector(selectTokenState);
+  console.log("token State");
+  console.log(tokenState);
 
   const handleDrawerOpen = () => {
     props.setOpen(true);

@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   currentUser: null,
   signInState: false,
   signUpState: false,
+  tokenState: false,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -26,6 +27,13 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         signUpState: action.payload,
+        error: null,
+      };
+
+    case userActionTypes.SET_TOKEN_STATE:
+      return {
+        ...state,
+        tokenState: action.payload,
         error: null,
       };
 
