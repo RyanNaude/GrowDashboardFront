@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import clsx from "clsx";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -109,10 +108,6 @@ export default function NewJournal(props) {
   //Updating journals
   const updateJournal = (event) => {
     setFullJournal({ ...fullJournal, [event.target.name]: event.target.value });
-  };
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
   };
 
   const cancelNewJournal = () => {

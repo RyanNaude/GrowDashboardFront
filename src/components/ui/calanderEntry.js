@@ -25,10 +25,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//Test Data
-const time = "17:00 | 18:00";
-const date = "1 JAN | 2021";
-
 export default function CalanderEntry(props) {
   const classes = useStyles();
 

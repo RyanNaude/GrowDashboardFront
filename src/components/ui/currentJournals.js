@@ -80,7 +80,7 @@ export default function CurrentJournals(props) {
   ];
 
   //Setup Local State
-  const [expanded, setExpanded] = useState(false);
+  // const [expanded, setExpanded] = useState(false);
   const [fullJournal, setFullJournal] = useState({
     jName: "",
     jDesc: "",
@@ -101,8 +101,8 @@ export default function CurrentJournals(props) {
   return (
     <div>
       <Carousel next={(next, active) => {}} prev={(prev, active) => {}}>
-        {test.map((item, i) => (
-          <Paper className={classes.paperStyle}>
+        {test.map((item, index) => (
+          <Paper className={classes.paperStyle} key={index}>
             <Grid container direction="column">
               <Grid item container alignItems="flex-start">
                 <Grid

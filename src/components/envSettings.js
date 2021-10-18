@@ -9,7 +9,7 @@ import Unsigned from "./ui/unsigned";
 
 //Redux imports
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../redux/user/user.selector";
+import { selectTokenState } from "../redux/user/user.selector";
 import { Typography } from "@material-ui/core";
 
 //Custom useStyles
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 export default function EnviromentSettings(props) {
   const classes = useStyles();
   //Get Global State
-  const userLoggedIn = useSelector(selectCurrentUser);
+  const tokenState = useSelector(selectTokenState);
 
   return (
     <Grid
@@ -39,15 +39,17 @@ export default function EnviromentSettings(props) {
         marginTop: "6em",
       }}
     >
-      {/* {userLoggedIn ? ( */}
-      <Grid item>
-        <Typography variant="h5">App Settings</Typography>
-      </Grid>
-      {/* ) : (
+      {tokenState ? (
+        <Grid item container style={{ border: "1px solid" }}>
+          <Grid item>
+            <Typography variant="h5">App Settings</Typography>
+          </Grid>
+        </Grid>
+      ) : (
         <Grid item>
           <Unsigned />
         </Grid>
-      )} */}
+      )}
     </Grid>
   );
 }

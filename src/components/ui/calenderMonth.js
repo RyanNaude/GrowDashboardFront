@@ -45,7 +45,6 @@ const year = "2021";
 
 export default function CalanderMonth(props) {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   useEffect(() => {}, []);
 
@@ -87,8 +86,8 @@ export default function CalanderMonth(props) {
       </Grid>
       <Grid item container justifyContent="center">
         <Grid item container position="flex" className={classes.monthGrid}>
-          {testMonth.map((data) => (
-            <Grid item className={classes.calanderDay}>
+          {testMonth.map((data, index) => (
+            <Grid item className={classes.calanderDay} key={index}>
               <Paper variant="outlined" className={classes.dayPaper}>
                 <Typography
                   className={classes.title}

@@ -8,7 +8,7 @@ import { red } from "@material-ui/core/colors";
 
 //Redux imports
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../redux/user/user.selector";
+import { selectTokenState } from "../redux/user/user.selector";
 import { selectDispNewJournal } from "../redux/siteNav/siteNav.selector";
 
 //Component import
@@ -77,8 +77,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Home(props) {
   const classes = useStyles();
   //Get Global State
-  const userLoggedIn = useSelector(selectCurrentUser);
-  
+  const tokenState = useSelector(selectTokenState);
+
   //Setup Local State
   const [expanded, setExpanded] = useState(false);
   const [activeJournals, setActiveJournals] = useState([]);
@@ -95,10 +95,6 @@ export default function Home(props) {
   //Get navigation state
   //Get Global State
   const dispNewJournal = useSelector(selectDispNewJournal);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   //Requesting - All journals from backend
   const getJournals = async () => {
@@ -217,20 +213,20 @@ export default function Home(props) {
 
   return (
     <Grid container direction="row" className={classes.mainPageStyle}>
-      {/* {userLoggedIn ? ( */}
-      <Grid item container style={{ border: "0px solid" }}>
-        <Grid item style={{ border: "0px solid", width: "100%" }}>
-          {dispNewJournal ? null : <CurrentJournals />}
-          {dispNewJournal ? <NewJournal /> : null}
-          <WeatherSummary />
+      {tokenState ? (
+        <Grid item container style={{ border: "0px solid" }}>
+          <Grid item style={{ border: "0px solid", width: "100%" }}>
+            {dispNewJournal ? null : <CurrentJournals />}
+            {dispNewJournal ? <NewJournal /> : null}
+            <WeatherSummary />
+          </Grid>
+          {/* <Grid item>{activeJournals.map(displayJournals)}</Grid> */}
         </Grid>
-        {/* <Grid item>{activeJournals.map(displayJournals)}</Grid> */}
-      </Grid>
-      {/* ) : (
+      ) : (
         <Grid item>
           <Unsigned />
         </Grid>
-      )} */}
+      )}
     </Grid>
   );
 }

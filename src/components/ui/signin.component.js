@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,7 +20,6 @@ import Typography from "@material-ui/core/Typography";
 //Redux imports
 import { useDispatch } from "react-redux";
 import {
-  setCurrentUser,
   setSignInState,
   setSignUpState,
   setTokenState,
@@ -72,7 +71,7 @@ export default function SignIn(props) {
     email: "",
     password: "",
   });
-  const [cookies, setCookies] = useCookies();
+  // const [cookies, setCookies] = useCookies();
   // const [returnUser, setReturnUser] = useState(null);
 
   const updateUser = (event) => {

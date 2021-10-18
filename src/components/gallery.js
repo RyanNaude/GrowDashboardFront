@@ -3,17 +3,18 @@ import React from "react";
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-
 import GalleryChipGroup from "./ui/galleryChipGroup";
 import Grid from "@material-ui/core/Grid";
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
-import Skeleton from "@material-ui/lab/Skeleton";
 import Unsigned from "./ui/unsigned";
 
 //Redux imports
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../redux/user/user.selector";
+import {
+  selectCurrentUser,
+  selectTokenState,
+} from "../redux/user/user.selector";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
@@ -105,39 +106,44 @@ export default function Gallery(props) {
   const classes = useStyles();
   //Get Global State
   const userLoggedIn = useSelector(selectCurrentUser);
+  const tokenState = useSelector(selectTokenState);
 
   return (
     <Grid container direction="column" className={classes.mainPageStyle}>
-      {/* {userLoggedIn ? ( */}
-      <Grid item container direction="column">
-        {/* <Grid item>
-          <Typography variant="h5">Gallery</Typography>
-        </Grid> */}
-        <Grid item className={classes.chipGroup}>
-          <GalleryChipGroup />
+      {tokenState ? (
+        <Grid item container direction="column">
+          <Grid item>
+            <Typography variant="h5">Gallery</Typography>
+          </Grid>
+          <Grid item className={classes.chipGroup}>
+            <GalleryChipGroup />
+          </Grid>
+          <Grid item>
+            <ImageList
+              sx={{ width: "100%", height: 450 }}
+              cols={3}
+              rowHeight={164}
+            >
+              {itemData.map((item, index) => (
+                <ImageListItem key={index}>
+                  <img
+                    src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    alt={item.title}
+                    loading="lazy"
+                    style={{ width: "168px", height: "164px" }}
+                  />
+                  {/* <Skeleton variant="rect" width={"168px"} height={"164px"} /> */}
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid item>
-        <ImageList sx={{ width: "100%", height: 450 }} cols={3} rowHeight={164}>
-          {itemData.map((item) => (
-            <ImageListItem key={item.img}>
-              <img
-                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
-                style={{ width: "168px", height: "164px" }}
-              />
-              {/* <Skeleton variant="rect" width={"168px"} height={"164px"} /> */}
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </Grid>
-      {/* ) : (
+      ) : (
         <Grid item>
           <Unsigned />
         </Grid>
-      )} */}
+      )}
     </Grid>
   );
 }

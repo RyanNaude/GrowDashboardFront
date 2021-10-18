@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+// import { useCookies } from "react-cookie";
 
 //Custom Components
 import SignUp from "./signup.component";
@@ -7,7 +8,7 @@ import SignIn from "./signin.component";
 
 //Material UI Components
 import Grid from "@material-ui/core/Grid";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import ListItem from "@material-ui/core/ListItem";
@@ -23,12 +24,10 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import HomeIcon from "@material-ui/icons/Home";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import SettingsIcon from "@material-ui/icons/Settings";
-import { useCookies } from "react-cookie";
 
 //Redux imports
 import { useSelector, useDispatch } from "react-redux";
 import {
-  selectCurrentUser,
   selectSignInState,
   selectSignUpState,
   selectTokenState,
@@ -37,8 +36,8 @@ import {
   setCurrentUser,
   setSignInState,
   setSignUpState,
+  setTokenState,
 } from "../../redux/user/user.actions";
-import { ContactlessOutlined } from "@material-ui/icons";
 
 const drawerWidth = 240;
 
@@ -153,29 +152,20 @@ function ElevationScroll(props) {
 
 export default function Header(props) {
   const classes = useStyles();
-  const theme = useTheme();
   const dispatch = useDispatch();
 
   //Setup Local State
   const [value, setValue] = useState(0);
   const [currentLoggedIn, setCurrentLoggedIn] = useState("default");
-  const [cookies, setCookies] = useCookies();
+  // const [cookies, setCookies] = useCookies();
 
   //Get Global State
-  const userLoggedIn = useSelector(selectCurrentUser);
+  // const userLoggedIn = useSelector(selectCurrentUser);
   const signInCur = useSelector(selectSignInState);
   const signUpCur = useSelector(selectSignUpState);
   const tokenState = useSelector(selectTokenState);
   console.log("token State");
   console.log(tokenState);
-
-  const handleDrawerOpen = () => {
-    props.setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    props.setOpen(false);
-  };
 
   const changeSignUpState = () => {
     dispatch(setSignUpState(!signUpCur));
@@ -191,6 +181,7 @@ export default function Header(props) {
     dispatch(setCurrentUser(null));
     dispatch(setSignInState(false));
     dispatch(setSignUpState(false));
+    dispatch(setTokenState(false));
   };
 
   const userPageSelect = (index) => {
@@ -252,7 +243,7 @@ export default function Header(props) {
                   Dashboard Inc.
                 </Typography>
               </Grid>
-              {userLoggedIn === null ? (
+              {tokenState === false ? (
                 <Grid
                   item
                   container
@@ -299,12 +290,10 @@ export default function Header(props) {
           </Toolbar>
           <div>
             <Grid container className={classes.iconBar}>
-              {/* <Grid item container direction="row" justifyContent="center"> */}
               {menu.map((text, index) => (
-                <Grid item xs={2}>
+                <Grid item xs={2} key={index}>
                   <ListItem
                     button
-                    key={text}
                     component={Link}
                     to={links[index]}
                     onClick={userPageSelect}
@@ -326,7 +315,6 @@ export default function Header(props) {
                         <SettingsIcon color="primary" />
                       ) : null}
                     </ListItemIcon>
-                    {/* <ListItemText primary={text} /> */}
                   </ListItem>
                 </Grid>
               ))}

@@ -12,21 +12,22 @@ import Unsigned from "./ui/unsigned";
 
 //Redux imports
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../redux/user/user.selector";
+import {
+  selectTokenState,
+} from "../redux/user/user.selector";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
     marginTop: "6em",
   },
-  mainPageSub: {
-  },
+  mainPageSub: {},
 }));
 
 export default function CostManagement(props) {
   const classes = useStyles();
   //Get Global State
-  const userLoggedIn = useSelector(selectCurrentUser);
+  const tokenState = useSelector(selectTokenState);
 
   return (
     <Grid
@@ -35,18 +36,20 @@ export default function CostManagement(props) {
       className={classes.mainPageStyle}
       style={{}}
     >
-      {/* {userLoggedIn ? ( */}
-      <Grid item>
-        <Typography variant="h5">Cost Management</Typography>
-      </Grid>
-      <Grid item className={classes.mainPageSub}>
-        <CostOFElec />
-      </Grid>
-      {/* ) : (
+      {tokenState ? (
+        <Grid item container>
+          <Grid item>
+            <Typography variant="h5">Cost Management</Typography>
+          </Grid>
+          <Grid item className={classes.mainPageSub}>
+            <CostOFElec />
+          </Grid>
+        </Grid>
+      ) : (
         <Grid item>
           <Unsigned />
         </Grid>
-      )} */}
+      )}
     </Grid>
   );
 }

@@ -21,14 +21,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "25px",
   },
   tableHeader: {
-      backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.primary.light,
   },
   tableBody: {
     backgroundColor: theme.palette.secondary.main,
   },
   tableFinalRow: {
     backgroundColor: theme.palette.primary.main,
-  }
+  },
 }));
 
 function createData(name, kwh, cost) {
@@ -64,8 +64,8 @@ export default function CostOFElec(props) {
               </TableRow>
             </TableHead>
             <TableBody className={classes.tableBody}>
-              {elecRows.map((row) => (
-                <TableRow key={row.name}>
+              {elecRows.map((row, index) => (
+                <TableRow key={index}>
                   <TableCell component="th" scope="row">
                     {row.name}
                   </TableCell>

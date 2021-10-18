@@ -11,7 +11,7 @@ import CalanderEntry from "./ui/calanderEntry";
 
 //Redux imports
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../redux/user/user.selector";
+import { selectTokenState } from "../redux/user/user.selector";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
@@ -46,32 +46,33 @@ const bodyArray = [
 export default function Calander(props) {
   const classes = useStyles();
   //Get Global State
-  const userLoggedIn = useSelector(selectCurrentUser);
+  const tokenState = useSelector(selectTokenState);
 
   return (
     <Grid container direction="column" className={classes.mainPageStyle}>
-      {/* {userLoggedIn ? ( */}
-      {/* <Grid item>
-        <Typography variant="h5">Calander</Typography>
-      </Grid> */}
-      <Grid item>
-        <CalanderMonth />
-      </Grid>
-      <Grid item style={{ marginTop: "0.5em" }}>
-        {timeArray.map((time, index) => (
-          <CalanderEntry
-            time={time}
-            date={dateArray[index]}
-            title={titleArray[index]}
-            body={bodyArray[index]}
-          />
-        ))}
-      </Grid>
-      {/* ) : (
+      {tokenState ? (
+        <Grid item container>
+          <Grid item>
+            <CalanderMonth />
+          </Grid>
+
+          <Grid item style={{ marginTop: "0.5em" }}>
+            {timeArray.map((time, index) => (
+              <CalanderEntry
+                key={index}
+                time={time}
+                date={dateArray[index]}
+                title={titleArray[index]}
+                body={bodyArray[index]}
+              />
+            ))}
+          </Grid>
+        </Grid>
+      ) : (
         <Grid item>
           <Unsigned />
         </Grid>
-      )} */}
+      )}
     </Grid>
   );
 }
