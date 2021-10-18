@@ -92,6 +92,7 @@ export default function SignIn(props) {
       .then((response) => response.json())
       .then((response) => dispatch(setCurrentUser(response.userId)))
       .then((response) => localStorage.setItem("token", response.token))
+      .then((response) => console.log(response))
       .then(() => dispatch(setSignInState(false)))
       .then(() => dispatch(setTokenState(true)))
       .catch((error) => console.log(error));

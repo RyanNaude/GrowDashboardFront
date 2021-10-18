@@ -156,6 +156,7 @@ export default function NewJournal(props) {
     };
     fetch("http://localhost:4000/createJournal", requestOptions)
       .then((response) => response.json())
+      .then((response) => console.log(response))
       .catch((error) => console.log(error));
   };
 
