@@ -80,13 +80,13 @@ export default function WeatherSummary(props) {
       alignItems="center"
       className={classes.weatSumm}
     >
-      <Grid item contianer alignItems="center">
+      <Grid item container alignItems="center">
         <ArrowLeftIcon />
       </Grid>
       {summTemp.map((summ, index) => (
         <Grid item style={{ width: "20%" }} key={index}>
           <Paper variant="outlined">
-            <Grid container direction="columnn" className={classes.root}>
+            <Grid container direction="column" className={classes.root}>
               <Grid item container justifyContent="center">
                 <Typography className={classes.summMaxTemp}>
                   {summ.maxTemp}
@@ -115,7 +115,7 @@ export default function WeatherSummary(props) {
           </Paper>
         </Grid>
       ))}
-      <Grid item alignItems="center" justifyContent="flex-end">
+      <Grid item container alignItems="center" justifyContent="flex-end">
         <ArrowRightIcon />
       </Grid>
     </Grid>

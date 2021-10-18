@@ -218,9 +218,8 @@ export default function Home(props) {
           <Grid item style={{ border: "0px solid", width: "100%" }}>
             {dispNewJournal ? null : <CurrentJournals />}
             {dispNewJournal ? <NewJournal /> : null}
-            <WeatherSummary />
+            {dispNewJournal ? null : <WeatherSummary />}
           </Grid>
-          {/* <Grid item>{activeJournals.map(displayJournals)}</Grid> */}
         </Grid>
       ) : (
         <Grid item>

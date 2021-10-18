@@ -20,6 +20,7 @@ import Typography from "@material-ui/core/Typography";
 //Redux imports
 import { useDispatch } from "react-redux";
 import {
+  setCurrentUser,
   setSignInState,
   setSignUpState,
   setTokenState,
@@ -89,8 +90,8 @@ export default function SignIn(props) {
     };
     fetch("http://localhost:4000/loginUser", requestOptions)
       .then((response) => response.json())
+      .then((response) => dispatch(setCurrentUser(response.userId)))
       .then((response) => localStorage.setItem("token", response.token))
-      .then((response) => console.log(response))
       .then(() => dispatch(setSignInState(false)))
       .then(() => dispatch(setTokenState(true)))
       .catch((error) => console.log(error));

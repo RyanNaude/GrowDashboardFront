@@ -7,8 +7,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import Chip from "@material-ui/core/chip";
 import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
+import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
@@ -19,6 +21,7 @@ import TextField from "@material-ui/core/TextField";
 import { useSelector, useDispatch } from "react-redux";
 import { displayNewJournal } from "../../redux/siteNav/siteNav.actions";
 import { selectDispNewJournal } from "../../redux/siteNav/siteNav.selector";
+import { selectCurrentUser } from "../../redux/user/user.selector";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
@@ -28,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
     border: "0px solid",
   },
   journalInput: {
-    color: "red",
     margin: "0",
+    marginTop: "3px",
   },
   mainPageSub: {
     border: "0px solid black",
@@ -81,6 +84,15 @@ const useStyles = makeStyles((theme) => ({
   curJournalSubheader: {
     fontWeight: "bold",
   },
+  chips: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  chip: {
+    margin: 2,
+    backgroundColor: theme.palette.primary.light,
+    fontSize: "12pt",
+  },
 }));
 
 export default function NewJournal(props) {
@@ -88,9 +100,12 @@ export default function NewJournal(props) {
   const dispatch = useDispatch();
   //Get Global State
   const dispNewJournal = useSelector(selectDispNewJournal);
+  const currentUser = useSelector(selectCurrentUser);
+  console.log(currentUser);
 
   //Setup Local State
   const [expanded, setExpanded] = useState(false);
+  const [soilTypeState, setSoilTypeState] = useState([]);
   const [fullJournal, setFullJournal] = useState({
     jName: "",
     jDesc: "",
@@ -99,6 +114,9 @@ export default function NewJournal(props) {
     vegLight: "",
     flowLight: "",
     growMedium: "",
+    vegWatt: "",
+    flowerWatt: "",
+    username: currentUser,
   });
 
   useEffect(() => {
@@ -130,12 +148,49 @@ export default function NewJournal(props) {
         journalWaterType: fullJournal.waterType,
         journalVegLight: fullJournal.vegLight,
         journalFlowLight: fullJournal.flowLight,
-        journalGrowMedium: fullJournal.growMedium,
+        journalGrowMedium: soilTypeState,
+        journalVegWatt: fullJournal.vegWatt,
+        journalFlowerWatt: fullJournal.flowerWatt,
+        journalUsername: fullJournal.username,
       }),
     };
     fetch("http://localhost:4000/createJournal", requestOptions)
       .then((response) => response.json())
       .catch((error) => console.log(error));
+  };
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
+
+  const soilType = [
+    "Soil",
+    "Perlite",
+    "Vermiculite",
+    "Expanded Clay",
+    "Coco Coir",
+    "Mineral Wood",
+    "Other",
+  ];
+
+  const handleChangeMultiple = (event) => {
+    // const { options } = event.target;
+    // console.log(event.target);
+    // const value = [];
+    // for (let i = 0, l = options.length; i < l; i += 1) {
+    //   if (options[i].selected) {
+    //     value.push(options[i].value);
+    //   }
+    // }
+    // setSoilTypeState(value);
+    setSoilTypeState(event.target.value);
   };
 
   return (
@@ -214,50 +269,121 @@ export default function NewJournal(props) {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item style={{ width: "100%", marginTop: "1em" }}>
-            <FormControl
-              className={classes.formControl}
-              style={{ width: "100%" }}
-            >
-              <InputLabel id="demo-simple-select-label">Veg. Light</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                style={{ width: "100%" }}
-                name="vegLight"
+          <Grid item container style={{ width: "100%", marginTop: "1em" }}>
+            <Grid item style={{ width: "50%" }}>
+              <TextField
+                required
+                type="number"
+                id="standard-required"
+                label="Wattage"
                 onChange={updateJournal}
-                value={fullJournal.vegLight}
+                name="vegWatt"
+                value={fullJournal.vegWatt}
+                fullWidth
+                className={classes.journalInput}
+                margin="dense"
+              />
+            </Grid>
+            <Grid item style={{ width: "50%" }}>
+              <FormControl
+                className={classes.formControl}
+                style={{ width: "100%" }}
               >
-                <MenuItem value={"LED"}>LED</MenuItem>
-                <MenuItem value={"HPS"}>HPS</MenuItem>
-                <MenuItem value={"HID"}>HID</MenuItem>
-              </Select>
-            </FormControl>
+                <InputLabel id="demo-simple-select-label">
+                  Veg. Light
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  style={{ width: "100%" }}
+                  name="vegLight"
+                  onChange={updateJournal}
+                  value={fullJournal.vegLight}
+                >
+                  <MenuItem value={"LED"}>LED</MenuItem>
+                  <MenuItem value={"HPS"}>HPS</MenuItem>
+                  <MenuItem value={"HID"}>HID</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+          <Grid item container style={{ width: "100%", marginTop: "1em" }}>
+            <Grid item style={{ width: "50%" }}>
+              <TextField
+                required
+                type="number"
+                id="standard-required"
+                label="Wattage"
+                onChange={updateJournal}
+                name="flowerWatt"
+                value={fullJournal.flowerWatt}
+                fullWidth
+                className={classes.journalInput}
+                margin="dense"
+              />
+            </Grid>
+            <Grid item style={{ width: "50%" }}>
+              <FormControl
+                className={classes.formControl}
+                style={{ width: "100%" }}
+              >
+                <InputLabel id="demo-simple-select-label">
+                  Flower. Light
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  style={{ width: "100%" }}
+                  name="flowLight"
+                  onChange={updateJournal}
+                  value={fullJournal.flowLight}
+                >
+                  <MenuItem value={"LED"}>LED</MenuItem>
+                  <MenuItem value={"HPS"}>HPS</MenuItem>
+                  <MenuItem value={"HID"}>HID</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
           </Grid>
           <Grid item style={{ width: "100%", marginTop: "1em" }}>
             <FormControl
               className={classes.formControl}
               style={{ width: "100%" }}
             >
-              <InputLabel id="demo-simple-select-label">
-                Flower. Light
-              </InputLabel>
+              <InputLabel id="soilTypeLabel">Grow Medium</InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                style={{ width: "100%" }}
-                name="flowLight"
-                onChange={updateJournal}
-                value={fullJournal.flowLight}
+                labelId="soilTypeLabel"
+                id="mutipleChip"
+                multiple
+                value={soilTypeState}
+                onChange={handleChangeMultiple}
+                input={<Input id="selectMultipleChip" />}
+                renderValue={(selected) => (
+                  <div className={classes.chips}>
+                    {soilTypeState.map((value) => (
+                      <Chip
+                        key={value}
+                        label={value}
+                        className={classes.chip}
+                      />
+                    ))}
+                  </div>
+                )}
+                MenuProps={MenuProps}
               >
-                <MenuItem value={"LED"}>LED</MenuItem>
-                <MenuItem value={"HPS"}>HPS</MenuItem>
-                <MenuItem value={"HID"}>HID</MenuItem>
+                {soilType.map((soil) => (
+                  <MenuItem
+                    key={soil}
+                    value={soil}
+                    // style={getStyles(name, personName, theme)}
+                  >
+                    {soil}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
-          </Grid>
-          <Grid item style={{ width: "100%", marginTop: "1em" }}>
-            <FormControl
+
+            {/* <FormControl
               className={classes.formControl}
               style={{ width: "100%" }}
             >
@@ -278,7 +404,7 @@ export default function NewJournal(props) {
                 <MenuItem value={"Mineral Wood"}>Mineral Wood</MenuItem>
                 <MenuItem value={"Other"}>Other</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
           </Grid>
           <br />
           <Grid item style={{ width: "100%" }}>

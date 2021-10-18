@@ -109,7 +109,6 @@ export default function CurrentJournals(props) {
                   item
                   className={classes.journalTitle}
                   style={{ paddingLeft: "0.5em" }}
-                  alignItems="flex-start"
                 >
                   <h2>{item.name}</h2>
                 </Grid>
