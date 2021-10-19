@@ -182,35 +182,11 @@ export default function NewJournal(props) {
   ];
 
   const handleChangeMultiple = (event) => {
-    // const { options } = event.target;
-    // console.log(event.target);
-    // const value = [];
-    // for (let i = 0, l = options.length; i < l; i += 1) {
-    //   if (options[i].selected) {
-    //     value.push(options[i].value);
-    //   }
-    // }
-    // setSoilTypeState(value);
     setSoilTypeState(event.target.value);
   };
 
   return (
     <Card className={classes.root}>
-      {/* <Grid container style={{ border: "0px solid" }} alignItems="center">
-        <Grid item style={{ width: "80%" }}>
-          <CardHeader
-            title="New Journal"
-            subheader=""
-            titleTypographyProps={{
-              variant: "h6",
-              width: "100%",
-            }}
-          />
-        </Grid>
-        <Grid item style={{ width: "20%" }}>
-        </Grid>
-      </Grid> */}
-      {/* <Collapse in={"true"} timeout="auto" unmountOnExit style={{border: "1px solid"}}> */}
       <CardContent style={{ border: "0px solid", padding: "0" }}>
         <Grid container direction="column" style={{ width: "100%" }}>
           <Grid item style={{ width: "100%" }}>
@@ -373,39 +349,12 @@ export default function NewJournal(props) {
                 MenuProps={MenuProps}
               >
                 {soilType.map((soil) => (
-                  <MenuItem
-                    key={soil}
-                    value={soil}
-                    // style={getStyles(name, personName, theme)}
-                  >
+                  <MenuItem key={soil} value={soil}>
                     {soil}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-
-            {/* <FormControl
-              className={classes.formControl}
-              style={{ width: "100%" }}
-            >
-              <InputLabel id="demo-simple-select-label">Grow Medium</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                style={{ width: "100%" }}
-                name="growMedium"
-                onChange={updateJournal}
-                value={fullJournal.growMedium}
-              >
-                <MenuItem value={"Soil"}>Soil</MenuItem>
-                <MenuItem value={"Perlite"}>Perlite</MenuItem>
-                <MenuItem value={"Vermiculite"}>Vermiculite</MenuItem>
-                <MenuItem value={"Expanded Clay"}>Expanded Clay</MenuItem>
-                <MenuItem value={"Coco Coir"}>Coco Coir</MenuItem>
-                <MenuItem value={"Mineral Wood"}>Mineral Wood</MenuItem>
-                <MenuItem value={"Other"}>Other</MenuItem>
-              </Select>
-            </FormControl> */}
           </Grid>
           <br />
           <Grid item style={{ width: "100%" }}>

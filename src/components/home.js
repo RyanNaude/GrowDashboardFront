@@ -81,7 +81,6 @@ export default function Home(props) {
 
   //Setup Local State
   const [expanded, setExpanded] = useState(false);
-  const [activeJournals, setActiveJournals] = useState([]);
   const [fullJournal, setFullJournal] = useState({
     jName: "",
     jDesc: "",
@@ -97,25 +96,25 @@ export default function Home(props) {
   const dispNewJournal = useSelector(selectDispNewJournal);
 
   //Requesting - All journals from backend
-  const getJournals = async () => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        journalNameField: fullJournal.jName,
-        journalDescField: fullJournal.jDesc,
-        journalRoomType: fullJournal.roomType,
-        journalWaterType: fullJournal.waterType,
-        journalVegLight: fullJournal.vegLight,
-        journalFlowLight: fullJournal.flowLight,
-        journalGrowMedium: fullJournal.growMedium,
-      }),
-    };
-    fetch("http://localhost:4000/journalGet", requestOptions)
-      .then((response) => response.json())
-      .then((data) => setActiveJournals(data))
-      .catch((error) => console.log(error));
-  };
+  // const getJournals = async () => {
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       journalNameField: fullJournal.jName,
+  //       journalDescField: fullJournal.jDesc,
+  //       journalRoomType: fullJournal.roomType,
+  //       journalWaterType: fullJournal.waterType,
+  //       journalVegLight: fullJournal.vegLight,
+  //       journalFlowLight: fullJournal.flowLight,
+  //       journalGrowMedium: fullJournal.growMedium,
+  //     }),
+  //   };
+  //   fetch("http://localhost:4000/journalGet", requestOptions)
+  //     .then((response) => response.json())
+  //     .then((data) => setActiveJournals(data))
+  //     .catch((error) => console.log(error));
+  // };
 
   //Displaying journals returned from backend
   // function displayJournals(activeJournals) {
@@ -208,7 +207,7 @@ export default function Home(props) {
 
   //useEffect - Getting journals loaded on database
   useEffect(() => {
-    getJournals();
+    // getJournals();
   }, []);
 
   return (

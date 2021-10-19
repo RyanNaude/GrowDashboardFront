@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -41,6 +41,13 @@ export default function WeatherSummary(props) {
 
   useEffect(() => {}, []);
 
+  const [weatherParsed, setWeatherParsed] = useState({
+    min: "",
+    max: "",
+    weekDay: "",
+    date: "",
+  });
+
   //Test data
   const summTemp = [
     {
@@ -73,6 +80,53 @@ export default function WeatherSummary(props) {
     },
   ];
 
+  const newSummTemp = [
+    {
+      message: "accurate",
+      cod: "200",
+      count: 5,
+      list: [
+        {
+          id: 2643743,
+          name: "London",
+          coord: {
+            lat: 51.5085,
+            lon: -0.1257,
+          },
+          main: {
+            temp: 19.14,
+            feels_like: 19.15,
+            temp_min: 17.83,
+            temp_max: 20.14,
+            pressure: 1014,
+            humidity: 78,
+          },
+          dt: 1634641755,
+          wind: {
+            speed: 1.34,
+            deg: 266,
+          },
+          sys: {
+            country: "GB",
+          },
+          rain: null,
+          snow: null,
+          clouds: {
+            all: 75,
+          },
+          weather: [
+            {
+              id: 803,
+              main: "Clouds",
+              description: "broken clouds",
+              icon: "04d",
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
   return (
     <Grid
       container
@@ -83,38 +137,47 @@ export default function WeatherSummary(props) {
       <Grid item container alignItems="center">
         <ArrowLeftIcon />
       </Grid>
-      {summTemp.map((summ, index) => (
-        <Grid item style={{ width: "20%" }} key={index}>
-          <Paper variant="outlined">
-            <Grid container direction="column" className={classes.root}>
-              <Grid item container justifyContent="center">
-                <Typography className={classes.summMaxTemp}>
-                  {summ.maxTemp}
-                </Typography>
-              </Grid>
-              <Grid item container justifyContent="center">
-                <Divider style={{ width: "80%", color: "black" }} />
-              </Grid>
-              <Grid item container justifyContent="center">
-                <Typography>{summ.minTemp}</Typography>
-              </Grid>
-              <Grid item container justifyContent="center">
-                <CloudIcon />
-              </Grid>
-              <Grid item container justifyContent="center">
-                <Typography className={classes.weekDay}>
-                  {summ.weekDay}
-                </Typography>
-              </Grid>
-              <Grid item container justifyContent="center">
-                <Typography className={classes.summDate}>
-                  {summ.date}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
-      ))}
+      {newSummTemp.map(
+        ({ list }, index) => (
+          console.log(list),
+          (
+            <div key={index}>
+              {list.map((listItem, i) => (
+                <Grid item style={{ width: "20%" }} key={index}>
+                  <Paper variant="outlined">
+                    <Grid container direction="column" className={classes.root}>
+                      <Grid item container justifyContent="center">
+                        <Typography className={classes.summMaxTemp}>
+                          {listItem.main.temp_max}
+                        </Typography>
+                      </Grid>
+                      <Grid item container justifyContent="center">
+                        <Divider style={{ width: "80%", color: "black" }} />
+                      </Grid>
+                      <Grid item container justifyContent="center">
+                        <Typography>{listItem.main.temp_min}</Typography>
+                      </Grid>
+                      <Grid item container justifyContent="center">
+                        <CloudIcon />
+                      </Grid>
+                      <Grid item container justifyContent="center">
+                        <Typography className={classes.weekDay}>
+                          {/* {new Date(listItem.dt * 1000)} */}
+                        </Typography>
+                      </Grid>
+                      <Grid item container justifyContent="center">
+                        <Typography className={classes.summDate}>
+                          {/* {summ.date} */}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </Grid>
+              ))}
+            </div>
+          )
+        )
+      )}
       <Grid item container alignItems="center" justifyContent="flex-end">
         <ArrowRightIcon />
       </Grid>

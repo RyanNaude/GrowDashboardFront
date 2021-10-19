@@ -59,6 +59,8 @@ export default function CurrentJournals(props) {
   const dispatch = useDispatch();
   //Get Global State
   const dispNewJournal = useSelector(selectDispNewJournal);
+  //Get Local State
+  const [activeJournals, setActiveJournals] = useState([]);
 
   //Test Data
   const test = [
@@ -91,17 +93,42 @@ export default function CurrentJournals(props) {
     growMedium: "",
   });
 
-  useEffect(() => {}, []);
+  //Requesting - All journals from backend
+  const getJournals = async () => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        journalNameField: fullJournal.jName,
+        journalDescField: fullJournal.jDesc,
+        journalRoomType: fullJournal.roomType,
+        journalWaterType: fullJournal.waterType,
+        journalVegLight: fullJournal.vegLight,
+        journalFlowLight: fullJournal.flowLight,
+        journalGrowMedium: fullJournal.growMedium,
+      }),
+    };
+    fetch("http://localhost:4000/journalGet", requestOptions)
+      .then((response) => response.json())
+      .then((response) => setActiveJournals(response))
+      .catch((error) => console.log(error));
+  };
 
   const togNewJournalDisplay = () => {
-    console.log("togNewJournalDisplay");
     dispatch(displayNewJournal(!dispNewJournal));
   };
+
+  useEffect(() => {
+    getJournals();
+    console.log("togNewJournalDisplay");
+    console.log(activeJournals);
+    console.log("--------------------");
+  }, []);
 
   return (
     <div>
       <Carousel next={(next, active) => {}} prev={(prev, active) => {}}>
-        {test.map((item, index) => (
+        {activeJournals.map((item, index) => (
           <Paper className={classes.paperStyle} key={index}>
             <Grid container direction="column">
               <Grid item container alignItems="flex-start">
