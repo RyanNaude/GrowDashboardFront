@@ -43,29 +43,12 @@ export default function WeatherSummary(props) {
 
   //Local State
   const [weather, setWeather] = useState();
-  const [weatherParsed, setWeatherParsed] = useState({
-    min: "",
-    max: "",
-    weekDay: "",
-    date: "",
-  });
+  const [weatherMin, setWeatherMin] = useState();
+  const [weatherMax, setWeatherMax] = useState();
+  const [weatherDate, setWeatherDate] = useState();
 
   useEffect(() => {
     getWeather();
-    console.log("weather 2");
-    var millisecond = weather.dt;
-    var date = new Date(millisecond * 1000);
-    var stringDate = date.toString();
-    var dispDate =
-      stringDate.substring(0, 3) +
-      " " +
-      stringDate.substring(8, 10) +
-      " " +
-      stringDate.substring(4, 7) +
-      " " +
-      stringDate.substring(11, 15);
-    setWeatherParsed({ date: dispDate });
-    // console.log(weatherParsed.date);
   }, []);
 
   ////////////////////////////////////////////////////////
@@ -76,7 +59,25 @@ export default function WeatherSummary(props) {
     };
     fetch("http://localhost:4000/currentWeather", requestOptions)
       .then((response) => response.json())
-      .then((response) => setWeather(response))
+      .then((response) => {
+        setWeather(response);
+        var millisecond = weather.dt;
+        var date = new Date(millisecond * 1000);
+        var stringDate = date.toString();
+        var dispDate =
+          stringDate.substring(0, 3) +
+          " " +
+          stringDate.substring(8, 10) +
+          " " +
+          stringDate.substring(4, 7) +
+          " " +
+          stringDate.substring(11, 15);
+        setWeatherDate(dispDate);
+        setWeatherMin(Math.round(Number(weather.main.temp_min)));
+        setWeatherMax(Math.round(Number(weather.main.temp_max)));
+        console.log(weather);
+        
+      })
       .catch((error) => console.log(error));
   };
 
