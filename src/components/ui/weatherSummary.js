@@ -10,6 +10,9 @@ import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import CloudIcon from "@material-ui/icons/Cloud";
 import Divider from "@material-ui/core/Divider";
 import { Icon, Typography } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import sunRise from "../../assets/sunrise.png";
 import sunSet from "../../assets/sunset.png";
@@ -46,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function convertDate(unixDate) {
-  console.log("HERE!!");
   var millisecond = unixDate;
   var date = new Date(millisecond * 1000);
   return date.toString();
@@ -64,8 +66,19 @@ export default function WeatherSummary(props) {
   const [weatherSunUp, setWeatherSunUp] = useState("");
   const [weatherSunDown, setWeatherSunDown] = useState("");
 
+  const [weatherFields, setWeatherFields] = useState({
+    weatherMinField: "",
+    weatherMaxField: "",
+    weatherDateField: "",
+    weatherTempField: "",
+    weatherSunUpField: "",
+    weatherSunDownField: "",
+    weatherWindSpeedField: "",
+    weatherWindDegField: "",
+  });
+
   useEffect(() => {
-    getWeather();
+    // getWeather();
   }, []);
 
   ////////////////////////////////////////////////////////
@@ -78,8 +91,10 @@ export default function WeatherSummary(props) {
       .then((response) => response.json())
       .then((response) => {
         setWeather(response);
+        console.log("---------------------------------------------------");
+        console.log(response);
 
-        var stringDate = convertDate(weather.dt);
+        var stringDate = convertDate(response.dt);
         var dispDate =
           stringDate.substring(0, 3) +
           " " +
@@ -88,46 +103,69 @@ export default function WeatherSummary(props) {
           stringDate.substring(4, 7) +
           " " +
           stringDate.substring(11, 15);
-        setWeatherDate(dispDate);
 
-        stringDate = convertDate(weather.sys.sunrise);
-        setWeatherSunUp(stringDate.substring(16, 21));
-        stringDate = convertDate(weather.sys.sunset);
-        setWeatherSunDown(stringDate.substring(16, 21));
-        // console.log(stringDate);
-        // console.log(dispDate);
+        stringDate = convertDate(response.sys.sunrise);
+        var sunUp = stringDate.substring(16, 21);
+        stringDate = convertDate(response.sys.sunset);
+        var sunDown = stringDate.substring(16, 21);
+        var minTemp = Math.round(Number(response.main.temp_min));
+        var maxTemp = Math.round(Number(response.main.temp_max));
+        var temp = Math.round(Number(response.main.temp));
+        var windSpeed = response.wind.speed;
+        var d2d = require("degrees-to-direction");
+        var windDeg = d2d(response.wind.deg);
 
-        setWeatherMin(Math.round(Number(weather.main.temp_min)));
-        setWeatherMax(Math.round(Number(weather.main.temp_max)));
-        setWeatherTempCurrent(Math.round(Number(weather.main.temp)));
+        console.log("Wind Speed");
+        console.log(windSpeed);
+        console.log("Wind Deg");
+        console.log(windDeg);
+
+        setWeatherFields({
+          ...weatherFields,
+          weatherDateField: dispDate,
+          weatherSunUpField: sunUp,
+          weatherSunDownField: sunDown,
+          weatherMinField: minTemp,
+          weatherMaxField: maxTemp,
+          weatherTempField: temp,
+          weatherWindSpeedField: windSpeed,
+          weatherWindDegField: windDeg,
+        });
+
+        console.log("---------------------------------------------------");
         console.log(weather);
-        console.log(weather.wind.deg);
+        console.log(weatherFields);
+        console.log("---------------------------------------------------");
       })
       .catch((error) => console.log(error));
   };
 
   return (
-    <Grid
-      container
-      // justifyContent="space-around"
-      // alignItems="center"
-      // direction="column"
-      className={classes.weatSumm}
-    >
-      {/* <Grid item container style={{ border: "1px solid" }}>
-        <Grid item>Header</Grid>
-      </Grid> */}
+    <Grid container className={classes.weatSumm}>
       <Grid item container>
         <Grid item container direction="column" style={{ width: "33%" }}>
-          <Grid item>{weatherDate}</Grid>
-          <Grid item>{weatherTempCurrent}</Grid>
-          <Grid item container>
-            <Grid item>down </Grid>
-            <Grid item>up </Grid>
+          <Grid item>{weatherFields.weatherDateField}</Grid>
+          <Grid item>
+            {weatherFields.weatherTempField}
+            <span>&#8451;</span>
           </Grid>
           <Grid item container>
-            <Grid item>{weatherMin} </Grid>
-            <Grid item>{weatherMax} </Grid>
+            <Grid item>
+              <ExpandMoreIcon />
+            </Grid>
+            <Grid item>
+              <ExpandLessIcon />
+            </Grid>
+          </Grid>
+          <Grid item container>
+            <Grid item>
+              {weatherFields.weatherMinField}
+              <span>&#8451;</span>{" "}
+            </Grid>
+            <Grid item>
+              {weatherFields.weatherMaxField}
+              <span>&#8451;</span>{" "}
+            </Grid>
           </Grid>
           {/* <Grid item container ><h3>t</h3></Grid> */}
         </Grid>
@@ -135,8 +173,10 @@ export default function WeatherSummary(props) {
           <h3>I</h3>
         </Grid>
         <Grid item container direction="column" style={{ width: "33%" }}>
-          <Grid item>Wind Speed :{weather.wind.speed}</Grid>
-          <Grid item>Wind Deg: {weather.wind.deg}</Grid>
+          <Grid item>Wind Speed : {weatherFields.weatherWindSpeedField}</Grid>
+
+          <Grid item>Wind Deg: {weatherFields.weatherWindDegField}</Grid>
+
           <Grid item container justifyContent="space-between">
             <Grid
               item
@@ -156,8 +196,8 @@ export default function WeatherSummary(props) {
             </Grid>
           </Grid>
           <Grid item container justifyContent="space-between">
-            <Grid item>{weatherSunUp} </Grid>
-            <Grid item>{weatherSunDown} </Grid>
+            <Grid item>{weatherFields.weatherSunUpField} </Grid>
+            <Grid item>{weatherFields.weatherSunDownField} </Grid>
           </Grid>
         </Grid>
       </Grid>
@@ -184,6 +224,15 @@ export default function WeatherSummary(props) {
           <Grid item container></Grid>
           <Grid item container></Grid>
         </Grid> */}
+      </Grid>
+      <Grid item>
+        <Button
+          onClick={() => {
+            getWeather();
+          }}
+        >
+          Update
+        </Button>
       </Grid>
     </Grid>
   );

@@ -91,119 +91,8 @@ export default function Home(props) {
     growMedium: "",
   });
 
-  //Get navigation state
   //Get Global State
   const dispNewJournal = useSelector(selectDispNewJournal);
-
-  //Requesting - All journals from backend
-  // const getJournals = async () => {
-  //   const requestOptions = {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       journalNameField: fullJournal.jName,
-  //       journalDescField: fullJournal.jDesc,
-  //       journalRoomType: fullJournal.roomType,
-  //       journalWaterType: fullJournal.waterType,
-  //       journalVegLight: fullJournal.vegLight,
-  //       journalFlowLight: fullJournal.flowLight,
-  //       journalGrowMedium: fullJournal.growMedium,
-  //     }),
-  //   };
-  //   fetch("http://localhost:4000/journalGet", requestOptions)
-  //     .then((response) => response.json())
-  //     .then((data) => setActiveJournals(data))
-  //     .catch((error) => console.log(error));
-  // };
-
-  //Displaying journals returned from backend
-  // function displayJournals(activeJournals) {
-  //   return (
-  //     <Grid
-  //       item
-  //       xs={3}
-  //       className={classes.curJournals}
-  //       key={activeJournals._id}
-  //     >
-  //       <Card className={classes.root}>
-  //         <Grid item style={{ width: "70%", marginTop: "100em" }}>
-  //           <CardHeader title={`${activeJournals.name}`} subheader="" />
-  //         </Grid>
-  //         <CardContent>
-  //           <Grid item container direction="column">
-  //             <Grid item container style={{ width: "100%" }}>
-  //               <Grid
-  //                 item
-  //                 container
-  //                 style={{ width: "100%" }}
-  //                 direction="column"
-  //               >
-  //                 <Grid className={classes.curJournalsSpace}>
-  //                   <Typography className={classes.curJournalSubheader}>
-  //                     Description:
-  //                   </Typography>
-  //                 </Grid>
-  //                 <Grid className={classes.curJournalsSpace80}>
-  //                   <Typography>{activeJournals.description}</Typography>
-  //                 </Grid>
-  //               </Grid>
-  //               <Grid item container style={{ width: "100%" }}>
-  //                 <Grid className={classes.curJournalsSpace}>
-  //                   <Typography className={classes.curJournalSubheader}>
-  //                     Room Type:
-  //                   </Typography>
-  //                 </Grid>
-  //                 <Grid className={classes.curJournalsSpace80}>
-  //                   <Typography>{activeJournals.roomType}</Typography>
-  //                 </Grid>
-  //               </Grid>
-  //               <Grid item container style={{ width: "100%" }}>
-  //                 <Grid className={classes.curJournalsSpace}>
-  //                   <Typography className={classes.curJournalSubheader}>
-  //                     Water Type:{" "}
-  //                   </Typography>
-  //                 </Grid>
-  //                 <Grid className={classes.curJournalsSpace80}>
-  //                   <Typography>{activeJournals.waterType}</Typography>
-  //                 </Grid>
-  //               </Grid>
-  //               <Grid item container style={{ width: "100%" }}>
-  //                 <Grid className={classes.curJournalsSpace}>
-  //                   <Typography className={classes.curJournalSubheader}>
-  //                     Veg. Light:{" "}
-  //                   </Typography>
-  //                 </Grid>
-  //                 <Grid className={classes.curJournalsSpace80}>
-  //                   <Typography>{activeJournals.vegLight}</Typography>
-  //                 </Grid>
-  //               </Grid>
-  //               <Grid item container style={{ width: "100%" }}>
-  //                 <Grid className={classes.curJournalsSpace}>
-  //                   <Typography className={classes.curJournalSubheader}>
-  //                     Flower Light:{" "}
-  //                   </Typography>
-  //                 </Grid>
-  //                 <Grid className={classes.curJournalsSpace80}>
-  //                   <Typography>{activeJournals.flowLight}</Typography>
-  //                 </Grid>
-  //               </Grid>
-  //               <Grid item container style={{ width: "100%" }}>
-  //                 <Grid className={classes.curJournalsSpace}>
-  //                   <Typography className={classes.curJournalSubheader}>
-  //                     Grow Medium:{" "}
-  //                   </Typography>
-  //                 </Grid>
-  //                 <Grid className={classes.curJournalsSpace80}>
-  //                   <Typography>{activeJournals.growMedium}</Typography>
-  //                 </Grid>
-  //               </Grid>
-  //             </Grid>
-  //           </Grid>
-  //         </CardContent>
-  //       </Card>
-  //     </Grid>
-  //   );
-  // }
 
   //useEffect - Getting journals loaded on database
   useEffect(() => {
@@ -215,7 +104,7 @@ export default function Home(props) {
       {tokenState ? (
         <Grid item container style={{ border: "0px solid" }}>
           <Grid item style={{ border: "0px solid", width: "100%" }}>
-            {dispNewJournal ? null : <CurrentJournals />}
+            {/* {dispNewJournal ? null : <CurrentJournals />} */}
             {dispNewJournal ? <NewJournal /> : null}
             {dispNewJournal ? null : <WeatherSummary />}
           </Grid>
