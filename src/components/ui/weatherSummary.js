@@ -17,8 +17,6 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import sunRise from "../../assets/sunrise.png";
 import sunSet from "../../assets/sunset.png";
 
-console.log();
-
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   weatSumm: {
@@ -59,22 +57,20 @@ export default function WeatherSummary(props) {
 
   //Local State
   const [weather, setWeather] = useState("");
-  const [weatherMin, setWeatherMin] = useState("");
-  const [weatherMax, setWeatherMax] = useState("");
-  const [weatherDate, setWeatherDate] = useState("");
-  const [weatherTempCurrent, setWeatherTempCurrent] = useState("");
-  const [weatherSunUp, setWeatherSunUp] = useState("");
-  const [weatherSunDown, setWeatherSunDown] = useState("");
+  const [weatherAPI, setWeatherAPI] = useState("");
 
   const [weatherFields, setWeatherFields] = useState({
     weatherMinField: "",
     weatherMaxField: "",
     weatherDateField: "",
     weatherTempField: "",
+    weatherHumField: "",
     weatherSunUpField: "",
     weatherSunDownField: "",
     weatherWindSpeedField: "",
     weatherWindDegField: "",
+    weatherIcon: "",
+    weatherAPI: "",
   });
 
   useEffect(() => {
@@ -82,19 +78,43 @@ export default function WeatherSummary(props) {
   }, []);
 
   ////////////////////////////////////////////////////////
+  var lon = "";
+  var lat = "";
+  var url = "";
   const getWeather = async () => {
+    if ("geolocation" in navigator) {
+      console.log("Available");
+      navigator.geolocation.getCurrentPosition(function (position) {
+        lat = position.coords.latitude;
+        lon = position.coords.longitude;
+        url =
+          "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+          lat +
+          "&lon=" +
+          lon +
+          "&exclude=hourly,minutely&appid=";
+        setWeatherAPI(url);
+      });
+    } else {
+      console.log("Not Available");
+    }
+
+    console.log(weatherAPI);
+
     const requestOptions = {
-      method: "GET",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        weatherAPI: weatherAPI,
+      }),
     };
     fetch("http://localhost:4000/currentWeather", requestOptions)
       .then((response) => response.json())
       .then((response) => {
         setWeather(response);
-        console.log("---------------------------------------------------");
         console.log(response);
 
-        var stringDate = convertDate(response.dt);
+        var stringDate = convertDate(response.current.dt);
         var dispDate =
           stringDate.substring(0, 3) +
           " " +
@@ -108,17 +128,22 @@ export default function WeatherSummary(props) {
         var sunUp = stringDate.substring(16, 21);
         stringDate = convertDate(response.sys.sunset);
         var sunDown = stringDate.substring(16, 21);
+
         var minTemp = Math.round(Number(response.main.temp_min));
         var maxTemp = Math.round(Number(response.main.temp_max));
+
         var temp = Math.round(Number(response.main.temp));
         var windSpeed = response.wind.speed;
         var d2d = require("degrees-to-direction");
         var windDeg = d2d(response.wind.deg);
+        var humidity = response.main.humidity;
 
-        console.log("Wind Speed");
-        console.log(windSpeed);
-        console.log("Wind Deg");
-        console.log(windDeg);
+        console.log("icon URL");
+        var iconCode = response.weather[0];
+        console.log(iconCode.icon);
+
+        var iconUrl =
+          "https://openweathermap.org/img/wn/" + iconCode.icon + "@2x.png";
 
         setWeatherFields({
           ...weatherFields,
@@ -128,14 +153,11 @@ export default function WeatherSummary(props) {
           weatherMinField: minTemp,
           weatherMaxField: maxTemp,
           weatherTempField: temp,
+          weatherHumField: humidity,
           weatherWindSpeedField: windSpeed,
           weatherWindDegField: windDeg,
+          weatherIcon: iconUrl,
         });
-
-        console.log("---------------------------------------------------");
-        console.log(weather);
-        console.log(weatherFields);
-        console.log("---------------------------------------------------");
       })
       .catch((error) => console.log(error));
   };
@@ -144,38 +166,79 @@ export default function WeatherSummary(props) {
     <Grid container className={classes.weatSumm}>
       <Grid item container>
         <Grid item container direction="column" style={{ width: "33%" }}>
-          <Grid item>{weatherFields.weatherDateField}</Grid>
           <Grid item>
-            {weatherFields.weatherTempField}
-            <span>&#8451;</span>
+            <Typography>{weatherFields.weatherDateField}</Typography>
+          </Grid>
+          <Grid item container style={{ marginTop: "1em" }}>
+            <Grid style={{ width: "50%" }}>
+              <Typography>
+                {weatherFields.weatherTempField}
+                <span style={{ fontSize: "x-small" }}>&#8451;</span>
+              </Typography>
+            </Grid>
+            <Divider style={{}} />
+            <Grid container style={{ width: "50%" }} justifyContent="flex-end">
+              <Typography>{weatherFields.weatherHumField} %</Typography>
+            </Grid>
           </Grid>
           <Grid item container>
-            <Grid item>
-              <ExpandMoreIcon />
+            <Grid item container style={{ width: "50%" }} alignItems="flex-end">
+              <ExpandMoreIcon style={{ border: "0px solid" }} />
             </Grid>
-            <Grid item>
+            <Grid
+              item
+              container
+              justifyContent="flex-end"
+              alignItems="flex-end"
+              style={{ width: "50%" }}
+            >
               <ExpandLessIcon />
             </Grid>
           </Grid>
           <Grid item container>
-            <Grid item>
-              {weatherFields.weatherMinField}
-              <span>&#8451;</span>{" "}
+            <Grid item style={{ width: "50%" }}>
+              <Typography>
+                {weatherFields.weatherMinField}
+                <span style={{ fontSize: "x-small" }}>&#8451;</span>{" "}
+              </Typography>
             </Grid>
-            <Grid item>
-              {weatherFields.weatherMaxField}
-              <span>&#8451;</span>{" "}
+            <Grid
+              item
+              container
+              style={{ width: "50%" }}
+              justifyContent="flex-end"
+            >
+              <Typography>
+                {weatherFields.weatherMaxField}
+                <span style={{ fontSize: "x-small" }}>&#8451;</span>{" "}
+              </Typography>
             </Grid>
           </Grid>
           {/* <Grid item container ><h3>t</h3></Grid> */}
         </Grid>
-        <Grid item container style={{ width: "33%" }}>
-          <h3>I</h3>
+        <Grid item container style={{ width: "33%" }} alignItems="center">
+          <img
+            src={weatherFields.weatherIcon}
+            style={{ width: "100%", height: "85%" }}
+            // className={classes.image}
+            alt="fireSpot"
+          />
         </Grid>
         <Grid item container direction="column" style={{ width: "33%" }}>
-          <Grid item>Wind Speed : {weatherFields.weatherWindSpeedField}</Grid>
+          <Grid item>
+            <Typography>Wind</Typography>
+          </Grid>
+          <Grid item>
+            <Typography>
+              Speed : {weatherFields.weatherWindSpeedField}
+            </Typography>
+          </Grid>
 
-          <Grid item>Wind Deg: {weatherFields.weatherWindDegField}</Grid>
+          <Grid item>
+            <Typography>
+              Direction: {weatherFields.weatherWindDegField}
+            </Typography>
+          </Grid>
 
           <Grid item container justifyContent="space-between">
             <Grid
@@ -183,6 +246,7 @@ export default function WeatherSummary(props) {
               container
               style={{ width: "45%" }}
               justifyContent="center"
+              alignItems="flex-end"
             >
               <img src={sunRise} className={classes.image} alt="fireSpot" />
             </Grid>
@@ -191,13 +255,18 @@ export default function WeatherSummary(props) {
               container
               style={{ width: "45%" }}
               justifyContent="center"
+              alignItems="flex-end"
             >
               <img src={sunSet} className={classes.image} alt="fireSpot" />
             </Grid>
           </Grid>
           <Grid item container justifyContent="space-between">
-            <Grid item>{weatherFields.weatherSunUpField} </Grid>
-            <Grid item>{weatherFields.weatherSunDownField} </Grid>
+            <Grid item>
+              <Typography>{weatherFields.weatherSunUpField}</Typography>{" "}
+            </Grid>
+            <Grid item>
+              <Typography>{weatherFields.weatherSunDownField} </Typography>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
