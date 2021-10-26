@@ -80,7 +80,8 @@ export default function Home(props) {
   const tokenState = useSelector(selectTokenState);
 
   //Setup Local State
-  const [expanded, setExpanded] = useState(false);
+  // const [expanded, setExpanded] = useState(false);
+
   const [fullJournal, setFullJournal] = useState({
     jName: "",
     jDesc: "",
@@ -104,9 +105,14 @@ export default function Home(props) {
       {tokenState ? (
         <Grid item container style={{ border: "0px solid" }}>
           <Grid item style={{ border: "0px solid", width: "100%" }}>
-            {/* {dispNewJournal ? null : <CurrentJournals />} */}
+            {dispNewJournal ? null : <CurrentJournals />}
             {dispNewJournal ? <NewJournal /> : null}
-            {dispNewJournal ? null : <WeatherSummary />}
+            {dispNewJournal ? null : (
+              <WeatherSummary
+                weatherRefresh={props.weatherRefresh}
+                setWeatherRefresh={props.setWeatherRefresh}
+              />
+            )}
           </Grid>
         </Grid>
       ) : (

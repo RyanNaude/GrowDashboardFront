@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   weatSumm: {
     backgroundColor: "white",
     marginTop: "0.5em",
+    marginBottom: "0.5em"
   },
   root: {
     width: "100%",
@@ -54,10 +55,12 @@ function convertDate(unixDate) {
 
 export default function WeatherSummary(props) {
   const classes = useStyles();
+  // console.log("props.weatherRefresh");
+  // console.log(props.weatherRefresh);
 
   //Local State
   const [weather, setWeather] = useState("");
-  const [weatherAPI, setWeatherAPI] = useState("");
+  const [weatherRefresh, setWeatherRefresh] = useState(false);
 
   const [weatherFields, setWeatherFields] = useState({
     weatherMinField: "",
@@ -74,8 +77,9 @@ export default function WeatherSummary(props) {
   });
 
   useEffect(() => {
-    // getWeather();
-  }, []);
+    console.log("---------- USE EFFECT ----------------");
+    getWeather();
+  }, [props.weatherRefresh]);
 
   ////////////////////////////////////////////////////////
   var lon = "";
@@ -85,85 +89,92 @@ export default function WeatherSummary(props) {
     if ("geolocation" in navigator) {
       console.log("Available");
       navigator.geolocation.getCurrentPosition(function (position) {
+        console.log("Still Available");
         lat = position.coords.latitude;
         lon = position.coords.longitude;
+        console.log(lat);
+        console.log(lon);
         url =
           "https://api.openweathermap.org/data/2.5/onecall?lat=" +
           lat +
           "&lon=" +
           lon +
-          "&exclude=hourly,minutely&appid=";
-        setWeatherAPI(url);
+          "&units=metric&exclude=hourly,minutely&appid=";
+
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            weatherAPI: url,
+          }),
+        };
+        console.log("requestOptions.body");
+        console.log(requestOptions.body);
+        fetch("http://localhost:4000/currentWeather", requestOptions)
+          .then((response) => response.json())
+          .then((response) => {
+            setWeather(response);
+
+            var stringDate = convertDate(response.current.dt);
+            var dispDate =
+              stringDate.substring(0, 3) +
+              " " +
+              stringDate.substring(8, 10) +
+              " " +
+              stringDate.substring(4, 7) +
+              " " +
+              stringDate.substring(11, 15);
+
+            stringDate = convertDate(response.current.sunrise);
+            var sunUp = stringDate.substring(16, 21);
+            stringDate = convertDate(response.current.sunset);
+            var sunDown = stringDate.substring(16, 21);
+
+            const todayWeather = response.daily[0];
+
+            var minTemp = Math.round(Number(todayWeather.temp.min));
+            var maxTemp = Math.round(Number(todayWeather.temp.max));
+
+            var temp = Math.round(Number(response.current.temp));
+            var windSpeed = response.current.wind_speed;
+            var d2d = require("degrees-to-direction");
+            var windDeg = d2d(response.current.wind_deg);
+            var humidity = response.current.humidity;
+
+            console.log("icon URL");
+            var iconCode = response.current.weather[0];
+            console.log(iconCode.icon);
+
+            var iconUrl =
+              "https://openweathermap.org/img/wn/" + iconCode.icon + "@2x.png";
+
+            setWeatherFields({
+              ...weatherFields,
+              weatherDateField: dispDate,
+              weatherSunUpField: sunUp,
+              weatherSunDownField: sunDown,
+              weatherMinField: minTemp,
+              weatherMaxField: maxTemp,
+              weatherTempField: temp,
+              weatherHumField: humidity,
+              weatherWindSpeedField: windSpeed,
+              weatherWindDegField: windDeg,
+              weatherIcon: iconUrl,
+            });
+          })
+          .catch((error) => console.log(error));
       });
     } else {
       console.log("Not Available");
     }
-
-    console.log(weatherAPI);
-
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        weatherAPI: weatherAPI,
-      }),
-    };
-    fetch("http://localhost:4000/currentWeather", requestOptions)
-      .then((response) => response.json())
-      .then((response) => {
-        setWeather(response);
-        console.log(response);
-
-        var stringDate = convertDate(response.current.dt);
-        var dispDate =
-          stringDate.substring(0, 3) +
-          " " +
-          stringDate.substring(8, 10) +
-          " " +
-          stringDate.substring(4, 7) +
-          " " +
-          stringDate.substring(11, 15);
-
-        stringDate = convertDate(response.sys.sunrise);
-        var sunUp = stringDate.substring(16, 21);
-        stringDate = convertDate(response.sys.sunset);
-        var sunDown = stringDate.substring(16, 21);
-
-        var minTemp = Math.round(Number(response.main.temp_min));
-        var maxTemp = Math.round(Number(response.main.temp_max));
-
-        var temp = Math.round(Number(response.main.temp));
-        var windSpeed = response.wind.speed;
-        var d2d = require("degrees-to-direction");
-        var windDeg = d2d(response.wind.deg);
-        var humidity = response.main.humidity;
-
-        console.log("icon URL");
-        var iconCode = response.weather[0];
-        console.log(iconCode.icon);
-
-        var iconUrl =
-          "https://openweathermap.org/img/wn/" + iconCode.icon + "@2x.png";
-
-        setWeatherFields({
-          ...weatherFields,
-          weatherDateField: dispDate,
-          weatherSunUpField: sunUp,
-          weatherSunDownField: sunDown,
-          weatherMinField: minTemp,
-          weatherMaxField: maxTemp,
-          weatherTempField: temp,
-          weatherHumField: humidity,
-          weatherWindSpeedField: windSpeed,
-          weatherWindDegField: windDeg,
-          weatherIcon: iconUrl,
-        });
-      })
-      .catch((error) => console.log(error));
   };
 
   return (
-    <Grid container className={classes.weatSumm}>
+    <Grid
+      container
+      className={classes.weatSumm}
+      style={{ border: "1px solid" }}
+    >
       <Grid item container>
         <Grid item container direction="column" style={{ width: "33%" }}>
           <Grid item>
@@ -274,7 +285,7 @@ export default function WeatherSummary(props) {
       <br />
       <br />
       <br />
-      <Grid item container>
+      {/* <Grid item container>
         <Grid item style={{ width: "20%", border: "1px solid" }}>
           icon
         </Grid>
@@ -289,20 +300,7 @@ export default function WeatherSummary(props) {
             <Grid item>Sundown</Grid>
           </Grid>
         </Grid>
-        {/* <Grid item container>
-          <Grid item container></Grid>
-          <Grid item container></Grid>
-        </Grid> */}
-      </Grid>
-      <Grid item>
-        <Button
-          onClick={() => {
-            getWeather();
-          }}
-        >
-          Update
-        </Button>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }

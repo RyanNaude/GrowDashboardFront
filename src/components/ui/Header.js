@@ -154,6 +154,9 @@ export default function Header(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  // console.log("Initial state");
+  // console.log(props.weatherRefresh);
+
   //Setup Local State
   const [value, setValue] = useState(0);
   const [currentLoggedIn, setCurrentLoggedIn] = useState("default");
@@ -164,8 +167,8 @@ export default function Header(props) {
   const signInCur = useSelector(selectSignInState);
   const signUpCur = useSelector(selectSignUpState);
   const tokenState = useSelector(selectTokenState);
-  console.log("token State");
-  console.log(tokenState);
+  // console.log("token State");
+  // console.log(tokenState);
 
   const changeSignUpState = () => {
     dispatch(setSignUpState(!signUpCur));
@@ -188,6 +191,9 @@ export default function Header(props) {
     setValue(index);
     dispatch(setSignInState(false));
     dispatch(setSignUpState(false));
+    props.setWeatherRefresh(!props.weatherRefresh);
+    console.log("props.weatherRefresh")
+    console.log(props.weatherRefresh)
   };
 
   const menu = [

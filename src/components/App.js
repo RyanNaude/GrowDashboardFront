@@ -18,6 +18,7 @@ function App() {
   //Setup Local State
   const [open, setOpen] = useState(false);
   const [mainPage, setMainPage] = useState("Home");
+  const [weatherRefresh, setWeatherRefresh] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
@@ -28,9 +29,21 @@ function App() {
           open={open}
           mainPage={mainPage}
           style={{ border: "3px solid yellow" }}
+          weatherRefresh={weatherRefresh}
+          setWeatherRefresh={setWeatherRefresh}
         />
         <Switch>
-          <Route exact path="/" component={() => <Home open={open} />} />
+          <Route
+            exact
+            path="/"
+            component={() => (
+              <Home
+                open={open}
+                weatherRefresh={weatherRefresh}
+                setWeatherRefresh={setWeatherRefresh}
+              />
+            )}
+          />
           <Route
             exact
             path="/enviroment"
@@ -54,7 +67,13 @@ function App() {
           <Route
             exact
             path="/enviromentsettings"
-            component={() => <EnviromentSettings open={open} />}
+            component={() => (
+              <EnviromentSettings
+                open={open}
+                weatherRefresh={weatherRefresh}
+                setWeatherRefresh={setWeatherRefresh}
+              />
+            )}
           />
         </Switch>
       </BrowserRouter>

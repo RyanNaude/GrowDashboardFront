@@ -40,8 +40,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //Test Data
-const month = "January";
-const year = "2021";
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+const d = new Date();
+const monthCnt = d.getMonth();
+const month = months[monthCnt];
+const year = d.getFullYear();
+
+// instantiate a date object
+var dt = new Date();
+var month1 = dt.getMonth() + 1;
+var year1 = dt.getFullYear();
+var daysInMonth = new Date(year1, month1, 0).getDate();
+
+console.log("daysInMonth");
+console.log(daysInMonth);
 
 export default function CalanderMonth(props) {
   const classes = useStyles();
@@ -49,10 +74,10 @@ export default function CalanderMonth(props) {
   useEffect(() => {}, []);
 
   //Test Data
-  const testMonth = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25, 26, 27, 28, 29, 30,
-  ];
+  const monthDays = [];
+  for (let i = 0; i < daysInMonth; i++) {
+    monthDays.push(i+1);
+  }
 
   return (
     <Grid container justifyContent="center" className={classes.calanderGrid}>
@@ -86,7 +111,7 @@ export default function CalanderMonth(props) {
       </Grid>
       <Grid item container justifyContent="center">
         <Grid item container position="flex" className={classes.monthGrid}>
-          {testMonth.map((data, index) => (
+          {monthDays.map((data, index) => (
             <Grid item className={classes.calanderDay} key={index}>
               <Paper variant="outlined" className={classes.dayPaper}>
                 <Typography
