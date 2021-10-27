@@ -119,9 +119,6 @@ export default function CurrentJournals(props) {
 
   useEffect(() => {
     getJournals();
-    console.log("togNewJournalDisplay");
-    console.log(activeJournals);
-    console.log("--------------------");
   }, []);
 
   return (

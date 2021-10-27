@@ -78,13 +78,13 @@ export default function Enviroment(props) {
     <Grid container direction="column" className={classes.mainPageStyle}>
       {tokenState ? (
         <Grid item>
-          <Weather />
+          {/* <Weather /> */}
           {/* <TodayWeather /> */}
           <WeatherSummary />
+          {/* <Weather />
           <Weather />
           <Weather />
-          <Weather />
-          <Weather />
+          <Weather /> */}
         </Grid>
       ) : (
         <Grid item>

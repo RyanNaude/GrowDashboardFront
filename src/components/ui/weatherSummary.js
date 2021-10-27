@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 
+import Weather from "./weather";
+
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
 
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
-import CloudIcon from "@material-ui/icons/Cloud";
 import Divider from "@material-ui/core/Divider";
-import { Icon, Typography } from "@material-ui/core";
-import { Button } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
@@ -22,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   weatSumm: {
     backgroundColor: "white",
     marginTop: "0.5em",
-    marginBottom: "0.5em"
+    marginBottom: "0.5em",
   },
   root: {
     width: "100%",
@@ -55,12 +52,10 @@ function convertDate(unixDate) {
 
 export default function WeatherSummary(props) {
   const classes = useStyles();
-  // console.log("props.weatherRefresh");
-  // console.log(props.weatherRefresh);
-
   //Local State
-  const [weather, setWeather] = useState("");
-  const [weatherRefresh, setWeatherRefresh] = useState(false);
+  const [weather, setWeather] = useState(null);
+  // const [weatherRefresh, setWeatherRefresh] = useState(false);
+  const [ref, setRef] = useState(false);
 
   const [weatherFields, setWeatherFields] = useState({
     weatherMinField: "",
@@ -79,21 +74,21 @@ export default function WeatherSummary(props) {
   useEffect(() => {
     console.log("---------- USE EFFECT ----------------");
     getWeather();
-  }, [props.weatherRefresh]);
+  }, []);
 
-  ////////////////////////////////////////////////////////
+  // useEffect(() => {
+  //   console.log("---------- USE EFFECT ----------------");
+  //   getWeather();
+  // }, [props.weatherRefresh]);
+
   var lon = "";
   var lat = "";
   var url = "";
   const getWeather = async () => {
     if ("geolocation" in navigator) {
-      console.log("Available");
       navigator.geolocation.getCurrentPosition(function (position) {
-        console.log("Still Available");
         lat = position.coords.latitude;
         lon = position.coords.longitude;
-        console.log(lat);
-        console.log(lon);
         url =
           "https://api.openweathermap.org/data/2.5/onecall?lat=" +
           lat +
@@ -108,8 +103,6 @@ export default function WeatherSummary(props) {
             weatherAPI: url,
           }),
         };
-        console.log("requestOptions.body");
-        console.log(requestOptions.body);
         fetch("http://localhost:4000/currentWeather", requestOptions)
           .then((response) => response.json())
           .then((response) => {
@@ -141,9 +134,7 @@ export default function WeatherSummary(props) {
             var windDeg = d2d(response.current.wind_deg);
             var humidity = response.current.humidity;
 
-            console.log("icon URL");
             var iconCode = response.current.weather[0];
-            console.log(iconCode.icon);
 
             var iconUrl =
               "https://openweathermap.org/img/wn/" + iconCode.icon + "@2x.png";
@@ -161,6 +152,7 @@ export default function WeatherSummary(props) {
               weatherWindDegField: windDeg,
               weatherIcon: iconUrl,
             });
+            setRef(true);
           })
           .catch((error) => console.log(error));
       });
@@ -285,22 +277,13 @@ export default function WeatherSummary(props) {
       <br />
       <br />
       <br />
-      {/* <Grid item container>
-        <Grid item style={{ width: "20%", border: "1px solid" }}>
-          icon
-        </Grid>
-        <Grid item container style={{ width: "80%", border: "1px solid" }}>
-          <Grid item container>
-            <Grid item>27 C</Grid>
-            <Grid item>13 KPH NW</Grid>
-            <Grid item>Sunup</Grid>
-          </Grid>
-          <Grid item container>
-            <Grid item>Overcast</Grid>
-            <Grid item>Sundown</Grid>
-          </Grid>
-        </Grid>
-      </Grid> */}
+      {ref
+        ? weather.daily.map((day, i) => (
+            <Grid item>
+                <Weather />
+            </Grid>
+          ))
+        : null}
     </Grid>
   );
 }

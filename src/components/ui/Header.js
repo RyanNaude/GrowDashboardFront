@@ -154,21 +154,14 @@ export default function Header(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  // console.log("Initial state");
-  // console.log(props.weatherRefresh);
-
   //Setup Local State
   const [value, setValue] = useState(0);
   const [currentLoggedIn, setCurrentLoggedIn] = useState("default");
-  // const [cookies, setCookies] = useCookies();
 
   //Get Global State
-  // const userLoggedIn = useSelector(selectCurrentUser);
   const signInCur = useSelector(selectSignInState);
   const signUpCur = useSelector(selectSignUpState);
   const tokenState = useSelector(selectTokenState);
-  // console.log("token State");
-  // console.log(tokenState);
 
   const changeSignUpState = () => {
     dispatch(setSignUpState(!signUpCur));
@@ -192,8 +185,6 @@ export default function Header(props) {
     dispatch(setSignInState(false));
     dispatch(setSignUpState(false));
     props.setWeatherRefresh(!props.weatherRefresh);
-    console.log("props.weatherRefresh")
-    console.log(props.weatherRefresh)
   };
 
   const menu = [
@@ -325,7 +316,6 @@ export default function Header(props) {
                 </Grid>
               ))}
             </Grid>
-            {/* </Grid> */}
           </div>
         </AppBar>
       </ElevationScroll>

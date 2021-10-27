@@ -101,7 +101,6 @@ export default function NewJournal(props) {
   //Get Global State
   const dispNewJournal = useSelector(selectDispNewJournal);
   const currentUser = useSelector(selectCurrentUser);
-  console.log(currentUser);
 
   //Setup Local State
   const [expanded, setExpanded] = useState(false);
@@ -130,8 +129,6 @@ export default function NewJournal(props) {
 
   const cancelNewJournal = () => {
     setExpanded(false);
-
-    console.log("togNewJournalDisplay");
     dispatch(displayNewJournal(!dispNewJournal));
   };
 

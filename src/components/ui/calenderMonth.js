@@ -65,19 +65,19 @@ var month1 = dt.getMonth() + 1;
 var year1 = dt.getFullYear();
 var daysInMonth = new Date(year1, month1, 0).getDate();
 
-console.log("daysInMonth");
-console.log(daysInMonth);
-
 export default function CalanderMonth(props) {
   const classes = useStyles();
 
   useEffect(() => {}, []);
 
-  //Test Data
   const monthDays = [];
   for (let i = 0; i < daysInMonth; i++) {
-    monthDays.push(i+1);
+    monthDays.push(i + 1);
   }
+
+  const viewEntries = () => {
+    console.log("New Entry");
+  };
 
   return (
     <Grid container justifyContent="center" className={classes.calanderGrid}>
@@ -113,7 +113,11 @@ export default function CalanderMonth(props) {
         <Grid item container position="flex" className={classes.monthGrid}>
           {monthDays.map((data, index) => (
             <Grid item className={classes.calanderDay} key={index}>
-              <Paper variant="outlined" className={classes.dayPaper}>
+              <Paper
+                variant="outlined"
+                className={classes.dayPaper}
+                onClick={viewEntries}
+              >
                 <Typography
                   className={classes.title}
                   color="textSecondary"
