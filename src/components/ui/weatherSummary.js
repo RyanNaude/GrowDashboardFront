@@ -279,8 +279,8 @@ export default function WeatherSummary(props) {
       <br />
       {ref
         ? weather.daily.map((day, i) => (
-            <Grid item>
-                <Weather />
+            <Grid item key={i}>
+              <Weather day={day} convertDate={convertDate}/>
             </Grid>
           ))
         : null}
