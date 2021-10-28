@@ -165,23 +165,22 @@ export default function WeatherSummary(props) {
     <Grid
       container
       className={classes.weatSumm}
-      style={{ border: "1px solid" }}
     >
       <Grid item container>
         <Grid item container direction="column" style={{ width: "33%" }}>
           <Grid item>
             <Typography>{weatherFields.weatherDateField}</Typography>
           </Grid>
-          <Grid item container style={{ marginTop: "1em" }}>
+          <Grid item container style={{ marginTop: "0.5em", marginBottom: "0.5em" }}>
             <Grid style={{ width: "50%" }}>
-              <Typography>
+              <Typography style={{fontSize: "22px", fontWeight: "normal"}}>
                 {weatherFields.weatherTempField}
                 <span style={{ fontSize: "x-small" }}>&#8451;</span>
               </Typography>
             </Grid>
             <Divider style={{}} />
             <Grid container style={{ width: "50%" }} justifyContent="flex-end">
-              <Typography>{weatherFields.weatherHumField} %</Typography>
+              <Typography style={{fontSize: "22px", fontWeight: "normal"}}>{weatherFields.weatherHumField} %</Typography>
             </Grid>
           </Grid>
           <Grid item container>
@@ -217,12 +216,11 @@ export default function WeatherSummary(props) {
               </Typography>
             </Grid>
           </Grid>
-          {/* <Grid item container ><h3>t</h3></Grid> */}
         </Grid>
         <Grid item container style={{ width: "33%" }} alignItems="center">
           <img
             src={weatherFields.weatherIcon}
-            style={{ width: "100%", height: "85%" }}
+            style={{ width: "100%", height: "100%" }}
             // className={classes.image}
             alt="fireSpot"
           />
@@ -273,17 +271,22 @@ export default function WeatherSummary(props) {
           </Grid>
         </Grid>
       </Grid>
-      <br />
-      <br />
-      <br />
-      <br />
-      {ref
-        ? weather.daily.map((day, i) => (
-            <Grid item key={i}>
-              <Weather day={day} convertDate={convertDate}/>
-            </Grid>
-          ))
-        : null}
+      {props.pageSource === "ENV" ? (
+        <Grid
+          item
+          container
+          justifyContent="space-evenly"
+          style={{ marginTop: "1em" }}
+        >
+          {ref
+            ? weather.daily.map((day, i) => (
+                <Grid item key={i} xs={3}>
+                  <Weather day={day} convertDate={convertDate} />
+                </Grid>
+              ))
+            : null}
+        </Grid>
+      ) : null}
     </Grid>
   );
 }

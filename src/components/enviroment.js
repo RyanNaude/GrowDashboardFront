@@ -74,13 +74,15 @@ export default function Enviroment(props) {
   const userLoggedIn = useSelector(selectCurrentUser);
   const tokenState = useSelector(selectTokenState);
 
+  const pageSource = "ENV";
+
   return (
     <Grid container direction="column" className={classes.mainPageStyle}>
       {tokenState ? (
         <Grid item>
           {/* <Weather /> */}
           {/* <TodayWeather /> */}
-          <WeatherSummary />
+          <WeatherSummary pageSource={pageSource}/>
           {/* <Weather />
           <Weather />
           <Weather />

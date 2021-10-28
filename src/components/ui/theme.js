@@ -1,19 +1,23 @@
 import { createTheme } from "@material-ui/core/styles";
 
-const arcGreen = "#0bb965";
-const arcOrgange = "#b0fa73";
+const primeGreen = "#0bb965";
+const secGreen = "#b0fa73";
 
 export default createTheme({
   palette: {
     common: {
-      blue: arcGreen,
-      orange: arcOrgange,
+      greena: "#1E5C35",
+      greenb: "#035C23",
+      greenc: "#05A841",
+      greend: "#07DB55",
+      greene: "#4AE182",
+      greenf: "#CEEAD8"
     },
     primary: {
-      main: arcGreen,
+      main: primeGreen,
     },
     secondary: {
-      main: arcOrgange,
+      main: secGreen,
     },
   },
   typography: {

@@ -13,7 +13,10 @@ import { Typography } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   summMaxTemp: {
     fontWeight: "bold",
-    fontSize: "15pt",
+    fontSize: "13pt",
+  },
+  summMinTemp: {
+    fontSize: "10pt",
   },
   weekDay: {
     fontWeight: "bold",
@@ -41,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Weather(props) {
   const classes = useStyles();
 
+  var weatherDaySumm = props.day.weather[0];
+  var iconString =
+    "https://openweathermap.org/img/wn/" + weatherDaySumm.icon + "@2x.png";
+
   const stringDate = props.convertDate(props.day.dt);
   var dispDate =
     stringDate.substring(8, 10) + " | " + stringDate.substring(4, 7);
@@ -54,58 +61,24 @@ export default function Weather(props) {
     minTemp: minTemp,
     maxTemp: maxTemp,
     weekDay: weekDay,
+    iconString: iconString,
   });
-
-  console.log(Math.round(Number(props.day.temp.min)));
-
-  //Test data
-  const summTemp = [
-    {
-      maxTemp: "25",
-      minTemp: "16",
-      icon: "Icon",
-      weekDay: "Mon",
-      date: "01 | JAN",
-    },
-    {
-      maxTemp: "26",
-      minTemp: "17",
-      icon: "Icon",
-      weekDay: "Tue",
-      date: "02 | JAN",
-    },
-    {
-      maxTemp: "28",
-      minTemp: "16",
-      icon: "Icon",
-      weekDay: "Wed",
-      date: "03 | JAN",
-    },
-    {
-      maxTemp: "28",
-      minTemp: "17",
-      icon: "Icon",
-      weekDay: "Thu",
-      date: "04 | JAN",
-    },
-    {
-      maxTemp: "26",
-      minTemp: "15",
-      icon: "Icon",
-      weekDay: "Fri",
-      date: "05 | JAN",
-    },
-  ];
 
   return (
     <Grid
       container
       className={classes.mainPageStyle}
       justifyContent="space-evenly"
+      
     >
       <Grid item container className={classes.dayGrid}>
         <Paper variant="outlined" style={{ width: "100%" }}>
-          <Grid item container direction="column" className={classes.root}>
+          <Grid
+            item
+            container
+            direction="column"
+            className={classes.root}
+          >
             <Grid item container justifyContent="center">
               <Typography className={classes.summMaxTemp}>
                 {dayData.maxTemp}
@@ -115,10 +88,16 @@ export default function Weather(props) {
               <Divider className={classes.dividerStyle} />
             </Grid>
             <Grid item container justifyContent="center">
-              <Typography>{dayData.minTemp}</Typography>
+              <Typography className={classes.summMinTemp}>
+                {dayData.minTemp}
+              </Typography>
             </Grid>
             <Grid item container justifyContent="center">
-              <CloudIcon />
+              <img
+                src={iconString}
+                style={{ width: "45%", height: "45%" }}
+                alt="fireSpot"
+              />
             </Grid>
             <Grid item container justifyContent="center">
               <Typography className={classes.weekDay}>

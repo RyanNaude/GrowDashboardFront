@@ -79,8 +79,7 @@ export default function Home(props) {
   //Get Global State
   const tokenState = useSelector(selectTokenState);
 
-  //Setup Local State
-  // const [expanded, setExpanded] = useState(false);
+  const pageSource = "HME";
 
   const [fullJournal, setFullJournal] = useState({
     jName: "",
@@ -111,6 +110,7 @@ export default function Home(props) {
               <WeatherSummary
                 weatherRefresh={props.weatherRefresh}
                 setWeatherRefresh={props.setWeatherRefresh}
+                pageSource={pageSource}
               />
             )}
           </Grid>
