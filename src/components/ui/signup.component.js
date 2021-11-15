@@ -83,7 +83,7 @@ export default function SignUp() {
         password: md5(newUser.password),
       }),
     };
-    fetch("http://localhost:4000/createUser", requestOptions)
+    fetch("http://localhost:4000/user/createUser", requestOptions)
       .then((response) => response.json())
       .then(() => dispatch(setSignUpState(false)))
       .catch((error) => console.log(error));

@@ -107,7 +107,7 @@ export default function CurrentJournals(props) {
         journalGrowMedium: fullJournal.growMedium,
       }),
     };
-    fetch("http://localhost:4000/journalGet", requestOptions)
+    fetch("http://localhost:4000/journal/journalGet", requestOptions)
       .then((response) => response.json())
       .then((response) => setActiveJournals(response))
       .catch((error) => console.log(error));

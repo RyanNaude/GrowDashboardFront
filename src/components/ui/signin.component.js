@@ -88,7 +88,7 @@ export default function SignIn(props) {
         password: md5(newUser.password),
       }),
     };
-    fetch("http://localhost:4000/loginUser", requestOptions)
+    fetch("http://localhost:4000/user/loginUser", requestOptions)
       .then((response) => response.json())
       .then((response) => dispatch(setCurrentUser(response.userId)))
       .then((response) => localStorage.setItem("token", response.token))

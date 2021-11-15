@@ -103,7 +103,7 @@ export default function WeatherSummary(props) {
             weatherAPI: url,
           }),
         };
-        fetch("http://localhost:4000/currentWeather", requestOptions)
+        fetch("http://localhost:4000/weather/currentWeather", requestOptions)
           .then((response) => response.json())
           .then((response) => {
             setWeather(response);
