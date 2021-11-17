@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Cookies from "universal-cookie";
+
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -77,15 +79,18 @@ export default function SignUp() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        // userFirstNameField: newUser.firstName,
-        // userLastNameField: newUser.lastName,
         username: newUser.email,
         password: md5(newUser.password),
       }),
     };
     fetch("http://localhost:4000/user/createUser", requestOptions)
       .then((response) => response.json())
-      .then(() => dispatch(setSignUpState(false)))
+      .then((response) => {
+        dispatch(setSignUpState(false));
+        const cookies = new Cookies();
+        cookies.set("loggedIn", response, { path: "/" });
+        console.log(cookies.get("loggedIn"));
+      })
       .catch((error) => console.log(error));
   };
 

@@ -83,6 +83,7 @@ export default function SignIn(props) {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({
         username: newUser.email,
         password: md5(newUser.password),
