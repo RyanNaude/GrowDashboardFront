@@ -72,14 +72,8 @@ export default function WeatherSummary(props) {
   });
 
   useEffect(() => {
-    console.log("---------- USE EFFECT ----------------");
     getWeather();
   }, []);
-
-  // useEffect(() => {
-  //   console.log("---------- USE EFFECT ----------------");
-  //   getWeather();
-  // }, [props.weatherRefresh]);
 
   var lon = "";
   var lat = "";

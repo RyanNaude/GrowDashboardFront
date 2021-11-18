@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-
 import Cookies from "universal-cookie";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
-
+import Alert from "@material-ui/lab/Alert";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
@@ -20,7 +19,11 @@ import Typography from "@material-ui/core/Typography";
 
 //Redux imports
 import { useDispatch } from "react-redux";
-import { setSignInState, setSignUpState } from "../../redux/user/user.actions";
+import {
+  setSignInState,
+  setSignUpState,
+  setTokenState,
+} from "../../redux/user/user.actions";
 
 var md5 = require("md5");
 
@@ -70,6 +73,9 @@ export default function SignUp() {
     password: "",
   });
 
+  const [signError, setSignError] = useState(false);
+  const [errorReason, setErrorReason] = useState("");
+
   const updateUser = (event) => {
     setNewUser({ ...newUser, [event.target.name]: event.target.value });
   };
@@ -84,12 +90,25 @@ export default function SignUp() {
       }),
     };
     fetch("http://localhost:4000/user/createUser", requestOptions)
-      .then((response) => response.json())
       .then((response) => {
-        dispatch(setSignUpState(false));
-        const cookies = new Cookies();
-        cookies.set("loggedIn", response, { path: "/" });
-        console.log(cookies.get("loggedIn"));
+        if (response.ok) {
+          setSignError(false);
+          setErrorReason("");
+          return response.json();
+        } else {
+          setSignError(true);
+          setErrorReason("Email address already registered");
+          dispatch(setSignUpState(true));
+        }
+      })
+      .then((response) => {
+        if (response) {
+          dispatch(setSignUpState(false));
+          dispatch(setTokenState(true));
+          const cookies = new Cookies();
+          document.cookie =
+            "logToken=" + response.logToken + "; SameSite=None; Secure";
+        }
       })
       .catch((error) => console.log(error));
   };
@@ -110,31 +129,6 @@ export default function SignUp() {
           Sign Up
         </Typography>
         <Grid container spacing={2}>
-          {/* <Grid item xs={12} sm={6}>
-            <TextField
-              autoComplete="fname"
-              name="firstName"
-              variant="outlined"
-              required
-              fullWidth
-              id="firstName"
-              label="First Name"
-              autoFocus
-              onChange={updateUser}
-            />
-          </Grid> */}
-          {/* <Grid item xs={12} sm={6}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              id="lastName"
-              label="Last Name"
-              name="lastName"
-              autoComplete="lname"
-              onChange={updateUser}
-            />
-          </Grid> */}
           <Grid item xs={12}>
             <TextField
               variant="outlined"
@@ -160,6 +154,11 @@ export default function SignUp() {
               onChange={updateUser}
             />
           </Grid>
+          {signError ? (
+            <Grid item container justifyContent="center">
+              <Alert severity="error">{errorReason}</Alert>
+            </Grid>
+          ) : null}
           <Grid item xs={12}>
             <FormControlLabel
               control={<Checkbox value="allowExtraEmails" color="primary" />}

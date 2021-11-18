@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-// import { useCookies } from "react-cookie";
+import Cookies from "universal-cookie";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
 
 import Avatar from "@material-ui/core/Avatar";
+import Alert from "@material-ui/lab/Alert";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -72,6 +73,8 @@ export default function SignIn(props) {
     email: "",
     password: "",
   });
+  const [signError, setSignError] = useState(false);
+  const [errorReason, setErrorReason] = useState("");
   // const [cookies, setCookies] = useCookies();
   // const [returnUser, setReturnUser] = useState(null);
 
@@ -90,12 +93,29 @@ export default function SignIn(props) {
       }),
     };
     fetch("http://localhost:4000/user/loginUser", requestOptions)
-      .then((response) => response.json())
-      .then((response) => dispatch(setCurrentUser(response.userId)))
-      .then((response) => localStorage.setItem("token", response.token))
-      .then((response) => console.log(response))
-      .then(() => dispatch(setSignInState(false)))
-      .then(() => dispatch(setTokenState(true)))
+      .then((response) => {
+        if (response.ok) {
+          setSignError(false);
+          setErrorReason("");
+          dispatch(setCurrentUser(response.userId));
+          dispatch(setSignInState(false));
+          dispatch(setTokenState(true));
+          return response.json();
+        } else {
+          setSignError(true);
+          setErrorReason("Invalid Login Details");
+          dispatch(setSignInState(true));
+          dispatch(setTokenState(false));
+          return;
+        }
+      })
+      .then((response) => {
+        if (response) {
+          const cookies = new Cookies();
+          document.cookie =
+            "logToken=" + response.logToken + "; SameSite=None; Secure";
+        }
+      })
       .catch((error) => console.log(error));
   };
 
@@ -140,6 +160,12 @@ export default function SignIn(props) {
               autoComplete="current-password"
               onChange={updateUser}
             />
+
+            {signError ? (
+              <Grid container justifyContent="center">
+                <Alert severity="error">{errorReason}</Alert>
+              </Grid>
+            ) : null}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
