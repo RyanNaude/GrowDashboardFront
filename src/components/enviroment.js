@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -71,7 +71,7 @@ export default function Enviroment(props) {
   // const [activeJournals, setActiveJournals] = useState([]);
 
   //Get Global State
-  const userLoggedIn = useSelector(selectCurrentUser);
+  // const userLoggedIn = useSelector(selectCurrentUser);
   const tokenState = useSelector(selectTokenState);
 
   const pageSource = "ENV";

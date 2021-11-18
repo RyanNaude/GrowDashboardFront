@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Cookies from "universal-cookie";
+// import Cookies from "universal-cookie";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -111,7 +111,7 @@ export default function SignIn(props) {
       })
       .then((response) => {
         if (response) {
-          const cookies = new Cookies();
+          // const cookies = new Cookies();
           document.cookie =
             "logToken=" + response.logToken + "; SameSite=None; Secure";
         }
