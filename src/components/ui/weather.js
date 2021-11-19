@@ -5,7 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-// import CloudIcon from "@material-ui/icons/Cloud";
 import Divider from "@material-ui/core/Divider";
 import { Typography } from "@material-ui/core";
 
@@ -27,18 +26,10 @@ const useStyles = makeStyles((theme) => ({
   },
   mainPageStyle: {
     marginBottom: "0.5em",
-    // border: "1px solid",
   },
   root: {
     backgroundColor: theme.palette.secondary.light,
   },
-  // dayGrid: {
-  //   width: "18%",
-  // },
-  // dividerStyle: {
-  //   width: "80%",
-  //   color: "black",
-  // },
 }));
 
 export default function Weather(props) {

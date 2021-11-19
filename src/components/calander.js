@@ -16,8 +16,9 @@ import { selectTokenState } from "../redux/user/user.selector";
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
-    marginTop: "6.5em",
-    // backgroundColor: theme.palette.common.greene,
+    marginTop: "6em",
+    width: "100%",
+    border: "0px solid",
   },
   mainPageSub: {
     border: "1px solid black",
@@ -48,8 +49,6 @@ export default function Calander(props) {
   const classes = useStyles();
   //Get Global State
   const tokenState = useSelector(selectTokenState);
-
- 
 
   return (
     <Grid container direction="column" className={classes.mainPageStyle}>

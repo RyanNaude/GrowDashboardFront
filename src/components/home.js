@@ -103,7 +103,7 @@ export default function Home(props) {
     <Grid container direction="row" className={classes.mainPageStyle}>
       {tokenState ? (
         <Grid item container style={{ border: "0px solid" }}>
-          <Grid item style={{ border: "0px solid", width: "100%" }}>
+          <Grid item style={{ border: "1px solid", width: "100%" }}>
             {dispNewJournal ? null : <CurrentJournals />}
             {dispNewJournal ? <NewJournal /> : null}
             {dispNewJournal ? null : (

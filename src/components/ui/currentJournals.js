@@ -49,39 +49,18 @@ const useStyles = makeStyles((theme) => ({
   journalDesc: {
     paddingLeft: "0.5em",
     height: "100px",
-    // border: "1px solid",
   },
 }));
 
 export default function CurrentJournals(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   //Get Global State
   const dispNewJournal = useSelector(selectDispNewJournal);
+
   //Get Local State
   const [activeJournals, setActiveJournals] = useState([]);
-
-  //Test Data
-  const test = [
-    {
-      name: "Tempus",
-      description:
-        "Et sollicitudin ac orci phasellus egestas tellus rutrum tellus. Quam pellentesque nec nam aliquam sem. Nunc pulvinar sapien et ligula ullamcorper.",
-    },
-    {
-      name: "Pellentesque",
-      description:
-        "Enim tortor at auctor urna nunc. Placerat duis ultricies lacus sed turpis tincidunt id.",
-    },
-    {
-      name: "Pharetra",
-      description:
-        "Facilisis leo vel fringilla est ullamcorper. Ut consequat semper viverra nam libero justo laoreet. Ut sem nulla pharetra diam sit amet nisl. Semper eget duis at tellus at urna condimentum mattis pellentesque.",
-    },
-  ];
-
-  //Setup Local State
-  // const [expanded, setExpanded] = useState(false);
   const [fullJournal, setFullJournal] = useState({
     jName: "",
     jDesc: "",

@@ -28,7 +28,6 @@ function App() {
           setOpen={setOpen}
           open={open}
           mainPage={mainPage}
-          style={{ border: "3px solid yellow" }}
           weatherRefresh={weatherRefresh}
           setWeatherRefresh={setWeatherRefresh}
         />
@@ -76,7 +75,6 @@ function App() {
             )}
           />
         </Switch>
-        
       </BrowserRouter>
     </ThemeProvider>
   );

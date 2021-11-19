@@ -11,15 +11,14 @@ import Unsigned from "./ui/unsigned";
 
 //Redux imports
 import { useSelector } from "react-redux";
-import {
-  // selectCurrentUser,
-  selectTokenState,
-} from "../redux/user/user.selector";
+import { selectTokenState } from "../redux/user/user.selector";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
     marginTop: "6em",
+    width: "100%",
+    border: "0px solid",
   },
   root: {
     display: "flex",
@@ -104,8 +103,8 @@ const itemData = [
 
 export default function Gallery(props) {
   const classes = useStyles();
+  
   //Get Global State
-  // const userLoggedIn = useSelector(selectCurrentUser);
   const tokenState = useSelector(selectTokenState);
 
   return (
@@ -133,7 +132,6 @@ export default function Gallery(props) {
                     loading="lazy"
                     style={{ width: "168px", height: "164px" }}
                   />
-                  {/* <Skeleton variant="rect" width={"168px"} height={"164px"} /> */}
                 </ImageListItem>
               ))}
             </ImageList>

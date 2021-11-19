@@ -20,6 +20,8 @@ import {
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
     marginTop: "6em",
+    width: "100%",
+    border: "0px solid",
   },
   mainPageSub: {},
 }));

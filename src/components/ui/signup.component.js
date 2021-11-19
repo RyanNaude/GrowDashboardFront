@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import Cookies from "universal-cookie";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";

@@ -15,8 +15,9 @@ import { Typography } from "@material-ui/core";
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
-    marginLeft: "5em",
-    width: "95%",
+    marginTop: "6em",
+    width: "100%",
+    border: "0px solid",
   },
   mainPageSub: {
     border: "1px solid black",
@@ -33,11 +34,6 @@ export default function EnviromentSettings(props) {
       container
       direction="column"
       className={classes.mainPageStyle}
-      style={{
-        marginLeft: "0.5em",
-        marginRight: "0.5em",
-        marginTop: "6em",
-      }}
     >
       {tokenState ? (
         <Grid item container style={{ border: "1px solid" }}>

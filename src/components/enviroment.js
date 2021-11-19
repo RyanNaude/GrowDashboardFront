@@ -7,20 +7,19 @@ import Grid from "@material-ui/core/Grid";
 
 //Component Import
 import Unsigned from "./ui/unsigned";
-import Weather from "./ui/weather";
+// import Weather from "./ui/weather";
 import WeatherSummary from "./ui/weatherSummary";
 
 //Redux imports
 import { useSelector } from "react-redux";
-import {
-  selectCurrentUser,
-  selectTokenState,
-} from "../redux/user/user.selector";
+import { selectTokenState } from "../redux/user/user.selector";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
-    marginTop: "6.5em",
+    marginTop: "6em",
+    width: "100%",
+    border: "0px solid",
   },
   mainPageSub: {
     border: "1px solid black",
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: "36.25%", // 16:9
+    paddingTop: "36.25%"
   },
   expand: {
     transform: "rotate(0deg)",
@@ -64,14 +63,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Enviroment(props) {
   const classes = useStyles();
 
-  //Setup Local State
-  // const [expanded, setExpanded] = useState(false);
-  // const [journalName, setJournalName] = useState("");
-  // const [journalDesc, setJournalDesc] = useState("");
-  // const [activeJournals, setActiveJournals] = useState([]);
-
   //Get Global State
-  // const userLoggedIn = useSelector(selectCurrentUser);
   const tokenState = useSelector(selectTokenState);
 
   const pageSource = "ENV";
@@ -80,13 +72,7 @@ export default function Enviroment(props) {
     <Grid container direction="column" className={classes.mainPageStyle}>
       {tokenState ? (
         <Grid item>
-          {/* <Weather /> */}
-          {/* <TodayWeather /> */}
-          <WeatherSummary pageSource={pageSource}/>
-          {/* <Weather />
-          <Weather />
-          <Weather />
-          <Weather /> */}
+          <WeatherSummary pageSource={pageSource} />
         </Grid>
       ) : (
         <Grid item>
