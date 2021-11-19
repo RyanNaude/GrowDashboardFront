@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: "36.25%", // 16:9
+    paddingTop: "36.25%",
   },
   expand: {
     transform: "rotate(0deg)",
@@ -98,6 +98,7 @@ const useStyles = makeStyles((theme) => ({
 export default function NewJournal(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  
   //Get Global State
   const dispNewJournal = useSelector(selectDispNewJournal);
   const currentUser = useSelector(selectCurrentUser);
