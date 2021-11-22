@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import Unsigned from "./ui/unsigned";
 import CalanderMonth from "./ui/calenderMonth";
 import CalanderEntry from "./ui/calanderEntry";
+import CalanderNewEntry from "./ui/calanderNewEntry";
 
 //Redux imports
 import { useSelector } from "react-redux";
@@ -50,14 +51,19 @@ export default function Calander(props) {
   //Get Global State
   const tokenState = useSelector(selectTokenState);
 
+  const [newCalEntry, setNewCalEntry] = useState(false);
+
   return (
     <Grid container direction="column" className={classes.mainPageStyle}>
       {tokenState ? (
         <Grid item container>
           <Grid item>
-            <CalanderMonth />
+            <CalanderMonth setNewCalEntry={setNewCalEntry} newCalEntry={newCalEntry} />
           </Grid>
 
+          <Grid item style={{ marginTop: "0.5em", width: "100%" }}>
+            {newCalEntry ? <CalanderNewEntry /> : null}
+          </Grid>
           <Grid item style={{ marginTop: "0.5em" }}>
             {timeArray.map((time, index) => (
               <CalanderEntry
