@@ -66,24 +66,7 @@ export default function CalanderNewEntry(props) {
                 }}
               />
             </Grid>
-            {/* <Grid item container className={classes.entryGrid}>
-              <Grid
-                item
-                container
-                className={classes.timeEntryGrid}
-                justifyContent="flex-end"
-              ></Grid>
-              <Grid
-                item
-                container
-                className={classes.dateEntryGrid}
-                justifyContent="flex-end"
-              >
-                <Typography variant="body2" className={classes.dateTyp}>
-                  date{props.date}
-                </Typography>
-              </Grid>
-            </Grid> */}
+            
           </Grid>
         </Paper>
       </Grid>
