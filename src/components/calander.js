@@ -5,10 +5,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 //Component Import
-import Unsigned from "./ui/unsigned";
-import CalanderMonth from "./ui/calenderMonth";
-import CalanderEntry from "./ui/calanderEntry";
-import CalanderNewEntry from "./ui/calanderNewEntry";
+import Unsigned from "./ui/Unsigned";
+import CalanderMonth from "./ui/CalenderMonth";
+import CalanderEntry from "./ui/CalanderEntry";
+import CalanderNewEntry from "./ui/CalanderNewEntry";
 
 //Redux imports
 import { useSelector } from "react-redux";

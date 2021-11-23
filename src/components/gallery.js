@@ -3,11 +3,12 @@ import React from "react";
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import GalleryChipGroup from "./ui/galleryChipGroup";
 import Grid from "@material-ui/core/Grid";
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
-import Unsigned from "./ui/unsigned";
+
+import Unsigned from "./ui/Unsigned";
+import GalleryChipGroup from "./ui/GalleryChipGroup";
 
 //Redux imports
 import { useSelector } from "react-redux";

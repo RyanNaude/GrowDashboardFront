@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import Weather from "./weather";
+import Weather from "./Weather";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -97,6 +97,7 @@ export default function WeatherSummary(props) {
             weatherAPI: url,
           }),
         };
+
         fetch("http://localhost:4000/weather/currentWeather", requestOptions)
           .then((response) => response.json())
           .then((response) => {

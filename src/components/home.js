@@ -12,10 +12,10 @@ import { selectTokenState } from "../redux/user/user.selector";
 import { selectDispNewJournal } from "../redux/siteNav/siteNav.selector";
 
 //Component import
-import Unsigned from "./ui/unsigned";
-import NewJournal from "./ui/newJournal";
-import CurrentJournals from "./ui/currentJournals";
-import WeatherSummary from "./ui/weatherSummary";
+import Unsigned from "./ui/Unsigned";
+import NewJournal from "./ui/NewJournal";
+import CurrentJournals from "./ui/CurrentJournals";
+import WeatherSummary from "./ui/WeatherSummary";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 // import { useCookies } from "react-cookie";
 
 //Custom Components
-import SignUp from "./signup.component";
-import SignIn from "./signin.component";
+import SignUp from "./Signup.component";
+import SignIn from "./Signin.component";
 
 //Material UI Components
 import Grid from "@material-ui/core/Grid";

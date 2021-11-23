@@ -8,6 +8,11 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 
+//Custom Component Import
+import InputCust from "../component/InputCust";
+import DatePick from "../component/DatePick";
+import DayPick from "../component/DayPick";
+
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -45,12 +50,16 @@ export default function CalanderNewEntry(props) {
           <Grid container>
             <Grid item container justifyContent="flex-end">
               <Typography variant="h6" className={classes.titleTyp}>
-                New Clander Entry
+                New Calander Entry
               </Typography>
             </Grid>
-            {/* <Grid item>
-              <Typography variant="body2">Description</Typography>
-            </Grid> */}
+            <Grid item style={{width: "100%"}}>
+              <InputCust id={"standard-error-helper-text"} label={"Title"} helperText={""}/>
+            </Grid>
+            <Grid item style={{width: "100%"}}>
+              <DatePick /><DayPick/>
+            </Grid>
+            
             <Grid item>
               <TextField
                 id="time"

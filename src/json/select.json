@@ -8,7 +8,34 @@
     "Mineral Wood",
     "Other"
   ],
-  "roomType": ["Indoor", "Outdoor", "Greenhouse"],
-  "waterType": ["Manual", "Drip", "Hydroponic", "Aeroponic"],
-  "lightType": ["LED", "HPS", "HID"]
+  "roomType": [
+    "Indoor",
+    "Outdoor",
+    "Greenhouse"
+  ],
+  "waterType": [
+    "Manual",
+    "Drip",
+    "Hydroponic",
+    "Aeroponic"
+  ],
+  "lightType": [
+    "LED",
+    "HPS",
+    "HID"
+  ],
+  "monthSet": [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ]
 }
