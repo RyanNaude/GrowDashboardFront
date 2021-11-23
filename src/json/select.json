@@ -1,0 +1,14 @@
+{
+  "soilType": [
+    "Soil",
+    "Perlite",
+    "Vermiculite",
+    "Expanded Clay",
+    "Coco Coir",
+    "Mineral Wood",
+    "Other"
+  ],
+  "roomType": ["Indoor", "Outdoor", "Greenhouse"],
+  "waterType": ["Manual", "Drip", "Hydroponic", "Aeroponic"],
+  "lightType": ["LED", "HPS", "HID"]
+}

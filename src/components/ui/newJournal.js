@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import Config from "../../json/select.json";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -98,7 +99,9 @@ const useStyles = makeStyles((theme) => ({
 export default function NewJournal(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  
+
+  console.log(Config.lightType);
+
   //Get Global State
   const dispNewJournal = useSelector(selectDispNewJournal);
   const currentUser = useSelector(selectCurrentUser);
@@ -169,16 +172,6 @@ export default function NewJournal(props) {
     },
   };
 
-  const soilType = [
-    "Soil",
-    "Perlite",
-    "Vermiculite",
-    "Expanded Clay",
-    "Coco Coir",
-    "Mineral Wood",
-    "Other",
-  ];
-
   const handleChangeMultiple = (event) => {
     setSoilTypeState(event.target.value);
   };
@@ -215,9 +208,11 @@ export default function NewJournal(props) {
                 onChange={updateJournal}
                 value={fullJournal.roomType}
               >
-                <MenuItem value={"Indoor"}>Indoor</MenuItem>
-                <MenuItem value={"Outdoor"}>Outdoor</MenuItem>
-                <MenuItem value={"Greenhouse"}>Greenhouse</MenuItem>
+                {Config.roomType.map((room) => (
+                  <MenuItem key={room} value={room}>
+                    {room}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -237,10 +232,11 @@ export default function NewJournal(props) {
                 onChange={updateJournal}
                 value={fullJournal.waterType}
               >
-                <MenuItem value={"Manual"}>Manual</MenuItem>
-                <MenuItem value={"Drip"}>Drip</MenuItem>
-                <MenuItem value={"Hydroponic"}>Hydroponic</MenuItem>
-                <MenuItem value={"Aeroponic"}>Aeroponic</MenuItem>
+                {Config.waterType.map((water) => (
+                  <MenuItem key={water} value={water}>
+                    {water}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -275,9 +271,11 @@ export default function NewJournal(props) {
                   onChange={updateJournal}
                   value={fullJournal.vegLight}
                 >
-                  <MenuItem value={"LED"}>LED</MenuItem>
-                  <MenuItem value={"HPS"}>HPS</MenuItem>
-                  <MenuItem value={"HID"}>HID</MenuItem>
+                  {Config.lightType.map((light) => (
+                    <MenuItem key={light} value={light}>
+                      {light}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>
@@ -313,9 +311,11 @@ export default function NewJournal(props) {
                   onChange={updateJournal}
                   value={fullJournal.flowLight}
                 >
-                  <MenuItem value={"LED"}>LED</MenuItem>
-                  <MenuItem value={"HPS"}>HPS</MenuItem>
-                  <MenuItem value={"HID"}>HID</MenuItem>
+                  {Config.lightType.map((light) => (
+                    <MenuItem key={light} value={light}>
+                      {light}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>
@@ -346,11 +346,12 @@ export default function NewJournal(props) {
                 )}
                 MenuProps={MenuProps}
               >
-                {soilType.map((soil) => (
+                {Config.soilType.map((soil) => (
                   <MenuItem key={soil} value={soil}>
                     {soil}
                   </MenuItem>
                 ))}
+                Config.lightType
               </Select>
             </FormControl>
           </Grid>

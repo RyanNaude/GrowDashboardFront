@@ -2,5 +2,6 @@
 node_modules
 
 # ENVIRONMENT
-development.json
-#production.json
+# development.json
+# select.json
+# production.json

@@ -74,7 +74,6 @@ var year1 = dt.getFullYear();
 var daysInMonth = new Date(year1, month1, 0).getDate();
 
 export default function CalanderMonth(props) {
-  console.log(props);
   const classes = useStyles();
 
   useEffect(() => {}, []);
