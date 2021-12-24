@@ -7,8 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
 
-import Unsigned from "./ui/Unsigned";
-import GalleryChipGroup from "./ui/GalleryChipGroup";
+import Unsigned from "./ui/unsigned";
+import GalleryChipGroup from "./ui/galleryChipGroup";
 
 //Redux imports
 import { useSelector } from "react-redux";

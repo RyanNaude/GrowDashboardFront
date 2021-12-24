@@ -6,8 +6,8 @@ import { red } from "@material-ui/core/colors";
 import Grid from "@material-ui/core/Grid";
 
 //Component Import
-import Unsigned from "./ui/Unsigned";
-import WeatherSummary from "./ui/WeatherSummary";
+import Unsigned from "./ui/unsigned";
+import WeatherSummary from "./ui/weatherSummary";
 
 //Redux imports
 import { useSelector } from "react-redux";

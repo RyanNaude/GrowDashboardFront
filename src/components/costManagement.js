@@ -7,8 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
 //Component Import
-import CostOFElec from "./ui/CostOfElec";
-import Unsigned from "./ui/Unsigned";
+import CostOFElec from "./ui/costOfElec";
+import Unsigned from "./ui/unsigned";
 
 //Redux imports
 import { useSelector } from "react-redux";

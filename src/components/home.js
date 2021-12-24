@@ -12,10 +12,10 @@ import { selectTokenState } from "../redux/user/user.selector";
 import { selectDispNewJournal } from "../redux/siteNav/siteNav.selector";
 
 //Component import
-import Unsigned from "./ui/Unsigned";
-import NewJournal from "./ui/NewJournal";
-import CurrentJournals from "./ui/CurrentJournals";
-import WeatherSummary from "./ui/WeatherSummary";
+import Unsigned from "./ui/unsigned";
+import NewJournal from "./ui/newJournal";
+import CurrentJournals from "./ui/currentJournals";
+import WeatherSummary from "./ui/weatherSummary";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
@@ -103,7 +103,13 @@ export default function Home(props) {
     <Grid container direction="row" className={classes.mainPageStyle}>
       {tokenState ? (
         <Grid item container style={{ border: "0px solid" }}>
-          <Grid item style={{ border: "1px solid", width: "100%" }}>
+          <Grid
+            item
+            style={{
+              border: "0px solid",
+              width: "100%",
+            }}
+          >
             {dispNewJournal ? null : <CurrentJournals />}
             {dispNewJournal ? <NewJournal /> : null}
             {dispNewJournal ? null : (

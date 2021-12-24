@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: 200,
+      // width: 200,
     },
   },
 }));
@@ -22,8 +22,8 @@ export default function ValidationTextFields(props) {
           //   error
           id={props.id}
           label={props.label}
-          //   defaultValue="Hello World"
           helperText={props.helperText}
+          style={{ width: props.inputWidth }}
         />
       </div>
     </form>

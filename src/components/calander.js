@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 //Component Import
-import Unsigned from "./ui/Unsigned";
-import CalanderMonth from "./ui/CalenderMonth";
-import CalanderEntry from "./ui/CalanderEntry";
-import CalanderNewEntry from "./ui/CalanderNewEntry";
+import Unsigned from "./ui/unsigned";
+import CalanderMonth from "./ui/calenderMonth";
+import CalanderEntry from "./ui/calanderEntry";
+import CalanderNewEntry from "./ui/calanderNewEntry";
 
 //Redux imports
 import { useSelector } from "react-redux";
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     border: "0px solid",
   },
   mainPageSub: {
-    border: "1px solid black",
+    border: "0px solid black",
   },
 }));
 
@@ -46,41 +46,78 @@ const bodyArray = [
   "Sed risus ultricies tristique nulla aliquet enim tortor at. Etiam tempor orci eu lobortis elementum nibh.",
 ];
 
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 export default function Calander(props) {
   const classes = useStyles();
   //Get Global State
   const tokenState = useSelector(selectTokenState);
 
   const [newCalEntry, setNewCalEntry] = useState(false);
+  const [yearState, setYearState] = useState();
+  const [monthState, setMonthState] = useState();
+
+  const d = new Date();
+  var monthCnt = d.getMonth();
+  var month = months[monthCnt];
+  var year = d.getFullYear();
+
+  useEffect(() => {
+    setYearState(year);
+    setMonthState(month);
+  }, []);
 
   return (
-    <Grid container direction="column" className={classes.mainPageStyle}>
-      {tokenState ? (
-        <Grid item container>
-          <Grid item>
-            <CalanderMonth setNewCalEntry={setNewCalEntry} newCalEntry={newCalEntry} />
-          </Grid>
-
-          <Grid item style={{ marginTop: "0.5em", width: "100%" }}>
-            {newCalEntry ? <CalanderNewEntry /> : null}
-          </Grid>
-          <Grid item style={{ marginTop: "0.5em" }}>
-            {timeArray.map((time, index) => (
-              <CalanderEntry
-                key={index}
-                time={time}
-                date={dateArray[index]}
-                title={titleArray[index]}
-                body={bodyArray[index]}
+    <div>
+      <Grid container direction="column" className={classes.mainPageStyle}>
+        {tokenState ? (
+          <Grid item container>
+            <Grid item>
+              <CalanderMonth
+                setNewCalEntry={setNewCalEntry}
+                newCalEntry={newCalEntry}
+                yearState={yearState}
+                setYearState={setYearState}
+                monthState={monthState}
+                setMonthState={setMonthState}
+                months={months}
               />
-            ))}
+            </Grid>
+
+            <Grid item style={{ marginTop: "0.5em", width: "100%" }}>
+              {newCalEntry ? <CalanderNewEntry /> : null}
+            </Grid>
+            <Grid item style={{ marginTop: "0.5em" }}>
+              {timeArray.map((time, index) => (
+                <CalanderEntry
+                  key={index}
+                  time={time}
+                  date={dateArray[index]}
+                  title={titleArray[index]}
+                  body={bodyArray[index]}
+                />
+              ))}
+            </Grid>
           </Grid>
-        </Grid>
-      ) : (
-        <Grid item>
-          <Unsigned />
-        </Grid>
-      )}
-    </Grid>
+        ) : (
+          <Grid item>
+            <Unsigned />
+          </Grid>
+        )}
+      </Grid>
+    </div>
   );
 }

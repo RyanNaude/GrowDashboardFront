@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,8 +15,6 @@ import RemoveIcon from "@material-ui/icons/Remove";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
-  arrowBack: { marginRight: "10px" },
-  arrowForward: { marginLeft: "10px" },
   yearDisplay: { fontWeight: "medium" },
   root: {},
   title: {
@@ -33,9 +31,9 @@ const useStyles = makeStyles((theme) => ({
   },
   calanderGrid: {
     backgroundColor: theme.palette.primary.main,
-    paddingBottom: "0.5em",
-    paddingRight: "0.5em",
-    paddingLeft: "0.5em",
+    paddingBottom: "0.3em",
+    paddingRight: "0.3em",
+    paddingLeft: "0.3em",
     borderRadius: "5px",
   },
   dayPaper: {
@@ -43,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
   },
   newEntryBut: {
     backgroundColor: theme.palette.secondary.main,
-    marginLeft: "1.5em"
-  }
+    marginLeft: "2em",
+  },
 }));
 
 //Test Data
@@ -63,20 +61,40 @@ const months = [
   "December",
 ];
 const d = new Date();
-const monthCnt = d.getMonth();
-const month = months[monthCnt];
-const year = d.getFullYear();
-
-// instantiate a date object
-var dt = new Date();
-var month1 = dt.getMonth() + 1;
-var year1 = dt.getFullYear();
-var daysInMonth = new Date(year1, month1, 0).getDate();
+var monthCnt = d.getMonth();
+var year = d.getFullYear();
+var daysInMonth = new Date(year, monthCnt, 0).getDate();
 
 export default function CalanderMonth(props) {
   const classes = useStyles();
 
-  useEffect(() => {}, []);
+  const nextMonth = () => {
+    var d = new Date();
+    d.setMonth(monthCnt + 1);
+    monthCnt = d.getMonth();
+    if (monthCnt === 0) {
+      d.setFullYear(year + 1);
+      year = d.getFullYear();
+    }
+    daysInMonth = new Date(year, monthCnt + 1, 0).getDate();
+    props.setYearState(year);
+    const month = months[monthCnt];
+    props.setMonthState(month);
+  };
+
+  const prevMonth = () => {
+    var d = new Date();
+    d.setMonth(monthCnt - 1);
+    monthCnt = d.getMonth();
+    if (monthCnt === 11) {
+      d.setFullYear(year - 1);
+      year = d.getFullYear();
+    }
+    daysInMonth = new Date(year, monthCnt + 1, 0).getDate();
+    props.setYearState(year);
+    const month = months[monthCnt];
+    props.setMonthState(month);
+  };
 
   const monthDays = [];
   for (let i = 0; i < daysInMonth; i++) {
@@ -101,7 +119,7 @@ export default function CalanderMonth(props) {
         style={{ marginTop: "1em" }}
       >
         <Grid item>
-          <ArrowBackIosIcon className={classes.arrowBack} />
+          <ArrowBackIosIcon onClick={prevMonth} />
         </Grid>
         <Grid
           item
@@ -109,10 +127,12 @@ export default function CalanderMonth(props) {
           direction="row"
           alignItems="center"
           justifyContent="flex-end"
-          style={{ width: "50%" }}
+          style={{ width: "55%" }}
         >
-          <Grid item>
-            <Typography variant="h5">{month}</Typography>{" "}
+          <Grid item container style={{ width: "65%" }} alignItems="flex-end">
+            <Typography variant="h5" style={{ width: "100%" }}>
+              {props.monthState}
+            </Typography>{" "}
           </Grid>
           <Grid item>
             <Typography style={{ marginLeft: "5px", marginRight: "5px" }}>
@@ -120,11 +140,13 @@ export default function CalanderMonth(props) {
             </Typography>
           </Grid>
           <Grid item>
-            <Typography className={classes.yearDisplay}>{year}</Typography>
+            <Typography className={classes.yearDisplay}>
+              {props.yearState}
+            </Typography>
           </Grid>
         </Grid>
         <Grid item>
-          <ArrowForwardIosIcon className={classes.arrowForward} />
+          <ArrowForwardIosIcon onClick={nextMonth} />
         </Grid>
         <Grid item>
           <Button

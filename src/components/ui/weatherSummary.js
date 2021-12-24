@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import Weather from "./Weather";
+import Weather from "./weather";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";

@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 //Custom Component Import
 import InputCust from "../component/InputCust";
 import DatePick from "../component/DatePick";
-import DayPick from "../component/DayPick";
+import InputLabelCust from "../component/InputLabelCust";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
@@ -53,19 +53,29 @@ export default function CalanderNewEntry(props) {
                 New Calander Entry
               </Typography>
             </Grid>
-            <Grid item style={{width: "100%"}}>
-              <InputCust id={"standard-error-helper-text"} label={"Title"} helperText={""}/>
+            <Grid item style={{ width: "100%" }}>
+              <InputCust
+                id={"newCalTitle"}
+                label={"Entry Title"}
+                helperText={""}
+                inputWidth={"96%"}
+              />
             </Grid>
-            <Grid item style={{width: "100%"}}>
-              <DatePick /><DayPick/>
+            <Grid item style={{ width: "100%" }}>
+              <DatePick inputWidth={"95%"} />
             </Grid>
-            
-            <Grid item>
+
+            <Grid
+              item
+              container
+              direction="row"
+              style={{ width: "100%", paddingLeft: "0.5em" }}
+            >
+              <InputLabelCust label={"Start"} />
               <TextField
                 id="time"
-                // label="Alarm clock"
                 type="time"
-                defaultValue="04:20"
+                defaultValue="00:00"
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true,
@@ -73,9 +83,9 @@ export default function CalanderNewEntry(props) {
                 inputProps={{
                   step: 300, // 5 min
                 }}
+                style={{ width: "30%" }}
               />
             </Grid>
-            
           </Grid>
         </Paper>
       </Grid>
