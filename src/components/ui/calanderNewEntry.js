@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Config from "../../json/select.json";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,14 +10,18 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 
 //Custom Component Import
+import ButtonCust from "../component/ButtonCust";
 import InputCust from "../component/InputCust";
+import InputMultiCust from "../component/InputMultiCust";
 import DatePick from "../component/DatePick";
 import InputLabelCust from "../component/InputLabelCust";
+import SelectCust from "../component/SelectCust";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     width: "100%",
+    
   },
   appointGrid: {
     width: "100%",
@@ -28,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
   titleTyp: { marginRight: "0.5em" },
   dateTyp: { marginRight: "0.5em" },
   paperStyle: {
-    backgroundColor: theme.palette.secondary.main,
+    // backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#ebffdb",
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -40,6 +46,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CalanderNewEntry(props) {
   const classes = useStyles();
+
+  const [acceptDisable, setAcceptDisable] = useState(true);
+  const [newEntryFields, setNewEntryFields] = useState({
+    entryTitle: "",
+    entryDate: "2021/12/29",
+    entryStart: "",
+    entryEnd: "",
+    entryType: "None",
+    entryNotes: "",
+  });
+
+  const submitCalEntry = () => {
+    console.log("This is a test");
+    console.log(
+      "Submit data to backend here for new calander entry. All field have data but not validated"
+    );
+  };
+
+  const cancelCalEntry = () => {
+    props.setNewCalEntry(!props.setNewCalEntry);
+  };
 
   useEffect(() => {}, []);
 
@@ -59,10 +86,18 @@ export default function CalanderNewEntry(props) {
                 label={"Entry Title"}
                 helperText={""}
                 inputWidth={"96%"}
+                fieldName="entryTitle"
+                value={newEntryFields.entryTitle}
+                curState={newEntryFields}
+                setCurState={setNewEntryFields}
               />
             </Grid>
             <Grid item style={{ width: "100%" }}>
-              <DatePick inputWidth={"95%"} />
+              <DatePick
+                inputWidth={"95%"}
+                newEntryFields={newEntryFields}
+                setNewEntryFields={setNewEntryFields}
+              />
             </Grid>
 
             <Grid
@@ -71,11 +106,12 @@ export default function CalanderNewEntry(props) {
               direction="row"
               style={{ width: "100%", paddingLeft: "0.5em" }}
             >
-              <InputLabelCust label={"Start"} />
-              <TextField
+              <InputLabelCust label={"Start"} inputWidth="15%" />
+              <InputCust
                 id="time"
                 type="time"
-                defaultValue="00:00"
+                fieldName="entryStart"
+                name="entryStart"
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true,
@@ -84,6 +120,80 @@ export default function CalanderNewEntry(props) {
                   step: 300, // 5 min
                 }}
                 style={{ width: "30%" }}
+                curState={newEntryFields}
+                setCurState={setNewEntryFields}
+              />
+
+              <InputLabelCust label={"End"} inputWidth="15%" />
+              <InputCust
+                id="time"
+                type="time"
+                fieldName="entryEnd"
+                name="entryEnd"
+                className={classes.textField}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  step: 300, // 5 min
+                }}
+                style={{ width: "30%" }}
+                curState={newEntryFields}
+                setCurState={setNewEntryFields}
+              />
+            </Grid>
+            <Grid item style={{ width: "100%" }}>
+              <SelectCust
+                name="entryType"
+                label="Entry Type"
+                labelId="entryType"
+                inputWidth="100%"
+                menuArr={Config.calEntryType}
+                curState={newEntryFields}
+                setCurState={setNewEntryFields}
+                value={newEntryFields.entryType}
+              />
+            </Grid>
+            <Grid item style={{ width: "100%" }}>
+              <InputMultiCust
+                name="entryNotes"
+                inputWidth="95%"
+                id={"entryNote"}
+                label={"Entry Notes"}
+                helperText={""}
+                newEntryFields={newEntryFields}
+                setNewEntryFields={setNewEntryFields}
+                value={newEntryFields.entryNotes}
+              />
+            </Grid>
+            <Grid
+              item
+              container
+              justifyContent="space-around"
+              style={{ width: "100%" }}
+            >
+              <ButtonCust
+                butName="Accept"
+                buttonWidth="75%"
+                variant="contained"
+                color="primary"
+                onClick={submitCalEntry}
+                disabled={
+                  newEntryFields.entryTitle === "" ||
+                  newEntryFields.entryDate === "" ||
+                  newEntryFields.entryStart === "" ||
+                  newEntryFields.entryEnd === "" ||
+                  newEntryFields.entryType === "" ||
+                  newEntryFields.entryType === "None" ||
+                  newEntryFields.entryNotes === ""
+                }
+              />
+              <ButtonCust
+                butName="Cancel"
+                buttonWidth="75%"
+                variant="contained"
+                color="secondary"
+                onClick={cancelCalEntry}
               />
             </Grid>
           </Grid>

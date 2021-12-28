@@ -6,10 +6,10 @@ const selectNewJournal = (state) => (state.siteNav);
 // const selectSignIn = (state) => state.user;
 // const selectSignUp = (state) => state.user;
 
-export const selectDispNewJournal = createSelector(
-  [selectNewJournal],
-  (siteNav) => siteNav.displayNewJournal
-);
+// export const selectDispNewJournal = createSelector(
+//   [selectNewJournal],
+//   (siteNav) => siteNav.displayNewJournal
+// );
 
 // export const selectCurrentUser = createSelector(
 //   [selectUser],

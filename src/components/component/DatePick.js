@@ -1,18 +1,11 @@
 import React from "react";
+
+//Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+import { KeyboardDatePicker } from "@material-ui/pickers";
 
 import Config from "../../json/select.json";
-
-import InputLabelCust from "./InputLabelCust";
-import SelectCust from "./SelectCust";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -25,18 +18,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DatePickers(props) {
   const classes = useStyles();
-  // const [age, setAge] = React.useState("");
 
-  const cm = new Date();
-  const currentMonth = Config.monthSet[cm.getMonth()];
-  console.log(currentMonth);
-
-  const handleChange = (event) => {
-    console.log("Change man!!");
-  };
-
-  const handleDateChange = () => {
-    console.log("More Change!");
+  const updateState = (event) => {
+    props.setNewEntryFields({
+      ...props.newEntryFields,
+      entryDate: event.toISOString(),
+    });
   };
 
   return (
@@ -46,11 +33,12 @@ export default function DatePickers(props) {
     >
       <KeyboardDatePicker
         margin="normal"
+        name="entryDate"
         id="date-picker-dialog"
         label="Select Date"
         format="yyyy/MM/dd"
-        // value={selectedDate}
-        onChange={handleDateChange}
+        onChange={updateState}
+        value={props.newEntryFields.entryDate}
         KeyboardButtonProps={{
           "aria-label": "change date",
         }}

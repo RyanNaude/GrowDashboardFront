@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -47,7 +47,7 @@ export default function Weather(props) {
   var minTemp = Math.round(Number(props.day.temp.min));
   var maxTemp = Math.round(Number(props.day.temp.max));
 
-  const [dayData, setDayData] = useState({
+  const dayData = ({
     date: dispDate,
     minTemp: minTemp,
     maxTemp: maxTemp,

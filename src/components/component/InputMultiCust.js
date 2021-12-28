@@ -6,12 +6,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      // width: 200,
+      width: "100%",
     },
   },
 }));
 
-export default function ValidationTextFields(props) {
+export default function ValidationTextMultiFields(props) {
   const classes = useStyles();
 
   const updateState = (event) => {
@@ -22,22 +22,20 @@ export default function ValidationTextFields(props) {
   };
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form className={classes.root} noValidate autoComplete="off" style={{ width: props.inputWidth}}>
       <div>
         <TextField
           //   error
           id={props.id}
           label={props.label}
           helperText={props.helperText}
-          style={{ width: props.inputWidth }}
+          multiline
+          rows={3}
           onChange={updateState}
-          name={props.fieldName}
-          type={props.type}
-          InputLabelProps={props.InputLabelProps}
-          inputProps={props.inputProps}
           value={props.value}
-          defaultValue={props.defaultValue}
-          margin="dense"
+          name={props.name}
+          placeholder={props.placeholder}
+          
         />
       </div>
     </form>

@@ -8,11 +8,6 @@ import Carousel from "react-material-ui-carousel";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
-//Redux imports
-import { useSelector, useDispatch } from "react-redux";
-import { displayNewJournal } from "../../redux/siteNav/siteNav.actions";
-import { selectDispNewJournal } from "../../redux/siteNav/siteNav.selector";
-
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,10 +49,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CurrentJournals(props) {
   const classes = useStyles();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   //Get Global State
-  const dispNewJournal = useSelector(selectDispNewJournal);
+  // const dispNewJournal = useSelector(selectDispNewJournal);
 
   //Get Local State
   const [activeJournals, setActiveJournals] = useState([]);
@@ -93,7 +88,8 @@ export default function CurrentJournals(props) {
   };
 
   const togNewJournalDisplay = () => {
-    dispatch(displayNewJournal(!dispNewJournal));
+    // dispatch(displayNewJournal(!dispNewJournal));
+    props.setDispNewJournal(!props.dispNewJournal);
   };
 
   useEffect(() => {

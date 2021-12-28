@@ -1,6 +1,6 @@
 import React from "react";
 
-import InputLabel from '@material-ui/core/InputLabel';
+import InputLabel from "@material-ui/core/InputLabel";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -19,21 +19,31 @@ const useStyles = makeStyles((theme) => ({
 export default function SelectCust(props) {
   const classes = useStyles();
 
-  const handleChange = () => {
-    console.log("Change... Its happening");
+  const updateState = (event) => {
+    props.setCurState({
+      ...props.curState,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
-    <FormControl className={classes.formControl}>
-    <InputLabel id={props.label}>{props.label}</InputLabel>
+    <FormControl className={classes.formControl} style={{ width: "95%" }}>
+      <InputLabel id={props.label}>{props.label}</InputLabel>
       <Select
         labelId={props.labelId}
         id={props.id}
         value={props.value}
-        onChange={handleChange}
+        onChange={updateState}
+        style={{ width: props.inputWidth }}
+        name={props.name}
+        value={props.value}
       >
-        {props.menuArr.map((item) => {
-          return <MenuItem value={item}>{item}</MenuItem>;
+        {props.menuArr.map((item, i) => {
+          return (
+            <MenuItem value={item} key={i}>
+              {item}
+            </MenuItem>
+          );
         })}
       </Select>
     </FormControl>

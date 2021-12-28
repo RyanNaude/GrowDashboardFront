@@ -4,8 +4,6 @@ import Config from "../../json/select.json";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
-
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Chip from "@material-ui/core/chip";
@@ -15,13 +13,15 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
+
+//Custom component import
+import ButtonCust from "../component/ButtonCust";
+import InputCust from "../component/InputCust";
+import InputMultiCust from "../component/InputMultiCust";
+import SelectCust from "../component/SelectCust";
 
 //Redux imports
-import { useSelector, useDispatch } from "react-redux";
-import { displayNewJournal } from "../../redux/siteNav/siteNav.actions";
-import { selectDispNewJournal } from "../../redux/siteNav/siteNav.selector";
+import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 
 //Custom useStyles
@@ -94,16 +94,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.light,
     fontSize: "12pt",
   },
+  gridItemStyle: {
+    marginTop: "0.5em",
+    width: "100%",
+  },
 }));
 
 export default function NewJournal(props) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-
-  console.log(Config.lightType);
 
   //Get Global State
-  const dispNewJournal = useSelector(selectDispNewJournal);
   const currentUser = useSelector(selectCurrentUser);
 
   //Setup Local State
@@ -128,12 +128,14 @@ export default function NewJournal(props) {
 
   //Updating journals
   const updateJournal = (event) => {
-    setFullJournal({ ...fullJournal, [event.target.name]: event.target.value });
+    console.log("UPDATE JOURNAL");
+    // setFullJournal({ ...fullJournal, [event.target.name]: event.target.value });
   };
 
   const cancelNewJournal = () => {
     setExpanded(false);
-    dispatch(displayNewJournal(!dispNewJournal));
+    props.setDispNewJournal(!props.dispNewJournal);
+    // dispatch(displayNewJournal(!dispNewJournal));
   };
 
   //Journal Data Processing
@@ -181,146 +183,96 @@ export default function NewJournal(props) {
       <CardContent style={{ border: "0px solid", padding: "0" }}>
         <Grid container direction="column" style={{ width: "100%" }}>
           <Grid item style={{ width: "100%" }}>
-            <TextField
-              required
-              id="standard-required"
-              label="New Journal Name"
-              onChange={updateJournal}
-              name="jName"
+            <InputCust
+              id={"newJournalTitle"}
+              label={"New Journal Name"}
+              fieldName={"jName"}
+              helperText={""}
+              inputWidth={"96%"}
               value={fullJournal.jName}
-              fullWidth
-              className={classes.journalInput}
-              margin="dense"
+              curState={fullJournal}
+              setCurState={setFullJournal}
+              // onChange={updateJournal}
             />
           </Grid>
 
-          <Grid item style={{ width: "100%", marginTop: "1em" }}>
-            <FormControl
-              className={classes.formControl}
-              style={{ width: "100%" }}
-            >
-              <InputLabel id="demo-simple-select-label">Room Type</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                style={{ width: "100%" }}
-                name="roomType"
-                onChange={updateJournal}
-                value={fullJournal.roomType}
-              >
-                {Config.roomType.map((room) => (
-                  <MenuItem key={room} value={room}>
-                    {room}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+          <Grid item className={classes.gridItemStyle}>
+            <SelectCust
+              name="roomType"
+              label="Room Type"
+              labelId="watering_type"
+              inputWidth="100%"
+              menuArr={Config.roomType}
+              curState={fullJournal}
+              setCurState={setFullJournal}
+              value={fullJournal.roomType}
+            />
           </Grid>
-          <Grid item style={{ width: "100%", marginTop: "1em" }}>
-            <FormControl
-              className={classes.formControl}
-              style={{ width: "100%" }}
-            >
-              <InputLabel id="demo-simple-select-label">
-                Watering Type
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                style={{ width: "100%" }}
-                name="waterType"
-                onChange={updateJournal}
-                value={fullJournal.waterType}
-              >
-                {Config.waterType.map((water) => (
-                  <MenuItem key={water} value={water}>
-                    {water}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+          <Grid item className={classes.gridItemStyle}>
+            <SelectCust
+              name="waterType"
+              label="Entry Type"
+              labelId="watering_type"
+              inputWidth="100%"
+              menuArr={Config.waterType}
+              curState={fullJournal}
+              setCurState={setFullJournal}
+              value={fullJournal.waterType}
+            />
           </Grid>
-          <Grid item container style={{ width: "100%", marginTop: "1em" }}>
+          <Grid item container className={classes.gridItemStyle}>
             <Grid item style={{ width: "50%" }}>
-              <TextField
-                required
-                type="number"
-                id="standard-required"
-                label="Wattage"
-                onChange={updateJournal}
-                name="vegWatt"
+              <InputCust
+                id={"newJournalTitle"}
+                label={"Veg Wattage"}
+                fieldName={"vegWatt"}
+                helperText={""}
+                inputWidth={"96%"}
                 value={fullJournal.vegWatt}
-                fullWidth
-                className={classes.journalInput}
-                margin="dense"
-              />
-            </Grid>
-            <Grid item style={{ width: "50%" }}>
-              <FormControl
-                className={classes.formControl}
-                style={{ width: "100%" }}
-              >
-                <InputLabel id="demo-simple-select-label">
-                  Veg. Light
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  style={{ width: "100%" }}
-                  name="vegLight"
-                  onChange={updateJournal}
-                  value={fullJournal.vegLight}
-                >
-                  {Config.lightType.map((light) => (
-                    <MenuItem key={light} value={light}>
-                      {light}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-          <Grid item container style={{ width: "100%", marginTop: "1em" }}>
-            <Grid item style={{ width: "50%" }}>
-              <TextField
-                required
+                curState={fullJournal}
+                setCurState={setFullJournal}
                 type="number"
-                id="standard-required"
-                label="Wattage"
-                onChange={updateJournal}
-                name="flowerWatt"
-                value={fullJournal.flowerWatt}
-                fullWidth
-                className={classes.journalInput}
-                margin="dense"
               />
             </Grid>
             <Grid item style={{ width: "50%" }}>
-              <FormControl
-                className={classes.formControl}
-                style={{ width: "100%" }}
-              >
-                <InputLabel id="demo-simple-select-label">
-                  Flower. Light
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  style={{ width: "100%" }}
-                  name="flowLight"
-                  onChange={updateJournal}
-                  value={fullJournal.flowLight}
-                >
-                  {Config.lightType.map((light) => (
-                    <MenuItem key={light} value={light}>
-                      {light}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+              <SelectCust
+                name="vegLight"
+                label="Veg Light Type"
+                inputWidth="100%"
+                menuArr={Config.lightType}
+                curState={fullJournal}
+                setCurState={setFullJournal}
+                value={fullJournal.vegLight}
+              />
             </Grid>
           </Grid>
-          <Grid item style={{ width: "100%", marginTop: "1em" }}>
+          <Grid item container className={classes.gridItemStyle}>
+            <Grid item style={{ width: "50%" }}>
+              <InputCust
+                id={"newJournalTitle"}
+                label={"Flower Wattage"}
+                fieldName={"flowerWatt"}
+                helperText={""}
+                inputWidth={"96%"}
+                value={fullJournal.flowerWatt}
+                curState={fullJournal}
+                setCurState={setFullJournal}
+                type="number"
+              />
+            </Grid>
+            <Grid item style={{ width: "50%" }}>
+              <SelectCust
+                name="flowLight"
+                label="Flower Light Type"
+                inputWidth="100%"
+                menuArr={Config.lightType}
+                curState={fullJournal}
+                setCurState={setFullJournal}
+                value={fullJournal.flowLight}
+              />
+            </Grid>
+          </Grid>
+          <Grid item className={classes.gridItemStyle}>
             <FormControl
               className={classes.formControl}
               style={{ width: "100%" }}
@@ -355,25 +307,19 @@ export default function NewJournal(props) {
               </Select>
             </FormControl>
           </Grid>
-          <br />
-          <Grid item style={{ width: "100%" }}>
-            <Typography className={classes.journalDescTitle}>
-              Journal Description
-            </Typography>
-            <Grid item container justifyContent="center">
-              <TextField
-                InputProps={{ disableUnderline: true }}
-                value={fullJournal.jDesc}
-                className={classes.journalDesc}
-                multiline
-                fullWidth
-                rows={3}
-                name="jDesc"
-                id="message"
-                onChange={updateJournal}
-                placeholder="Short description of journal..."
-              />
-            </Grid>
+          <Grid item container className={classes.gridItemStyle}>
+            <InputMultiCust
+              name="jDesc"
+              inputWidth="100%"
+              id={"entryNote"}
+              label={"Journal Description"}
+              helperText={""}
+              curState={fullJournal}
+              setCurState={setFullJournal}
+              value={fullJournal.jDesc}
+              placeholder="Short description of journal..."
+              inputWidth={"95%"}
+            />
           </Grid>
           <Grid
             item
@@ -383,29 +329,38 @@ export default function NewJournal(props) {
             justifyContent="center"
           >
             <Grid item>
-              <Button
+              <ButtonCust
+                butName="Create"
+                buttonWidth="75%"
                 variant="contained"
                 color="primary"
-                className={classes.journalButton}
                 onClick={createJournal}
-              >
-                Create
-              </Button>
+                disabled={
+                  fullJournal.jName === "" ||
+                  fullJournal.jDesc === "" ||
+                  fullJournal.roomType === "" ||
+                  fullJournal.waterType === "" ||
+                  fullJournal.vegLight === "" ||
+                  fullJournal.flowLight === "" ||
+                  soilTypeState === "" ||
+                  fullJournal.vegWatt === "" ||
+                  fullJournal.flowerWatt === "" ||
+                  fullJournal.username === ""
+                }
+              />
             </Grid>
             <Grid item>
-              <Button
+              <ButtonCust
+                butName="Cancel"
+                buttonWidth="75%"
                 variant="contained"
                 color="secondary"
-                className={classes.journalButton}
                 onClick={cancelNewJournal}
-              >
-                Cancel
-              </Button>
+              />
             </Grid>
           </Grid>
         </Grid>
       </CardContent>
-      {/* </Collapse> */}
     </Card>
   );
 }

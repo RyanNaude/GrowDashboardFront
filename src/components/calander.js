@@ -78,7 +78,7 @@ export default function Calander(props) {
   useEffect(() => {
     setYearState(year);
     setMonthState(month);
-  }, []);
+  },[]);
 
   return (
     <div>
@@ -98,7 +98,12 @@ export default function Calander(props) {
             </Grid>
 
             <Grid item style={{ marginTop: "0.5em", width: "100%" }}>
-              {newCalEntry ? <CalanderNewEntry /> : null}
+              {newCalEntry ? (
+                <CalanderNewEntry
+                  newCalEntry={newCalEntry}
+                  setNewCalEntry={setNewCalEntry}
+                />
+              ) : null}
             </Grid>
             <Grid item style={{ marginTop: "0.5em" }}>
               {timeArray.map((time, index) => (

@@ -81,6 +81,7 @@ export default function Home(props) {
 
   const pageSource = "HME";
 
+  const [dispNewJournal, setDispNewJournal] = useState(false);
   const [fullJournal, setFullJournal] = useState({
     jName: "",
     jDesc: "",
@@ -92,7 +93,7 @@ export default function Home(props) {
   });
 
   //Get Global State
-  const dispNewJournal = useSelector(selectDispNewJournal);
+  // const dispNewJournal = useSelector(selectDispNewJournal);
 
   //useEffect - Getting journals loaded on database
   useEffect(() => {
@@ -110,8 +111,18 @@ export default function Home(props) {
               width: "100%",
             }}
           >
-            {dispNewJournal ? null : <CurrentJournals />}
-            {dispNewJournal ? <NewJournal /> : null}
+            {dispNewJournal ? null : (
+              <CurrentJournals
+                dispNewJournal={dispNewJournal}
+                setDispNewJournal={setDispNewJournal}
+              />
+            )}
+            {dispNewJournal ? (
+              <NewJournal
+                dispNewJournal={dispNewJournal}
+                setDispNewJournal={setDispNewJournal}
+              />
+            ) : null}
             {dispNewJournal ? null : (
               <WeatherSummary
                 weatherRefresh={props.weatherRefresh}

@@ -8,12 +8,12 @@ const INITIAL_STATE = {
 
 const siteNavReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case userActionTypes.DISP_NEW_JOURNAL:
-      return {
-        ...state,
-        displayNewJournal: action.payload,
-        error: null,
-      };
+    // case userActionTypes.DISP_NEW_JOURNAL:
+    //   return {
+    //     ...state,
+    //     displayNewJournal: action.payload,
+    //     error: null,
+    //   };
 
     // case userActionTypes.SET_SIGN_IN:
     //   return {

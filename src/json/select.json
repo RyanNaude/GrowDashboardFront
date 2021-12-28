@@ -8,22 +8,9 @@
     "Mineral Wood",
     "Other"
   ],
-  "roomType": [
-    "Indoor",
-    "Outdoor",
-    "Greenhouse"
-  ],
-  "waterType": [
-    "Manual",
-    "Drip",
-    "Hydroponic",
-    "Aeroponic"
-  ],
-  "lightType": [
-    "LED",
-    "HPS",
-    "HID"
-  ],
+  "roomType": ["Indoor", "Outdoor", "Greenhouse"],
+  "waterType": ["Manual", "Drip", "Hydroponic", "Aeroponic"],
+  "lightType": ["LED", "HPS", "HID"],
   "monthSet": [
     "January",
     "February",
@@ -37,5 +24,15 @@
     "October",
     "November",
     "December"
+  ],
+  "calEntryType": [
+    "None",
+    "Feeding",
+    "Flushing",
+    "Germinate",
+    "IPM - Itegrated pest management",
+    "Training",
+    "Transplant",
+    "Trimming"
   ]
 }
