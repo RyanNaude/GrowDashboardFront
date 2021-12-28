@@ -86,7 +86,7 @@ export default function CalanderNewEntry(props) {
                 label={"Entry Title"}
                 helperText={""}
                 inputWidth={"96%"}
-                fieldName="entryTitle"
+                name="entryTitle"
                 value={newEntryFields.entryTitle}
                 curState={newEntryFields}
                 setCurState={setNewEntryFields}
@@ -110,7 +110,7 @@ export default function CalanderNewEntry(props) {
               <InputCust
                 id="time"
                 type="time"
-                fieldName="entryStart"
+                name="entryStart"
                 name="entryStart"
                 className={classes.textField}
                 InputLabelProps={{
@@ -128,7 +128,7 @@ export default function CalanderNewEntry(props) {
               <InputCust
                 id="time"
                 type="time"
-                fieldName="entryEnd"
+                name="entryEnd"
                 name="entryEnd"
                 className={classes.textField}
                 InputLabelProps={{

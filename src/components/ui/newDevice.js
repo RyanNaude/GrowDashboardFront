@@ -100,27 +100,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NewJournal(props) {
+export default function NewDevice(props) {
   const classes = useStyles();
 
   //Get Global State
   const currentUser = useSelector(selectCurrentUser);
 
   //Setup Local State
-  const [expanded, setExpanded] = useState(false);
-  const [soilTypeState, setSoilTypeState] = useState([]);
-  const [fullJournal, setFullJournal] = useState({
-    jName: "",
-    jDesc: "",
-    roomType: "",
-    waterType: "",
-    vegLight: "",
-    flowLight: "",
-    growMedium: "",
-    vegWatt: "",
-    flowerWatt: "",
-    username: currentUser,
-  });
+  // const [expanded, setExpanded] = useState(false);
+  // const [soilTypeState, setSoilTypeState] = useState([]);
+  // const [fullJournal, setFullJournal] = useState({
+  //   jName: "",
+  //   jDesc: "",
+  //   roomType: "",
+  //   waterType: "",
+  //   vegLight: "",
+  //   flowLight: "",
+  //   growMedium: "",
+  //   vegWatt: "",
+  //   flowerWatt: "",
+  //   username: currentUser,
+  // });
 
   useEffect(() => {
     // getJournals();
@@ -128,55 +128,55 @@ export default function NewJournal(props) {
 
   //Updating journals
   const updateJournal = (event) => {
-    console.log("UPDATE JOURNAL");
+    // console.log("UPDATE JOURNAL");
     // setFullJournal({ ...fullJournal, [event.target.name]: event.target.value });
   };
 
   const cancelNewJournal = () => {
-    setExpanded(false);
-    props.setDispNewJournal(!props.dispNewJournal);
+    // setExpanded(false);
+    // props.setDispNewJournal(!props.dispNewJournal);
     // dispatch(displayNewJournal(!dispNewJournal));
   };
 
   //Journal Data Processing
   //Requesting -  Create new journal on backend
-  const createJournal = async () => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        journalNameField: fullJournal.jName,
-        journalDescField: fullJournal.jDesc,
-        journalRoomType: fullJournal.roomType,
-        journalWaterType: fullJournal.waterType,
-        journalVegLight: fullJournal.vegLight,
-        journalFlowLight: fullJournal.flowLight,
-        journalGrowMedium: soilTypeState,
-        journalVegWatt: fullJournal.vegWatt,
-        journalFlowerWatt: fullJournal.flowerWatt,
-        journalUsername: fullJournal.username,
-      }),
-    };
-    fetch("http://localhost:4000/journal/createJournal", requestOptions)
-      .then((response) => response.json())
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
-  };
+  // const createJournal = async () => {
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       journalNameField: fullJournal.jName,
+  //       journalDescField: fullJournal.jDesc,
+  //       journalRoomType: fullJournal.roomType,
+  //       journalWaterType: fullJournal.waterType,
+  //       journalVegLight: fullJournal.vegLight,
+  //       journalFlowLight: fullJournal.flowLight,
+  //       journalGrowMedium: soilTypeState,
+  //       journalVegWatt: fullJournal.vegWatt,
+  //       journalFlowerWatt: fullJournal.flowerWatt,
+  //       journalUsername: fullJournal.username,
+  //     }),
+  //   };
+  //   fetch("http://localhost:4000/journal/createJournal", requestOptions)
+  //     .then((response) => response.json())
+  //     .then((response) => console.log(response))
+  //     .catch((error) => console.log(error));
+  // };
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
+  // const ITEM_HEIGHT = 48;
+  // const ITEM_PADDING_TOP = 8;
+  // const MenuProps = {
+  //   PaperProps: {
+  //     style: {
+  //       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+  //       width: 250,
+  //     },
+  //   },
+  // };
 
-  const handleChangeMultiple = (event) => {
-    setSoilTypeState(event.target.value);
-  };
+  // const handleChangeMultiple = (event) => {
+  //   setSoilTypeState(event.target.value);
+  // };
 
   return (
     <Card className={classes.root}>

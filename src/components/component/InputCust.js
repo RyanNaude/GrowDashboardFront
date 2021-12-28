@@ -31,7 +31,7 @@ export default function ValidationTextFields(props) {
           helperText={props.helperText}
           style={{ width: props.inputWidth }}
           onChange={updateState}
-          name={props.fieldName}
+          name={props.name}
           type={props.type}
           InputLabelProps={props.InputLabelProps}
           inputProps={props.inputProps}
