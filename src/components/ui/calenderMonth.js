@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "0.3em",
     paddingRight: "0.3em",
     paddingLeft: "0.3em",
+    marginTop: "0.5em",
+    marginBottom: "0.5em",
     borderRadius: "5px",
   },
   dayPaper: {

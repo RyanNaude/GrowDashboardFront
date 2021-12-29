@@ -19,12 +19,6 @@ const useStyles = makeStyles((theme) => ({
 export default function SelectCust(props) {
   const classes = useStyles();
 
-  const updateState = (event) => {
-    props.setCurState({
-      ...props.curState,
-      [event.target.name]: event.target.value,
-    });
-  };
 
   return (
     <FormControl className={classes.formControl} style={{ width: "95%" }}>
@@ -33,10 +27,9 @@ export default function SelectCust(props) {
         labelId={props.labelId}
         id={props.id}
         value={props.value}
-        onChange={updateState}
+        onChange={props.onChange}
         style={{ width: props.inputWidth }}
         name={props.name}
-        value={props.value}
       >
         {props.menuArr.map((item, i) => {
           return (

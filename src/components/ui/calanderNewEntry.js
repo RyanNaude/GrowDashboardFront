@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 
 //Custom Component Import
@@ -21,7 +20,8 @@ import SelectCust from "../component/SelectCust";
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     width: "100%",
-    
+    marginBottom: "0.5em",
+    marginTop: "0.5em",
   },
   appointGrid: {
     width: "100%",
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CalanderNewEntry(props) {
   const classes = useStyles();
 
-  const [acceptDisable, setAcceptDisable] = useState(true);
+  // const [acceptDisable, setAcceptDisable] = useState(true);
   const [newEntryFields, setNewEntryFields] = useState({
     entryTitle: "",
     entryDate: "2021/12/29",
@@ -65,7 +65,21 @@ export default function CalanderNewEntry(props) {
   };
 
   const cancelCalEntry = () => {
-    props.setNewCalEntry(!props.setNewCalEntry);
+    props.setNewCalEntry(!props.newCalEntry);
+  };
+
+  const updateState = (event) => {
+    setNewEntryFields({
+      ...newEntryFields,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const updateDateState = (event) => {
+    setNewEntryFields({
+      ...newEntryFields,
+      entryDate: event.toISOString(),
+    });
   };
 
   useEffect(() => {}, []);
@@ -90,13 +104,16 @@ export default function CalanderNewEntry(props) {
                 value={newEntryFields.entryTitle}
                 curState={newEntryFields}
                 setCurState={setNewEntryFields}
+                onChange={updateState}
               />
             </Grid>
             <Grid item style={{ width: "100%" }}>
               <DatePick
+                name={"entryDate"}
                 inputWidth={"95%"}
                 newEntryFields={newEntryFields}
                 setNewEntryFields={setNewEntryFields}
+                onChange={updateDateState}
               />
             </Grid>
 
@@ -111,7 +128,6 @@ export default function CalanderNewEntry(props) {
                 id="time"
                 type="time"
                 name="entryStart"
-                name="entryStart"
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true,
@@ -122,6 +138,7 @@ export default function CalanderNewEntry(props) {
                 style={{ width: "30%" }}
                 curState={newEntryFields}
                 setCurState={setNewEntryFields}
+                onChange={updateState}
               />
 
               <InputLabelCust label={"End"} inputWidth="15%" />
@@ -129,7 +146,6 @@ export default function CalanderNewEntry(props) {
                 id="time"
                 type="time"
                 name="entryEnd"
-                name="entryEnd"
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true,
@@ -140,6 +156,7 @@ export default function CalanderNewEntry(props) {
                 style={{ width: "30%" }}
                 curState={newEntryFields}
                 setCurState={setNewEntryFields}
+                onChange={updateState}
               />
             </Grid>
             <Grid item style={{ width: "100%" }}>
@@ -152,6 +169,7 @@ export default function CalanderNewEntry(props) {
                 curState={newEntryFields}
                 setCurState={setNewEntryFields}
                 value={newEntryFields.entryType}
+                onChange={updateState}
               />
             </Grid>
             <Grid item style={{ width: "100%" }}>
@@ -164,6 +182,7 @@ export default function CalanderNewEntry(props) {
                 newEntryFields={newEntryFields}
                 setNewEntryFields={setNewEntryFields}
                 value={newEntryFields.entryNotes}
+                onChange={updateState}
               />
             </Grid>
             <Grid

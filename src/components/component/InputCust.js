@@ -6,20 +6,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      // width: 200,
     },
   },
 }));
 
 export default function ValidationTextFields(props) {
   const classes = useStyles();
-
-  const updateState = (event) => {
-    props.setCurState({
-      ...props.curState,
-      [event.target.name]: event.target.value,
-    });
-  };
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -30,7 +22,7 @@ export default function ValidationTextFields(props) {
           label={props.label}
           helperText={props.helperText}
           style={{ width: props.inputWidth }}
-          onChange={updateState}
+          onChange={props.onChange}
           name={props.name}
           type={props.type}
           InputLabelProps={props.InputLabelProps}

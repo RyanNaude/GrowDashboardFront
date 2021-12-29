@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
     backgroundColor: "#ebffdb",
+    marginTop: "0.5em",
   },
   media: {
     height: 0,
@@ -96,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   },
   gridItemStyle: {
     marginTop: "0.5em",
-    width: "100%",
+    // width: "100%",
   },
 }));
 
@@ -178,11 +179,18 @@ export default function NewJournal(props) {
     setSoilTypeState(event.target.value);
   };
 
+  const updateState = (event) => {
+    setFullJournal({
+      ...fullJournal,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   return (
     <Card className={classes.root}>
       <CardContent style={{ border: "0px solid", padding: "0" }}>
-        <Grid container direction="column" style={{ width: "100%" }}>
-          <Grid item style={{ width: "100%" }}>
+        <Grid container direction="row" style={{ width: "100%" }}>
+          <Grid item xs={12}>
             <InputCust
               id={"newJournalTitle"}
               label={"New Journal Name"}
@@ -192,11 +200,11 @@ export default function NewJournal(props) {
               value={fullJournal.jName}
               curState={fullJournal}
               setCurState={setFullJournal}
-              // onChange={updateJournal}
+              onChange={updateState}
             />
           </Grid>
 
-          <Grid item className={classes.gridItemStyle}>
+          <Grid item className={classes.gridItemStyle} xs={6}>
             <SelectCust
               name="roomType"
               label="Room Type"
@@ -206,22 +214,24 @@ export default function NewJournal(props) {
               curState={fullJournal}
               setCurState={setFullJournal}
               value={fullJournal.roomType}
+              onChange={updateState}
             />
           </Grid>
-          <Grid item className={classes.gridItemStyle}>
+          <Grid item className={classes.gridItemStyle}  xs={6}>
             <SelectCust
               name="waterType"
-              label="Entry Type"
+              label="Watering Type"
               labelId="watering_type"
               inputWidth="100%"
               menuArr={Config.waterType}
               curState={fullJournal}
               setCurState={setFullJournal}
               value={fullJournal.waterType}
+              onChange={updateState}
             />
           </Grid>
           <Grid item container className={classes.gridItemStyle}>
-            <Grid item style={{ width: "50%" }}>
+            <Grid item xs={6}>
               <InputCust
                 id={"newJournalTitle"}
                 label={"Veg Wattage"}
@@ -232,9 +242,10 @@ export default function NewJournal(props) {
                 curState={fullJournal}
                 setCurState={setFullJournal}
                 type="number"
+                onChange={updateState}
               />
             </Grid>
-            <Grid item style={{ width: "50%" }}>
+            <Grid item xs={6}>
               <SelectCust
                 name="vegLight"
                 label="Veg Light Type"
@@ -243,11 +254,12 @@ export default function NewJournal(props) {
                 curState={fullJournal}
                 setCurState={setFullJournal}
                 value={fullJournal.vegLight}
+                onChange={updateState}
               />
             </Grid>
           </Grid>
           <Grid item container className={classes.gridItemStyle}>
-            <Grid item style={{ width: "50%" }}>
+            <Grid item xs={6}>
               <InputCust
                 id={"newJournalTitle"}
                 label={"Flower Wattage"}
@@ -258,9 +270,10 @@ export default function NewJournal(props) {
                 curState={fullJournal}
                 setCurState={setFullJournal}
                 type="number"
+                onChange={updateState}
               />
             </Grid>
-            <Grid item style={{ width: "50%" }}>
+            <Grid item xs={6}>
               <SelectCust
                 name="flowLight"
                 label="Flower Light Type"
@@ -269,10 +282,11 @@ export default function NewJournal(props) {
                 curState={fullJournal}
                 setCurState={setFullJournal}
                 value={fullJournal.flowLight}
+                onChange={updateState}
               />
             </Grid>
           </Grid>
-          <Grid item className={classes.gridItemStyle}>
+          <Grid item className={classes.gridItemStyle} xs={12}>
             <FormControl
               className={classes.formControl}
               style={{ width: "100%" }}
@@ -307,7 +321,7 @@ export default function NewJournal(props) {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item container className={classes.gridItemStyle}>
+          <Grid item container className={classes.gridItemStyle} xs={12}>
             <InputMultiCust
               name="jDesc"
               inputWidth="100%"
@@ -319,6 +333,7 @@ export default function NewJournal(props) {
               value={fullJournal.jDesc}
               placeholder="Short description of journal..."
               inputWidth={"95%"}
+              onChange={updateState}
             />
           </Grid>
           <Grid

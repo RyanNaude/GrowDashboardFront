@@ -9,7 +9,7 @@ import { red } from "@material-ui/core/colors";
 //Redux imports
 import { useSelector } from "react-redux";
 import { selectTokenState } from "../redux/user/user.selector";
-import { selectDispNewJournal } from "../redux/siteNav/siteNav.selector";
+// import { selectDispNewJournal } from "../redux/siteNav/siteNav.selector";
 
 //Component import
 import Unsigned from "./ui/unsigned";
@@ -82,15 +82,15 @@ export default function Home(props) {
   const pageSource = "HME";
 
   const [dispNewJournal, setDispNewJournal] = useState(false);
-  const [fullJournal, setFullJournal] = useState({
-    jName: "",
-    jDesc: "",
-    roomType: "",
-    waterType: "",
-    vegLight: "",
-    flowLight: "",
-    growMedium: "",
-  });
+  // const [fullJournal, setFullJournal] = useState({
+  //   jName: "",
+  //   jDesc: "",
+  //   roomType: "",
+  //   waterType: "",
+  //   vegLight: "",
+  //   flowLight: "",
+  //   growMedium: "",
+  // });
 
   //Get Global State
   // const dispNewJournal = useSelector(selectDispNewJournal);

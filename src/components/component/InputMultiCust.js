@@ -14,15 +14,13 @@ const useStyles = makeStyles((theme) => ({
 export default function ValidationTextMultiFields(props) {
   const classes = useStyles();
 
-  const updateState = (event) => {
-    props.setCurState({
-      ...props.curState,
-      [event.target.name]: event.target.value,
-    });
-  };
-
   return (
-    <form className={classes.root} noValidate autoComplete="off" style={{ width: props.inputWidth}}>
+    <form
+      className={classes.root}
+      noValidate
+      autoComplete="off"
+      style={{ width: props.inputWidth }}
+    >
       <div>
         <TextField
           //   error
@@ -31,11 +29,10 @@ export default function ValidationTextMultiFields(props) {
           helperText={props.helperText}
           multiline
           rows={3}
-          onChange={updateState}
+          onChange={props.onChange}
           value={props.value}
           name={props.name}
           placeholder={props.placeholder}
-          
         />
       </div>
     </form>

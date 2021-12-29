@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Button from "@material-ui/core/Button";
 import Carousel from "react-material-ui-carousel";
+import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
@@ -116,11 +117,13 @@ export default function CurrentJournals(props) {
                   className={classes.journalAddIcon}
                   justifyContent="flex-end"
                 >
-                  <AddCircleOutlineIcon
+                  <IconButton
                     className={classes.journalIcon}
                     style={{ zIndex: 1 }}
                     onClick={() => togNewJournalDisplay()}
-                  />
+                  >
+                    <AddCircleOutlineIcon />
+                  </IconButton>
                 </Grid>
               </Grid>
               <Grid item className={classes.journalDesc}>

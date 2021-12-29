@@ -85,7 +85,15 @@ export default function Calander(props) {
       <Grid container direction="column" className={classes.mainPageStyle}>
         {tokenState ? (
           <Grid item container>
-            <Grid item>
+           
+
+            <Grid item style={{ marginTop: "0.0em", width: "100%" }}>
+              {newCalEntry ? (
+                <CalanderNewEntry
+                  newCalEntry={newCalEntry}
+                  setNewCalEntry={setNewCalEntry}
+                />
+              ) :  <Grid item>
               <CalanderMonth
                 setNewCalEntry={setNewCalEntry}
                 newCalEntry={newCalEntry}
@@ -95,17 +103,9 @@ export default function Calander(props) {
                 setMonthState={setMonthState}
                 months={months}
               />
+            </Grid>}
             </Grid>
-
-            <Grid item style={{ marginTop: "0.5em", width: "100%" }}>
-              {newCalEntry ? (
-                <CalanderNewEntry
-                  newCalEntry={newCalEntry}
-                  setNewCalEntry={setNewCalEntry}
-                />
-              ) : null}
-            </Grid>
-            <Grid item style={{ marginTop: "0.5em" }}>
+            <Grid item style={{ marginTop: "0.0em" }}>
               {timeArray.map((time, index) => (
                 <CalanderEntry
                   key={index}

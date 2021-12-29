@@ -5,8 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 
-import Config from "../../json/select.json";
-
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -19,13 +17,6 @@ const useStyles = makeStyles((theme) => ({
 export default function DatePickers(props) {
   const classes = useStyles();
 
-  const updateState = (event) => {
-    props.setNewEntryFields({
-      ...props.newEntryFields,
-      entryDate: event.toISOString(),
-    });
-  };
-
   return (
     <FormControl
       className={classes.formControl}
@@ -37,7 +28,7 @@ export default function DatePickers(props) {
         id="date-picker-dialog"
         label="Select Date"
         format="yyyy/MM/dd"
-        onChange={updateState}
+        onChange={props.onChange}
         value={props.newEntryFields.entryDate}
         KeyboardButtonProps={{
           "aria-label": "change date",

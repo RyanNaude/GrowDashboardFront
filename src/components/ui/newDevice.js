@@ -13,6 +13,7 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import { Typography } from "@material-ui/core";
 
 //Custom component import
 import ButtonCust from "../component/ButtonCust";
@@ -98,6 +99,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "0.5em",
     width: "100%",
   },
+  typogGrid:{
+    backgroundColor: theme.palette.primary.main,
+    }
 }));
 
 export default function NewDevice(props) {
@@ -106,21 +110,16 @@ export default function NewDevice(props) {
   //Get Global State
   const currentUser = useSelector(selectCurrentUser);
 
-  //Setup Local State
-  // const [expanded, setExpanded] = useState(false);
-  // const [soilTypeState, setSoilTypeState] = useState([]);
-  // const [fullJournal, setFullJournal] = useState({
-  //   jName: "",
-  //   jDesc: "",
-  //   roomType: "",
-  //   waterType: "",
-  //   vegLight: "",
-  //   flowLight: "",
-  //   growMedium: "",
-  //   vegWatt: "",
-  //   flowerWatt: "",
-  //   username: currentUser,
-  // });
+  // Setup Local State
+  const [expanded, setExpanded] = useState(false);
+  const [fullDevice, setFullDevice] = useState({
+    deviceName: "",
+    deviceAmps: "",
+    deviceVolts: "",
+    deviceWatts: "",
+    deviceHours: "",
+    deviceRate: "",
+  });
 
   useEffect(() => {
     // getJournals();
@@ -129,198 +128,160 @@ export default function NewDevice(props) {
   //Updating journals
   const updateJournal = (event) => {
     // console.log("UPDATE JOURNAL");
-    // setFullJournal({ ...fullJournal, [event.target.name]: event.target.value });
+    // setFullDevice({ ...fullDevice, [event.target.name]: event.target.value });
   };
 
   const cancelNewJournal = () => {
-    // setExpanded(false);
-    // props.setDispNewJournal(!props.dispNewJournal);
-    // dispatch(displayNewJournal(!dispNewJournal));
+    props.setDispNewDevice(!props.dispNewDevice);
+    props.setDispCurDevice(!props.dispCurDevice);
   };
 
   //Journal Data Processing
   //Requesting -  Create new journal on backend
-  // const createJournal = async () => {
-  //   const requestOptions = {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       journalNameField: fullJournal.jName,
-  //       journalDescField: fullJournal.jDesc,
-  //       journalRoomType: fullJournal.roomType,
-  //       journalWaterType: fullJournal.waterType,
-  //       journalVegLight: fullJournal.vegLight,
-  //       journalFlowLight: fullJournal.flowLight,
-  //       journalGrowMedium: soilTypeState,
-  //       journalVegWatt: fullJournal.vegWatt,
-  //       journalFlowerWatt: fullJournal.flowerWatt,
-  //       journalUsername: fullJournal.username,
-  //     }),
-  //   };
-  //   fetch("http://localhost:4000/journal/createJournal", requestOptions)
-  //     .then((response) => response.json())
-  //     .then((response) => console.log(response))
-  //     .catch((error) => console.log(error));
-  // };
+  const createJournal = async () => {
+    console.log("Submit new device to backend");
+    // const requestOptions = {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     journalNameField: fullDevice.jName,
+    //     journalDescField: fullDevice.jDesc,
+    //     journalRoomType: fullDevice.roomType,
+    //     journalWaterType: fullDevice.waterType,
+    //     journalVegLight: fullDevice.vegLight,
+    //     journalFlowLight: fullDevice.flowLight,
+    //     journalGrowMedium: soilTypeState,
+    //     journalVegWatt: fullDevice.vegWatt,
+    //     journalFlowerWatt: fullDevice.flowerWatt,
+    //     journalUsername: fullDevice.username,
+    //   }),
+    // };
+    // fetch("http://localhost:4000/journal/createJournal", requestOptions)
+    //   .then((response) => response.json())
+    //   .then((response) => console.log(response))
+    //   .catch((error) => console.log(error));
+  };
 
-  // const ITEM_HEIGHT = 48;
-  // const ITEM_PADDING_TOP = 8;
-  // const MenuProps = {
-  //   PaperProps: {
-  //     style: {
-  //       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-  //       width: 250,
-  //     },
-  //   },
-  // };
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
 
-  // const handleChangeMultiple = (event) => {
-  //   setSoilTypeState(event.target.value);
-  // };
+  const updateState = (event) => {
+    setFullDevice({
+      ...fullDevice,
+      [event.target.name]: event.target.value,
+    });
+  };
 
   return (
     <Card className={classes.root}>
       <CardContent style={{ border: "0px solid", padding: "0" }}>
         <Grid container direction="column" style={{ width: "100%" }}>
+          <Grid item className={classes.typogGrid}>
+            <Typography variant="h6" style={{fontWeight: "normal", paddingLeft: "0.5em"}}>Add New Device</Typography>
+          </Grid>
+
           <Grid item style={{ width: "100%" }}>
             <InputCust
-              id={"newJournalTitle"}
-              label={"New Journal Name"}
-              name={"jName"}
+              id={"newDeviceName"}
+              label={"Device Name"}
+              name={"deviceName"}
               helperText={""}
               inputWidth={"96%"}
-              value={fullJournal.jName}
-              curState={fullJournal}
-              setCurState={setFullJournal}
-              // onChange={updateJournal}
+              value={fullDevice.deviceName}
+              curState={fullDevice}
+              setCurState={setFullDevice}
+              onChange={updateState}
+              type={"string"}
+            />
+          </Grid>
+          <Grid item container style={{ width: "100%" }}>
+            <Grid item xs={6}>
+              <InputCust
+                id={"newDeviceAmps"}
+                label={"Device Amperage"}
+                name={"deviceAmps"}
+                helperText={""}
+                inputWidth={"96%"}
+                value={fullDevice.deviceAmps}
+                curState={fullDevice}
+                setCurState={setFullDevice}
+                onChange={updateState}
+                type={"number"}
+              />
+            </Grid>
+
+            <Grid item xs={6}>
+              <InputCust
+                id={"newDeviceVolt"}
+                label={"Device Voltage"}
+                name={"deviceVolts"}
+                helperText={""}
+                inputWidth={"96%"}
+                value={fullDevice.deviceVolts}
+                curState={fullDevice}
+                setCurState={setFullDevice}
+                onChange={updateState}
+                type={"number"}
+              />
+            </Grid>
+
+            <Grid item xs={6}>
+              <InputCust
+                id={"newDeviceWatts"}
+                label={"Device Wattage"}
+                name={"deviceWatts"}
+                helperText={""}
+                inputWidth={"96%"}
+                value={fullDevice.deviceWatts}
+                curState={fullDevice}
+                setCurState={setFullDevice}
+                onChange={updateState}
+                type={"number"}
+              />
+            </Grid>
+
+            <Grid item xs={6}>
+              <InputCust
+                id={"newDeviceHours"}
+                label={"Device Hours On"}
+                name={"deviceHours"}
+                helperText={""}
+                inputWidth={"96%"}
+                value={fullDevice.deviceHours}
+                curState={fullDevice}
+                setCurState={setFullDevice}
+                onChange={updateState}
+                type={"number"}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid item style={{ width: "100%" }}>
+            <InputCust
+              id={"newDeviceRate"}
+              label={"Rand Per Kwh"}
+              name={"deviceRate"}
+              helperText={""}
+              inputWidth={"96%"}
+              value={fullDevice.deviceRate}
+              curState={fullDevice}
+              setCurState={setFullDevice}
+              onChange={updateState}
+              type={"number"}
+              min="1"
+              max="24"
+              // step="any"
             />
           </Grid>
 
-          <Grid item className={classes.gridItemStyle}>
-            <SelectCust
-              name="roomType"
-              label="Room Type"
-              labelId="watering_type"
-              inputWidth="100%"
-              menuArr={Config.roomType}
-              curState={fullJournal}
-              setCurState={setFullJournal}
-              value={fullJournal.roomType}
-            />
-          </Grid>
-          <Grid item className={classes.gridItemStyle}>
-            <SelectCust
-              name="waterType"
-              label="Entry Type"
-              labelId="watering_type"
-              inputWidth="100%"
-              menuArr={Config.waterType}
-              curState={fullJournal}
-              setCurState={setFullJournal}
-              value={fullJournal.waterType}
-            />
-          </Grid>
-          <Grid item container className={classes.gridItemStyle}>
-            <Grid item style={{ width: "50%" }}>
-              <InputCust
-                id={"newJournalTitle"}
-                label={"Veg Wattage"}
-                name={"vegWatt"}
-                helperText={""}
-                inputWidth={"96%"}
-                value={fullJournal.vegWatt}
-                curState={fullJournal}
-                setCurState={setFullJournal}
-                type="number"
-              />
-            </Grid>
-            <Grid item style={{ width: "50%" }}>
-              <SelectCust
-                name="vegLight"
-                label="Veg Light Type"
-                inputWidth="100%"
-                menuArr={Config.lightType}
-                curState={fullJournal}
-                setCurState={setFullJournal}
-                value={fullJournal.vegLight}
-              />
-            </Grid>
-          </Grid>
-          <Grid item container className={classes.gridItemStyle}>
-            <Grid item style={{ width: "50%" }}>
-              <InputCust
-                id={"newJournalTitle"}
-                label={"Flower Wattage"}
-                name={"flowerWatt"}
-                helperText={""}
-                inputWidth={"96%"}
-                value={fullJournal.flowerWatt}
-                curState={fullJournal}
-                setCurState={setFullJournal}
-                type="number"
-              />
-            </Grid>
-            <Grid item style={{ width: "50%" }}>
-              <SelectCust
-                name="flowLight"
-                label="Flower Light Type"
-                inputWidth="100%"
-                menuArr={Config.lightType}
-                curState={fullJournal}
-                setCurState={setFullJournal}
-                value={fullJournal.flowLight}
-              />
-            </Grid>
-          </Grid>
-          <Grid item className={classes.gridItemStyle}>
-            <FormControl
-              className={classes.formControl}
-              style={{ width: "100%" }}
-            >
-              <InputLabel id="soilTypeLabel">Grow Medium</InputLabel>
-              <Select
-                labelId="soilTypeLabel"
-                id="mutipleChip"
-                multiple
-                value={soilTypeState}
-                onChange={handleChangeMultiple}
-                input={<Input id="selectMultipleChip" />}
-                renderValue={(selected) => (
-                  <div className={classes.chips}>
-                    {soilTypeState.map((value) => (
-                      <Chip
-                        key={value}
-                        label={value}
-                        className={classes.chip}
-                      />
-                    ))}
-                  </div>
-                )}
-                MenuProps={MenuProps}
-              >
-                {Config.soilType.map((soil) => (
-                  <MenuItem key={soil} value={soil}>
-                    {soil}
-                  </MenuItem>
-                ))}
-                Config.lightType
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item container className={classes.gridItemStyle}>
-            <InputMultiCust
-              name="jDesc"
-              inputWidth="100%"
-              id={"entryNote"}
-              label={"Journal Description"}
-              helperText={""}
-              curState={fullJournal}
-              setCurState={setFullJournal}
-              value={fullJournal.jDesc}
-              placeholder="Short description of journal..."
-              inputWidth={"95%"}
-            />
-          </Grid>
           <Grid
             item
             container
@@ -336,16 +297,12 @@ export default function NewDevice(props) {
                 color="primary"
                 onClick={createJournal}
                 disabled={
-                  fullJournal.jName === "" ||
-                  fullJournal.jDesc === "" ||
-                  fullJournal.roomType === "" ||
-                  fullJournal.waterType === "" ||
-                  fullJournal.vegLight === "" ||
-                  fullJournal.flowLight === "" ||
-                  soilTypeState === "" ||
-                  fullJournal.vegWatt === "" ||
-                  fullJournal.flowerWatt === "" ||
-                  fullJournal.username === ""
+                  fullDevice.deviceName === "" ||
+                  fullDevice.deviceAmps === "" ||
+                  fullDevice.deviceVolts === "" ||
+                  fullDevice.deviceWatts === "" ||
+                  fullDevice.deviceHours === "" ||
+                  fullDevice.flowdeviceRateLight === ""
                 }
               />
             </Grid>
