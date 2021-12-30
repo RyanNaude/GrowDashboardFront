@@ -14,6 +14,7 @@ import { selectTokenState } from "../redux/user/user.selector";
 //Component import
 import Unsigned from "./ui/unsigned";
 import NewJournal from "./ui/newJournal";
+import EditJournal from "./ui/editJournal";
 import CurrentJournals from "./ui/currentJournals";
 import WeatherSummary from "./ui/weatherSummary";
 
@@ -82,18 +83,24 @@ export default function Home(props) {
   const pageSource = "HME";
 
   const [dispNewJournal, setDispNewJournal] = useState(false);
-  // const [fullJournal, setFullJournal] = useState({
-  //   jName: "",
-  //   jDesc: "",
-  //   roomType: "",
-  //   waterType: "",
-  //   vegLight: "",
-  //   flowLight: "",
-  //   growMedium: "",
-  // });
+  const [editJournal, setEditJournal] = useState(false);
+  const [dispWeather, setDispWeather] = useState(true);
+  const [dispCarousel, setDispCarousel] = useState(true);
 
-  //Get Global State
-  // const dispNewJournal = useSelector(selectDispNewJournal);
+  const [fullSelectedJournal, setFullSelectedJournal] = useState({
+    activeJournal: false,
+    description: "",
+    flowLight: "",
+    flowerWatt: "",
+    growMedium: [],
+    journalUsername: "",
+    name: "",
+    roomType: "",
+    vegLight: "",
+    vegWatt: "",
+    waterType: "",
+    id: ""
+  });
 
   //useEffect - Getting journals loaded on database
   useEffect(() => {
@@ -111,25 +118,54 @@ export default function Home(props) {
               width: "100%",
             }}
           >
-            {dispNewJournal ? null : (
+            {/* Display current journals as carousel */}
+            {dispCarousel ? (
               <CurrentJournals
                 dispNewJournal={dispNewJournal}
                 setDispNewJournal={setDispNewJournal}
+                fullSelectedJournal={fullSelectedJournal}
+                setFullSelectedJournal={setFullSelectedJournal}
+                editJournal={editJournal}
+                setEditJournal={setEditJournal}
+                dispCarousel={dispCarousel}
+                setDispCarousel={setDispCarousel}
+                dispWeather={dispWeather}
+                setDispWeather={setDispWeather}
               />
-            )}
+            ) : null}
+            {/* Create new journal */}
             {dispNewJournal ? (
               <NewJournal
                 dispNewJournal={dispNewJournal}
                 setDispNewJournal={setDispNewJournal}
+                dispCarousel={dispCarousel}
+                setDispCarousel={setDispCarousel}
+                dispWeather={dispWeather}
+                setDispWeather={setDispWeather}
               />
             ) : null}
-            {dispNewJournal ? null : (
+            {/* Edit currently selected journal */}
+            {editJournal ? (
+              <EditJournal
+                fullSelectedJournal={fullSelectedJournal}
+                setFullSelectedJournal={setFullSelectedJournal}
+                editJournal={editJournal}
+                setEditJournal={setEditJournal}
+                dispCarousel={dispCarousel}
+                setDispCarousel={setDispCarousel}
+                dispWeather={dispWeather}
+                setDispWeather={setDispWeather}
+              />
+            ) : null}
+
+            {/* Display weather data */}
+            {dispWeather ? (
               <WeatherSummary
                 weatherRefresh={props.weatherRefresh}
                 setWeatherRefresh={props.setWeatherRefresh}
                 pageSource={pageSource}
               />
-            )}
+            ) : null}
           </Grid>
         </Grid>
       ) : (

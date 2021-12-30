@@ -93,14 +93,15 @@ export default function SignIn(props) {
       }),
     };
     fetch("http://localhost:4000/user/loginUser", requestOptions)
+      .then((response) => response.json())
       .then((response) => {
-        if (response.ok) {
+        if (response.loginStatus === "Success") {
           setSignError(false);
           setErrorReason("");
           dispatch(setCurrentUser(response.userId));
           dispatch(setSignInState(false));
           dispatch(setTokenState(true));
-          return response.json();
+          return response;
         } else {
           setSignError(true);
           setErrorReason("Invalid Login Details");

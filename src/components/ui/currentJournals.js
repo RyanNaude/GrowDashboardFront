@@ -9,6 +9,9 @@ import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
+//Import Custom Components
+import ButtonCust from "../component/ButtonCust";
+
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "0.5em",
     height: "100px",
   },
+  buttonGrid: { marginTop: "-1.5em" },
 }));
 
 export default function CurrentJournals(props) {
@@ -89,9 +93,30 @@ export default function CurrentJournals(props) {
   };
 
   const togNewJournalDisplay = () => {
-    // dispatch(displayNewJournal(!dispNewJournal));
     props.setDispNewJournal(!props.dispNewJournal);
+    props.setDispCarousel(!props.dispCarousel);
+    props.setDispWeather(!props.dispWeather);
   };
+
+  function selectJournal(i) {
+    props.setFullSelectedJournal({
+      ...props.fullSelectedJournal,
+      description: activeJournals[i].description,
+      flowLight: activeJournals[i].flowLight,
+      flowerWatt: activeJournals[i].flowerWatt,
+      growMedium: activeJournals[i].growMedium,
+      journalUsername: activeJournals[i].journalUsername,
+      name: activeJournals[i].name,
+      roomType: activeJournals[i].roomType,
+      vegLight: activeJournals[i].vegLight,
+      vegWatt: activeJournals[i].vegWatt,
+      waterType: activeJournals[i].waterType,
+      id: activeJournals[i]._id,
+    });
+    props.setEditJournal(!props.editJournal);
+    props.setDispCarousel(!props.dispCarousel);
+    props.setDispWeather(!props.dispWeather);
+  }
 
   useEffect(() => {
     getJournals();
@@ -131,12 +156,13 @@ export default function CurrentJournals(props) {
               </Grid>
               <Grid item container justifyContent="center">
                 <Grid item className={classes.buttonGrid}>
-                  <Button
-                    className={classes.CheckButton}
-                    onClick={() => console.log("But Clicked")}
-                  >
-                    Select
-                  </Button>
+                  <ButtonCust
+                    butName="Select"
+                    buttonWidth="75%"
+                    variant="contained"
+                    color="primary"
+                    onClick={() => selectJournal(index)}
+                  />
                 </Grid>
               </Grid>
             </Grid>
