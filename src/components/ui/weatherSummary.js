@@ -17,9 +17,11 @@ import sunSet from "../../assets/sunset.png";
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   weatSumm: {
-    backgroundColor: "white",
+    // backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#d6ffb5",
     marginTop: "0.5em",
     marginBottom: "0.5em",
+    borderRadius: "5%",
   },
   root: {
     width: "100%",
@@ -41,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
   image: {
     maxHeight: "90%",
     maxWidth: "90%",
+  },
+  dataPlane: {
+    backgroundColor: theme.palette.secondary.main,
+    borderRadius: "0pt",
+    margin: "0.0em",
   },
 }));
 
@@ -157,25 +164,34 @@ export default function WeatherSummary(props) {
   };
 
   return (
-    <Grid
-      container
-      className={classes.weatSumm}
-    >
-      <Grid item container>
-        <Grid item container direction="column" style={{ width: "33%" }}>
+    <Grid container className={classes.weatSumm}>
+      {/* <Grid item container> */}
+        <Grid
+          item
+          container
+          direction="column"
+          style={{ width: "33%" }}
+          className={classes.dataPlane}
+        >
           <Grid item>
             <Typography>{weatherFields.weatherDateField}</Typography>
           </Grid>
-          <Grid item container style={{ marginTop: "0.5em", marginBottom: "0.5em" }}>
+          <Grid
+            item
+            container
+            style={{ marginTop: "0.5em", marginBottom: "0.5em" }}
+          >
             <Grid style={{ width: "50%" }}>
-              <Typography style={{fontSize: "22px", fontWeight: "normal"}}>
+              <Typography style={{ fontSize: "22px", fontWeight: "normal" }}>
                 {weatherFields.weatherTempField}
                 <span style={{ fontSize: "x-small" }}>&#8451;</span>
               </Typography>
             </Grid>
             <Divider style={{}} />
             <Grid container style={{ width: "50%" }} justifyContent="flex-end">
-              <Typography style={{fontSize: "22px", fontWeight: "normal"}}>{weatherFields.weatherHumField} %</Typography>
+              <Typography style={{ fontSize: "22px", fontWeight: "normal" }}>
+                {weatherFields.weatherHumField} %
+              </Typography>
             </Grid>
           </Grid>
           <Grid item container>
@@ -193,7 +209,7 @@ export default function WeatherSummary(props) {
             </Grid>
           </Grid>
           <Grid item container>
-            <Grid item style={{ width: "50%" }}>
+            <Grid item style={{ width: "50%" }} className={classes.dataPlane}>
               <Typography>
                 {weatherFields.weatherMinField}
                 <span style={{ fontSize: "x-small" }}>&#8451;</span>{" "}
@@ -204,6 +220,7 @@ export default function WeatherSummary(props) {
               container
               style={{ width: "50%" }}
               justifyContent="flex-end"
+              className={classes.dataPlane}
             >
               <Typography>
                 {weatherFields.weatherMaxField}
@@ -212,7 +229,7 @@ export default function WeatherSummary(props) {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item container style={{ width: "33%" }} alignItems="center">
+        <Grid item container style={{ width: "34%" }} alignItems="center">
           <img
             src={weatherFields.weatherIcon}
             style={{ width: "100%", height: "100%" }}
@@ -221,22 +238,27 @@ export default function WeatherSummary(props) {
           />
         </Grid>
         <Grid item container direction="column" style={{ width: "33%" }}>
-          <Grid item>
+          <Grid item className={classes.dataPlane}>
             <Typography>Wind</Typography>
           </Grid>
-          <Grid item>
+          <Grid item className={classes.dataPlane}>
             <Typography>
               Speed : {weatherFields.weatherWindSpeedField}
             </Typography>
           </Grid>
 
-          <Grid item>
+          <Grid item className={classes.dataPlane}>
             <Typography>
               Direction: {weatherFields.weatherWindDegField}
             </Typography>
           </Grid>
 
-          <Grid item container justifyContent="space-between">
+          <Grid
+            item
+            container
+            justifyContent="space-between"
+            className={classes.dataPlane}
+          >
             <Grid
               item
               container
@@ -256,7 +278,12 @@ export default function WeatherSummary(props) {
               <img src={sunSet} className={classes.image} alt="fireSpot" />
             </Grid>
           </Grid>
-          <Grid item container justifyContent="space-between">
+          <Grid
+            item
+            container
+            justifyContent="space-between"
+            className={classes.dataPlane}
+          >
             <Grid item>
               <Typography>{weatherFields.weatherSunUpField}</Typography>{" "}
             </Grid>
@@ -264,7 +291,7 @@ export default function WeatherSummary(props) {
               <Typography>{weatherFields.weatherSunDownField} </Typography>
             </Grid>
           </Grid>
-        </Grid>
+        {/* </Grid> */}
       </Grid>
       {props.pageSource === "ENV" ? (
         <Grid
