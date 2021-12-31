@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
   journalDesc: {
     border: `0px solid ${theme.palette.common.blue}`,
-    borderRadius: 5,
+    borderRadius: "3pt",
   },
   journalButton: {
     margin: "1em",

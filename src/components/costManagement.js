@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "6.5em",
     width: "100%",
     border: "0px solid",
-    borderRadius: "5pt",
+    borderRadius: "3pt",
     // backgroundColor: theme.palette.secondary.main,
   },
   mainPageSub: {

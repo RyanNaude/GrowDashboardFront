@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     height: 450,
   },
   chipGroup: {
-    borderRadius: "25px",
+    borderRadius: "25pt",
     border: "3px solid",
     marginTop: "0.5em",
     marginBottom: "0.5em",

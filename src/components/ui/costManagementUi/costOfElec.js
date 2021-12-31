@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     // minWidth: "100%",
-    borderRadius: "25px",
+    borderRadius: "3pt",
     width: "100%",
   },
   tableHeader: {

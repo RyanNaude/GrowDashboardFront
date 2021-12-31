@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   journalDesc: {
     width: "95%",
     border: `0px solid ${theme.palette.common.blue}`,
-    borderRadius: 5,
+    borderRadius: "3pt",
     backgroundColor: theme.palette.secondary.light,
     paddingLeft: "3px",
     paddingRight: "3px",

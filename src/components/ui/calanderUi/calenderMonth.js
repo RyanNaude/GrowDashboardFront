@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "0.3em",
     marginTop: "0.5em",
     marginBottom: "0.5em",
-    borderRadius: "5px",
+    borderRadius: "3px",
   },
   dayPaper: {
     backgroundColor: theme.palette.secondary.Light,

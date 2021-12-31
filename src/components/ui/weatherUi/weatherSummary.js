@@ -154,17 +154,17 @@ export default function WeatherSummary(props) {
   };
 
   return (
-    <Grid container className={classes.weatSumm}>
+    <Grid container className={classes.weatSumm} style={{ borderRadius: "3pt" }}>
       <Grid
         item
         container
         xs={4}
-        style={{ padding: "0.2em", borderRadius: "5pt" }}
+        style={{ padding: "0.2em", borderRadius: "3pt" }}
       >
         <Grid
           item
           container
-          style={{ padding: "0.2em", borderRadius: "5pt" }}
+          style={{ padding: "0.2em", borderRadius: "3pt" }}
           className={classes.dataPlane}
         >
           <Grid item xs={12}>
@@ -244,12 +244,12 @@ export default function WeatherSummary(props) {
         item
         container
         xs={4}
-        style={{ padding: "0.2em", borderRadius: "5pt" }}
+        style={{ padding: "0.2em", borderRadius: "3pt" }}
       >
         <Grid
           item
           container
-          style={{ padding: "0.2em", borderRadius: "5pt" }}
+          style={{ padding: "0.2em", borderRadius: "3pt" }}
           className={classes.dataPlane}
         >
           <Grid item xs={12}>
