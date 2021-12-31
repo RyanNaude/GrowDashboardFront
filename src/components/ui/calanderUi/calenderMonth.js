@@ -22,9 +22,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
   },
   calanderDay: {
-    width: "13%",
-    margin: "2px",
-    border: "0px solid",
+    margin: "0.1em",
+    border: "1px solid",
+    height: "2em",
+    width: "1em",
   },
   monthGrid: {
     marginTop: "0.5em",
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   dayPaper: {
     backgroundColor: theme.palette.secondary.Light,
+    height: "2em",
   },
   newEntryBut: {
     backgroundColor: theme.palette.secondary.main,
@@ -161,11 +163,11 @@ export default function CalanderMonth(props) {
         </Grid>
       </Grid>
 
-      <Grid item container justifyContent="center">
-        <Grid item container position="flex" className={classes.monthGrid}>
+      <Grid item container justifyContent="center" style={{border: "1pt solid"}}>
+        {/* <Grid item container justifyContent="flex-start" className={classes.monthGrid} style={{border: "1pt solid"}}> */}
           {monthDays.map((data, index) => (
-            <Grid item className={classes.calanderDay} key={index}>
-              <Paper
+            <Grid item className={classes.calanderDay} key={index} xs={1}>
+              {/* <Paper
                 variant="outlined"
                 className={classes.dayPaper}
                 onClick={viewEntries}
@@ -177,10 +179,10 @@ export default function CalanderMonth(props) {
                 >
                   {data}
                 </Typography>
-              </Paper>
+              </Paper> */}
             </Grid>
           ))}
-        </Grid>
+        {/* </Grid> */}
       </Grid>
     </Grid>
   );

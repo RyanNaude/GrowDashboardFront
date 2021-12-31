@@ -5,14 +5,14 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-
-//Component Import
-import CostOFElec from "./ui/costOfElec";
-import Unsigned from "./ui/unsigned";
 import IconButton from "@material-ui/core/IconButton";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
-import NewDevice from "./ui/newDevice";
+
+//Component Import
+import CostOFElec from "./ui/costManagementUi/costOfElec";
+import NewDevice from "./ui/costManagementUi/newDevice";
+import Unsigned from "./ui/unsigned";
 
 //Redux imports
 import { useSelector } from "react-redux";

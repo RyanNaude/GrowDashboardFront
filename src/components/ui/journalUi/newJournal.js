@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Config from "../../json/select.json";
+import Config from "../../../json/select.json";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,14 +16,14 @@ import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 
 //Custom component import
-import ButtonCust from "../component/ButtonCust";
-import InputCust from "../component/InputCust";
-import InputMultiCust from "../component/InputMultiCust";
-import SelectCust from "../component/SelectCust";
+import ButtonCust from "../../component/ButtonCust";
+import InputCust from "../../component/InputCust";
+import InputMultiCust from "../../component/InputMultiCust";
+import SelectCust from "../../component/SelectCust";
 
 //Redux imports
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../redux/user/user.selector";
+import { selectCurrentUser } from "../../../redux/user/user.selector";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EditJournal(props) {
+export default function NewJournal(props) {
   const classes = useStyles();
 
   //Get Global State
@@ -128,53 +128,45 @@ export default function EditJournal(props) {
   });
 
   useEffect(() => {
-    setSoilTypeState(props.fullSelectedJournal.growMedium);
+    // getJournals();
   }, []);
 
   //Updating journals
-  // const updateJournal = (event) => {
-  //   console.log("UPDATE JOURNAL");
-  //   // setFullJournal({ ...fullJournal, [event.target.name]: event.target.value });
-  // };
+  const updateJournal = (event) => {
+    console.log("UPDATE JOURNAL");
+    // setFullJournal({ ...fullJournal, [event.target.name]: event.target.value });
+  };
 
   const cancelNewJournal = () => {
     setExpanded(false);
-    props.setEditJournal(!props.editJournal);
+    props.setDispNewJournal(!props.dispNewJournal);
     props.setDispCarousel(!props.dispCarousel);
     props.setDispWeather(!props.dispWeather);
   };
 
   //Journal Data Processing
   //Requesting -  Create new journal on backend
-  const updateJournal = async () => {
-    console.log("Update Journal");
+  const createJournal = async () => {
+    console.log(fullJournal.username);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        journalNameField: props.fullSelectedJournal.name,
-        journalDescField: props.fullSelectedJournal.description,
-        journalRoomType: props.fullSelectedJournal.roomType,
-        journalWaterType: props.fullSelectedJournal.waterType,
-        journalVegLight: props.fullSelectedJournal.vegLight,
-        journalFlowLight: props.fullSelectedJournal.flowLight,
-        journalGrowMedium: props.fullSelectedJournal.growMedium,
-        journalVegWatt: props.fullSelectedJournal.vegWatt,
-        journalFlowerWatt: props.fullSelectedJournal.flowerWatt,
-        journalId: props.fullSelectedJournal.id,
+        journalNameField: fullJournal.jName,
+        journalDescField: fullJournal.jDesc,
+        journalRoomType: fullJournal.roomType,
+        journalWaterType: fullJournal.waterType,
+        journalVegLight: fullJournal.vegLight,
+        journalFlowLight: fullJournal.flowLight,
+        journalGrowMedium: soilTypeState,
+        journalVegWatt: fullJournal.vegWatt,
+        journalFlowerWatt: fullJournal.flowerWatt,
+        journalUsername: fullJournal.username,
       }),
     };
-    fetch("http://localhost:4000/journal/updateJournal", requestOptions)
+    fetch("http://localhost:4000/journal/createJournal", requestOptions)
       .then((response) => response.json())
-      .then((response) => {
-        if (response.journalUpdate === "Success") {
-          props.setEditJournal(!props.editJournal);
-          props.setDispCarousel(!props.dispCarousel);
-          props.setDispWeather(!props.dispWeather);
-        } else {
-          console.log(response.journalUpdate);
-        }
-      })
+      .then((response) => console.log(response))
       .catch((error) => console.log(error));
   };
 
@@ -191,15 +183,11 @@ export default function EditJournal(props) {
 
   const handleChangeMultiple = (event) => {
     setSoilTypeState(event.target.value);
-    props.setFullSelectedJournal({
-      ...props.fullSelectedJournal,
-      growMedium: event.target.value,
-    });
   };
 
   const updateState = (event) => {
-    props.setFullSelectedJournal({
-      ...props.fullSelectedJournal,
+    setFullJournal({
+      ...fullJournal,
       [event.target.name]: event.target.value,
     });
   };
@@ -213,17 +201,17 @@ export default function EditJournal(props) {
               variant="h6"
               style={{ fontWeight: "normal", paddingLeft: "0.5em" }}
             >
-              Update Journal
+              Add Journal
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <InputCust
               id={"newJournalTitle"}
-              label={"Journal Name"}
-              name={"name"}
+              label={"New Journal Name"}
+              name={"jName"}
               helperText={""}
               inputWidth={"96%"}
-              value={props.fullSelectedJournal.name}
+              value={fullJournal.jName}
               curState={fullJournal}
               setCurState={setFullJournal}
               onChange={updateState}
@@ -239,7 +227,7 @@ export default function EditJournal(props) {
               menuArr={Config.roomType}
               curState={fullJournal}
               setCurState={setFullJournal}
-              value={props.fullSelectedJournal.roomType}
+              value={fullJournal.roomType}
               onChange={updateState}
             />
           </Grid>
@@ -252,7 +240,7 @@ export default function EditJournal(props) {
               menuArr={Config.waterType}
               curState={fullJournal}
               setCurState={setFullJournal}
-              value={props.fullSelectedJournal.waterType}
+              value={fullJournal.waterType}
               onChange={updateState}
             />
           </Grid>
@@ -264,7 +252,7 @@ export default function EditJournal(props) {
                 name={"vegWatt"}
                 helperText={""}
                 inputWidth={"96%"}
-                value={props.fullSelectedJournal.vegWatt}
+                value={fullJournal.vegWatt}
                 curState={fullJournal}
                 setCurState={setFullJournal}
                 type="number"
@@ -279,7 +267,7 @@ export default function EditJournal(props) {
                 menuArr={Config.lightType}
                 curState={fullJournal}
                 setCurState={setFullJournal}
-                value={props.fullSelectedJournal.vegLight}
+                value={fullJournal.vegLight}
                 onChange={updateState}
               />
             </Grid>
@@ -292,7 +280,7 @@ export default function EditJournal(props) {
                 name={"flowerWatt"}
                 helperText={""}
                 inputWidth={"96%"}
-                value={props.fullSelectedJournal.flowerWatt}
+                value={fullJournal.flowerWatt}
                 curState={fullJournal}
                 setCurState={setFullJournal}
                 type="number"
@@ -307,7 +295,7 @@ export default function EditJournal(props) {
                 menuArr={Config.lightType}
                 curState={fullJournal}
                 setCurState={setFullJournal}
-                value={props.fullSelectedJournal.flowLight}
+                value={fullJournal.flowLight}
                 onChange={updateState}
               />
             </Grid>
@@ -322,7 +310,7 @@ export default function EditJournal(props) {
                 labelId="soilTypeLabel"
                 id="mutipleChip"
                 multiple
-                value={props.fullSelectedJournal.growMedium}
+                value={soilTypeState}
                 onChange={handleChangeMultiple}
                 input={<Input id="selectMultipleChip" />}
                 renderValue={(selected) => (
@@ -349,14 +337,14 @@ export default function EditJournal(props) {
           </Grid>
           <Grid item container className={classes.gridItemStyle} xs={12}>
             <InputMultiCust
-              name="description"
+              name="jDesc"
               inputWidth="100%"
               id={"entryNote"}
               label={"Journal Description"}
               helperText={""}
               curState={fullJournal}
               setCurState={setFullJournal}
-              value={props.fullSelectedJournal.description}
+              value={fullJournal.jDesc}
               placeholder="Short description of journal..."
               inputWidth={"95%"}
               onChange={updateState}
@@ -371,21 +359,22 @@ export default function EditJournal(props) {
           >
             <Grid item>
               <ButtonCust
-                butName="Update"
+                butName="Create"
                 buttonWidth="75%"
                 variant="contained"
                 color="primary"
-                onClick={updateJournal}
+                onClick={createJournal}
                 disabled={
-                  props.fullSelectedJournal.name === "" ||
-                  props.fullSelectedJournal.description === "" ||
-                  props.fullSelectedJournal.roomType === "" ||
-                  props.fullSelectedJournal.waterType === "" ||
-                  props.fullSelectedJournal.vegLight === "" ||
-                  props.fullSelectedJournal.flowLight === "" ||
-                  props.fullSelectedJournal.growMedium === "" ||
-                  props.fullSelectedJournal.vegWatt === "" ||
-                  props.fullSelectedJournal.flowerWatt === ""
+                  fullJournal.jName === "" ||
+                  fullJournal.jDesc === "" ||
+                  fullJournal.roomType === "" ||
+                  fullJournal.waterType === "" ||
+                  fullJournal.vegLight === "" ||
+                  fullJournal.flowLight === "" ||
+                  soilTypeState === "" ||
+                  fullJournal.vegWatt === "" ||
+                  fullJournal.flowerWatt === "" ||
+                  fullJournal.username === ""
                 }
               />
             </Grid>

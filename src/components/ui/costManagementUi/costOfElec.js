@@ -14,7 +14,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 
 //Custom Components
-import ButtonCust from "../component/ButtonCust";
+import ButtonCust from "../../component/ButtonCust";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Config from "../../json/select.json";
+import Config from "../../../json/select.json";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,14 +16,14 @@ import Select from "@material-ui/core/Select";
 import { Typography } from "@material-ui/core";
 
 //Custom component import
-import ButtonCust from "../component/ButtonCust";
-import InputCust from "../component/InputCust";
-import InputMultiCust from "../component/InputMultiCust";
-import SelectCust from "../component/SelectCust";
+import ButtonCust from "../../component/ButtonCust";
+import InputCust from "../../component/InputCust";
+import InputMultiCust from "../../component/InputMultiCust";
+import SelectCust from "../../component/SelectCust";
 
 //Redux imports
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../redux/user/user.selector";
+import { selectCurrentUser } from "../../../redux/user/user.selector";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({

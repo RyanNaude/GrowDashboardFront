@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Config from "../../json/select.json";
+import Config from "../../../json/select.json";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,12 +9,12 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
 //Custom Component Import
-import ButtonCust from "../component/ButtonCust";
-import InputCust from "../component/InputCust";
-import InputMultiCust from "../component/InputMultiCust";
-import DatePick from "../component/DatePick";
-import InputLabelCust from "../component/InputLabelCust";
-import SelectCust from "../component/SelectCust";
+import ButtonCust from "../../component/ButtonCust";
+import InputCust from "../../component/InputCust";
+import InputMultiCust from "../../component/InputMultiCust";
+import DatePick from "../../component/DatePick";
+import InputLabelCust from "../../component/InputLabelCust";
+import SelectCust from "../../component/SelectCust";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({

@@ -6,9 +6,9 @@ import Grid from "@material-ui/core/Grid";
 
 //Component Import
 import Unsigned from "./ui/unsigned";
-import CalanderMonth from "./ui/calenderMonth";
-import CalanderEntry from "./ui/calanderEntry";
-import CalanderNewEntry from "./ui/calanderNewEntry";
+import CalanderMonth from "./ui/calanderUi/calenderMonth";
+import CalanderEntry from "./ui/calanderUi/calanderEntry";
+import CalanderNewEntry from "./ui/calanderUi/calanderNewEntry";
 
 //Redux imports
 import { useSelector } from "react-redux";

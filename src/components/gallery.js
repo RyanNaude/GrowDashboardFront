@@ -8,7 +8,7 @@ import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
 
 import Unsigned from "./ui/unsigned";
-import GalleryChipGroup from "./ui/galleryChipGroup";
+import GalleryChipGroup from "./ui/galleryUi/galleryChipGroup";
 
 //Redux imports
 import { useSelector } from "react-redux";
@@ -104,7 +104,7 @@ const itemData = [
 
 export default function Gallery(props) {
   const classes = useStyles();
-  
+
   //Get Global State
   const tokenState = useSelector(selectTokenState);
 

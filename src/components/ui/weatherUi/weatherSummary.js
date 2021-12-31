@@ -11,23 +11,15 @@ import { Typography } from "@material-ui/core";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import sunRise from "../../assets/sunrise.png";
-import sunSet from "../../assets/sunset.png";
+import sunRise from "../../../assets/sunrise.png";
+import sunSet from "../../../assets/sunset.png";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   weatSumm: {
-    // backgroundColor: theme.palette.secondary.main,
     backgroundColor: "#d6ffb5",
     marginTop: "0.5em",
     marginBottom: "0.5em",
-    borderRadius: "5%",
-  },
-  root: {
-    width: "100%",
-    maxWidth: 360,
-    backgroundColor: theme.palette.secondary.light,
-    color: theme.palette.primary.dark,
   },
   summMaxTemp: {
     fontWeight: "bold",
@@ -46,8 +38,6 @@ const useStyles = makeStyles((theme) => ({
   },
   dataPlane: {
     backgroundColor: theme.palette.secondary.main,
-    borderRadius: "0pt",
-    margin: "0.0em",
   },
 }));
 
@@ -165,51 +155,58 @@ export default function WeatherSummary(props) {
 
   return (
     <Grid container className={classes.weatSumm}>
-      {/* <Grid item container> */}
+      <Grid
+        item
+        container
+        xs={4}
+        style={{ padding: "0.2em", borderRadius: "5pt" }}
+      >
         <Grid
           item
           container
-          direction="column"
-          style={{ width: "33%" }}
+          style={{ padding: "0.2em", borderRadius: "5pt" }}
           className={classes.dataPlane}
         >
-          <Grid item>
+          <Grid item xs={12}>
             <Typography>{weatherFields.weatherDateField}</Typography>
           </Grid>
-          <Grid
-            item
-            container
-            style={{ marginTop: "0.5em", marginBottom: "0.5em" }}
-          >
-            <Grid style={{ width: "50%" }}>
+          <Grid item container xs={12}>
+            <Grid xs={6}>
               <Typography style={{ fontSize: "22px", fontWeight: "normal" }}>
                 {weatherFields.weatherTempField}
                 <span style={{ fontSize: "x-small" }}>&#8451;</span>
               </Typography>
             </Grid>
             <Divider style={{}} />
-            <Grid container style={{ width: "50%" }} justifyContent="flex-end">
+            <Grid container xs={6} justifyContent="flex-end">
               <Typography style={{ fontSize: "22px", fontWeight: "normal" }}>
                 {weatherFields.weatherHumField} %
               </Typography>
             </Grid>
           </Grid>
           <Grid item container>
-            <Grid item container style={{ width: "50%" }} alignItems="flex-end">
+            <Grid item container xs={6} alignItems="flex-end">
               <ExpandMoreIcon style={{ border: "0px solid" }} />
+              <Typography style={{ fontSize: "14px" }}>Min</Typography>
             </Grid>
             <Grid
               item
               container
               justifyContent="flex-end"
               alignItems="flex-end"
-              style={{ width: "50%" }}
+              xs={6}
             >
               <ExpandLessIcon />
+              <Typography style={{ fontSize: "14px" }}>Max</Typography>
             </Grid>
           </Grid>
-          <Grid item container>
-            <Grid item style={{ width: "50%" }} className={classes.dataPlane}>
+          <Grid item container style={{ border: "0pt solid" }}>
+            <Grid
+              item
+              xs={6}
+              className={classes.dataPlane}
+              justifyContent="flex-start"
+            >
               <Typography>
                 {weatherFields.weatherMinField}
                 <span style={{ fontSize: "x-small" }}>&#8451;</span>{" "}
@@ -218,7 +215,7 @@ export default function WeatherSummary(props) {
             <Grid
               item
               container
-              style={{ width: "50%" }}
+              xs={6}
               justifyContent="flex-end"
               className={classes.dataPlane}
             >
@@ -229,77 +226,78 @@ export default function WeatherSummary(props) {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item container style={{ width: "34%" }} alignItems="center">
-          <img
-            src={weatherFields.weatherIcon}
-            style={{ width: "100%", height: "100%" }}
-            // className={classes.image}
-            alt="fireSpot"
-          />
-        </Grid>
-        <Grid item container direction="column" style={{ width: "33%" }}>
-          <Grid item className={classes.dataPlane}>
-            <Typography>Wind</Typography>
-          </Grid>
-          <Grid item className={classes.dataPlane}>
+      </Grid>
+      <Grid item container xs={4} alignItems="center" justifyContent="center">
+        <Typography style={{ fontWeight: "bold", fontSize: "15pt" }}>
+          Weather
+        </Typography>
+        <Typography style={{ fontWeight: "bold", fontSize: "15pt" }}>
+          Summary
+        </Typography>
+        <img
+          src={weatherFields.weatherIcon}
+          className={classes.image}
+          alt="fireSpot"
+        />
+      </Grid>
+      <Grid
+        item
+        container
+        xs={4}
+        style={{ padding: "0.2em", borderRadius: "5pt" }}
+      >
+        <Grid
+          item
+          container
+          style={{ padding: "0.2em", borderRadius: "5pt" }}
+          className={classes.dataPlane}
+        >
+          <Grid item xs={12}>
             <Typography>
-              Speed : {weatherFields.weatherWindSpeedField}
+              <span style={{ fontWeight: "bold" }}>Wind Speed</span>
             </Typography>
           </Grid>
-
-          <Grid item className={classes.dataPlane}>
+          <Grid item xs={12}>
+            <Typography>{weatherFields.weatherWindSpeedField} km</Typography>
+          </Grid>
+          <Grid item xs={12}>
             <Typography>
-              Direction: {weatherFields.weatherWindDegField}
+              <span style={{ fontWeight: "bold" }}>Direction:</span>{" "}
+              {weatherFields.weatherWindDegField}
             </Typography>
           </Grid>
-
           <Grid
             item
             container
+            direction="row"
             justifyContent="space-between"
-            className={classes.dataPlane}
+            xs={12}
           >
-            <Grid
-              item
-              container
-              style={{ width: "45%" }}
-              justifyContent="center"
-              alignItems="flex-end"
-            >
+            <Grid item container xs={6} justifyContent="flex-start">
               <img src={sunRise} className={classes.image} alt="fireSpot" />
             </Grid>
-            <Grid
-              item
-              container
-              style={{ width: "45%" }}
-              justifyContent="center"
-              alignItems="flex-end"
-            >
+            <Grid item container xs={6} justifyContent="flex-end">
               <img src={sunSet} className={classes.image} alt="fireSpot" />
             </Grid>
           </Grid>
           <Grid
             item
             container
+            direction="row"
             justifyContent="space-between"
-            className={classes.dataPlane}
+            xs={12}
           >
-            <Grid item>
+            <Grid item container xs={6} justifyContent="flex-start">
               <Typography>{weatherFields.weatherSunUpField}</Typography>{" "}
             </Grid>
-            <Grid item>
+            <Grid item container xs={6} justifyContent="flex-end">
               <Typography>{weatherFields.weatherSunDownField} </Typography>
             </Grid>
           </Grid>
-        {/* </Grid> */}
+        </Grid>
       </Grid>
       {props.pageSource === "ENV" ? (
-        <Grid
-          item
-          container
-          justifyContent="space-evenly"
-          style={{ marginTop: "1em" }}
-        >
+        <Grid item container justifyContent="space-evenly">
           {ref
             ? weather.daily.map((day, i) => (
                 <Grid item key={i} xs={3}>

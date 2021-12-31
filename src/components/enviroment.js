@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 
 //Component Import
 import Unsigned from "./ui/unsigned";
-import WeatherSummary from "./ui/weatherSummary";
+import WeatherSummary from "./ui/weatherUi/weatherSummary";
 
 //Redux imports
 import { useSelector } from "react-redux";

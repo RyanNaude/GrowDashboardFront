@@ -24,11 +24,10 @@ const useStyles = makeStyles((theme) => ({
   summDate: {
     fontSize: "9pt",
   },
-  mainPageStyle: {
-    marginBottom: "0.5em",
-  },
+  mainPageStyle: {},
   root: {
     backgroundColor: theme.palette.secondary.light,
+    margin: "0.3em",
   },
 }));
 
@@ -47,59 +46,46 @@ export default function Weather(props) {
   var minTemp = Math.round(Number(props.day.temp.min));
   var maxTemp = Math.round(Number(props.day.temp.max));
 
-  const dayData = ({
+  const dayData = {
     date: dispDate,
     minTemp: minTemp,
     maxTemp: maxTemp,
     weekDay: weekDay,
     iconString: iconString,
-  });
+  };
 
   return (
     <Grid
       container
       className={classes.mainPageStyle}
       justifyContent="space-evenly"
-      
+      // spacing={5}
     >
       <Grid item container className={classes.dayGrid}>
-        <Paper variant="outlined" style={{ width: "100%" }}>
-          <Grid
-            item
-            container
-            direction="column"
-            className={classes.root}
-          >
-            <Grid item container justifyContent="center">
-              <Typography className={classes.summMaxTemp}>
-                {dayData.maxTemp}
-              </Typography>
-            </Grid>
-            <Grid item container justifyContent="center">
-              <Divider className={classes.dividerStyle} />
-            </Grid>
-            <Grid item container justifyContent="center">
-              <Typography className={classes.summMinTemp}>
-                {dayData.minTemp}
-              </Typography>
-            </Grid>
-            <Grid item container justifyContent="center">
-              <img
-                src={iconString}
-                style={{ width: "45%", height: "45%" }}
-                alt="fireSpot"
-              />
-            </Grid>
-            <Grid item container justifyContent="center">
-              <Typography className={classes.weekDay}>
-                {dayData.weekDay}
-              </Typography>
-            </Grid>
-            <Grid item container justifyContent="center">
-              <Typography className={classes.summDate}>
-                {dayData.date}
-              </Typography>
-            </Grid>
+        <Paper variant="outlined" className={classes.root}>
+          <Grid item container justifyContent="center" xs={12}>
+            <Typography className={classes.summMaxTemp}>
+              {dayData.maxTemp}
+            </Typography>
+          </Grid>
+          <Grid item container justifyContent="center" xs={12}>
+            <Divider className={classes.dividerStyle} />
+          </Grid>
+          <Grid item container justifyContent="center" xs={12}>
+            <Typography className={classes.summMinTemp}>
+              {dayData.minTemp}
+            </Typography>
+          </Grid>
+          <Grid item container justifyContent="center" xs={12}>
+            <img src={iconString} style={{ width: "50%" }} alt="fireSpot" />
+          </Grid>
+          <Grid item container justifyContent="center" xs={12}>
+            <Typography className={classes.weekDay}>
+              {dayData.weekDay}
+            </Typography>
+          </Grid>
+          <Grid item container justifyContent="center" xs={12}>
+            <Typography className={classes.summDate}>{dayData.date}</Typography>
           </Grid>
         </Paper>
       </Grid>
