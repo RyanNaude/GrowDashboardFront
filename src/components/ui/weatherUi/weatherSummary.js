@@ -154,7 +154,11 @@ export default function WeatherSummary(props) {
   };
 
   return (
-    <Grid container className={classes.weatSumm} style={{ borderRadius: "3pt" }}>
+    <Grid
+      container
+      className={classes.weatSumm}
+      style={{ borderRadius: "3pt" }}
+    >
       <Grid
         item
         container
@@ -178,7 +182,7 @@ export default function WeatherSummary(props) {
               </Typography>
             </Grid>
             <Divider style={{}} />
-            <Grid container xs={6} justifyContent="flex-end">
+            <Grid item container xs={6} justifyContent="flex-end">
               <Typography style={{ fontSize: "22px", fontWeight: "normal" }}>
                 {weatherFields.weatherHumField} %
               </Typography>
@@ -203,6 +207,7 @@ export default function WeatherSummary(props) {
           <Grid item container style={{ border: "0pt solid" }}>
             <Grid
               item
+              container
               xs={6}
               className={classes.dataPlane}
               justifyContent="flex-start"

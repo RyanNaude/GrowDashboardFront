@@ -3,7 +3,6 @@ import React from "react";
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 
@@ -104,10 +103,6 @@ export default function CalanderMonth(props) {
   for (let i = 0; i < daysInMonth; i++) {
     monthDays.push(i + 1);
   }
-
-  const viewEntries = () => {
-    console.log("View Entry for selected day");
-  };
 
   const newEntry = () => {
     props.setNewCalEntry(!props.newCalEntry);

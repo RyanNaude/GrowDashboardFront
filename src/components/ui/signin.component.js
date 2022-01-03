@@ -163,7 +163,7 @@ export default function SignIn(props) {
             />
 
             {signError ? (
-              <Grid container justifyContent="center">
+              <Grid item container justifyContent="center">
                 <Alert severity="error">{errorReason}</Alert>
               </Grid>
             ) : null}

@@ -72,6 +72,7 @@ export default function CostManagement(props) {
             </Grid>
             <Grid
               item
+              container
               className={classes.deviceAddIcon}
               justifyContent="flex-end"
             >

@@ -112,7 +112,7 @@ export default function EditJournal(props) {
   const currentUser = useSelector(selectCurrentUser);
 
   //Setup Local State
-  const [expanded, setExpanded] = useState(false);
+  // const [expanded, setExpanded] = useState(false);
   const [soilTypeState, setSoilTypeState] = useState([]);
   const [fullJournal, setFullJournal] = useState({
     jName: "",
@@ -138,7 +138,7 @@ export default function EditJournal(props) {
   // };
 
   const cancelNewJournal = () => {
-    setExpanded(false);
+    // setExpanded(false);
     props.setEditJournal(!props.editJournal);
     props.setDispCarousel(!props.dispCarousel);
     props.setDispWeather(!props.dispWeather);
