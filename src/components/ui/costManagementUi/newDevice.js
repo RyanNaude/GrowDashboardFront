@@ -120,6 +120,8 @@ export default function NewDevice(props) {
     deviceRate: "",
   });
 
+  const [deviceConf, setDeviceConf] = useState(false);
+
   const cancelNewJournal = () => {
     props.setDispNewDevice(!props.dispNewDevice);
     props.setDispCurDevice(!props.dispCurDevice);
@@ -142,7 +144,18 @@ export default function NewDevice(props) {
     };
     fetch("http://localhost:4000/costmanagement/addDevice", requestOptions)
       .then((response) => response.json())
-      .then((response) => console.log(response))
+      .then(() => {
+        setFullDevice({
+          deviceName: "",
+          deviceAmps: "",
+          deviceVolts: "",
+          deviceWatts: "",
+          deviceHours: "",
+          deviceRate: "",
+        });
+
+        // setDeviceConf(!deviceConf);
+      })
       .catch((error) => console.log(error));
   };
 
@@ -176,6 +189,21 @@ export default function NewDevice(props) {
               Add New Device
             </Typography>
           </Grid>
+
+          {deviceConf ? (
+            <Grid item style={{ width: "100%" }}>
+              <Typography
+                variant="body1"
+                style={{
+                  fontWeight: "normal",
+                  paddingLeft: "0.8em",
+                  marginTop: "0.5em",
+                }}
+              >
+                Device Added
+              </Typography>
+            </Grid>
+          ) : null}
 
           <Grid item style={{ width: "100%" }}>
             <InputCust
