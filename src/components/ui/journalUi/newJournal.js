@@ -112,7 +112,7 @@ export default function NewJournal(props) {
   const currentUser = useSelector(selectCurrentUser);
 
   //Setup Local State
-  const [expanded, setExpanded] = useState(false);
+  // const [expanded, setExpanded] = useState(false);
   const [soilTypeState, setSoilTypeState] = useState([]);
   const [fullJournal, setFullJournal] = useState({
     jName: "",
@@ -132,13 +132,13 @@ export default function NewJournal(props) {
   }, []);
 
   //Updating journals
-  const updateJournal = (event) => {
-    console.log("UPDATE JOURNAL");
-    // setFullJournal({ ...fullJournal, [event.target.name]: event.target.value });
-  };
+  // const updateJournal = (event) => {
+  //   console.log("UPDATE JOURNAL");
+  //   // setFullJournal({ ...fullJournal, [event.target.name]: event.target.value });
+  // };
 
   const cancelNewJournal = () => {
-    setExpanded(false);
+    // setExpanded(false);
     props.setDispNewJournal(!props.dispNewJournal);
     props.setDispCarousel(!props.dispCarousel);
     props.setDispWeather(!props.dispWeather);
@@ -338,7 +338,6 @@ export default function NewJournal(props) {
           <Grid item container className={classes.gridItemStyle} xs={12}>
             <InputMultiCust
               name="jDesc"
-              inputWidth="100%"
               id={"entryNote"}
               label={"Journal Description"}
               helperText={""}

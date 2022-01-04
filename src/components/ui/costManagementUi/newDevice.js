@@ -6,24 +6,14 @@ import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-// import Chip from "@material-ui/core/chip";
-// import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
-// import Input from "@material-ui/core/Input";
-// import InputLabel from "@material-ui/core/InputLabel";
-// import MenuItem from "@material-ui/core/MenuItem";
-// import Select from "@material-ui/core/Select";
 import { Typography } from "@material-ui/core";
 
 //Custom component import
 import ButtonCust from "../../component/ButtonCust";
 import InputCust from "../../component/InputCust";
-// import InputMultiCust from "../../component/InputMultiCust";
-// import SelectCust from "../../component/SelectCust";
-
-//Redux imports
-// import { useSelector } from "react-redux";
-// import { selectCurrentUser } from "../../../redux/user/user.selector";
+import SelectCust from "../../component/SelectCust";
+// import CostOFElec from "./costOfElec";
 
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
@@ -107,9 +97,6 @@ const useStyles = makeStyles((theme) => ({
 export default function NewDevice(props) {
   const classes = useStyles();
 
-  //Get Global State
-  // const currentUser = useSelector(selectCurrentUser);
-
   // Setup Local State
   const [fullDevice, setFullDevice] = useState({
     deviceName: "",
@@ -118,18 +105,22 @@ export default function NewDevice(props) {
     deviceWatts: "",
     deviceHours: "",
     deviceRate: "",
+    journalName: "",
   });
 
   const [deviceConf, setDeviceConf] = useState(false);
 
+  //Cancel Button Action
   const cancelNewJournal = () => {
     props.setDispNewDevice(!props.dispNewDevice);
     props.setDispCurDevice(!props.dispCurDevice);
   };
 
   //Journal Data Processing
-  //Requesting -  Create new journal on backend
+  //Requesting -  Create new device on backend
   const addDevice = async () => {
+    console.log("Test");
+    console.log(props.idSelected);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -140,6 +131,7 @@ export default function NewDevice(props) {
         deviceWatts: fullDevice.deviceWatts,
         deviceHours: fullDevice.deviceHours,
         deviceRate: fullDevice.deviceRate,
+        journalId: props.idSelected,
       }),
     };
     fetch("http://localhost:4000/costmanagement/addDevice", requestOptions)
@@ -152,29 +144,28 @@ export default function NewDevice(props) {
           deviceWatts: "",
           deviceHours: "",
           deviceRate: "",
+          journalName: "",
         });
-
-        // setDeviceConf(!deviceConf);
+        setDeviceConf(!deviceConf);
       })
       .catch((error) => console.log(error));
   };
-
-  // const ITEM_HEIGHT = 48;
-  // const ITEM_PADDING_TOP = 8;
-  // const MenuProps = {
-  //   PaperProps: {
-  //     style: {
-  //       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-  //       width: 250,
-  //     },
-  //   },
-  // };
 
   const updateState = (event) => {
     setFullDevice({
       ...fullDevice,
       [event.target.name]: event.target.value,
     });
+
+    if (event.target.name === "journalName") {
+      console.log("Change Journal Selection");
+      for (let index = 0; index < props.journalOptions.length; index++) {
+        const element = props.journalOptions[index];
+        if (element === event.target.value) {
+          props.setIdSelected(index);
+        }
+      }
+    }
   };
 
   return (
@@ -205,6 +196,19 @@ export default function NewDevice(props) {
             </Grid>
           ) : null}
 
+          <Grid item style={{ width: "100%" }}>
+            <SelectCust
+              name="journalName"
+              label="Select Journal"
+              labelId="journalName"
+              inputWidth="100%"
+              menuArr={props.journalOptions}
+              curState={fullDevice}
+              setCurState={setFullDevice}
+              value={fullDevice.journalName}
+              onChange={updateState}
+            />
+          </Grid>
           <Grid item style={{ width: "100%" }}>
             <InputCust
               id={"newDeviceName"}
@@ -319,7 +323,9 @@ export default function NewDevice(props) {
                   fullDevice.deviceVolts === "" ||
                   fullDevice.deviceWatts === "" ||
                   fullDevice.deviceHours === "" ||
-                  fullDevice.flowdeviceRateLight === ""
+                  fullDevice.flowdeviceRateLight === "" ||
+                  fullDevice.deviceRate === "" ||
+                  fullDevice.journalName === ""
                 }
               />
             </Grid>

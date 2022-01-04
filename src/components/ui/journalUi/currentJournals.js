@@ -48,12 +48,13 @@ const useStyles = makeStyles((theme) => ({
   buttonGrid: { marginTop: "0.5em" },
 }));
 
+
 export default function CurrentJournals(props) {
   const classes = useStyles();
 
   //Get Local State
   const [activeJournals, setActiveJournals] = useState([]);
-  const [fullJournal, setFullJournal] = useState({
+  const fullJournal = {
     jName: "",
     jDesc: "",
     roomType: "",
@@ -61,7 +62,7 @@ export default function CurrentJournals(props) {
     vegLight: "",
     flowLight: "",
     growMedium: "",
-  });
+  };
 
   //Requesting - All journals from backend
   const getJournals = async () => {
@@ -118,169 +119,150 @@ export default function CurrentJournals(props) {
     <Grid container>
       <Grid item container>
         <Carousel next={(next, active) => {}} prev={(prev, active) => {}}>
-          {activeJournals.map(
-            (item, index) => (
-              console.log(item),
-              (
-                <Paper className={classes.paperStyle} key={index}>
+          {activeJournals.map((item, index) => (
+            <Paper className={classes.paperStyle} key={index}>
+              <Grid
+                container
+                direction="column"
+                // xs={12}
+                style={{ padding: "0.3em" }}
+              >
+                <Grid item container alignItems="flex-start" xs={12}>
                   <Grid
+                    item
                     container
-                    direction="column"
-                    xs={12}
-                    style={{ padding: "0.3em" }}
+                    alignItems="center"
+                    className={classes.journalTitle}
+                    style={{ paddingLeft: "0.5em" }}
                   >
-                    <Grid item container alignItems="flex-start" xs={12}>
-                      <Grid
-                        item
-                        container
-                        alignItems="center"
-                        className={classes.journalTitle}
-                        style={{ paddingLeft: "0.5em" }}
-                      >
-                        <Typography variant="h6">{item.name}</Typography>
-                      </Grid>
-                      <Grid
-                        item
-                        container
-                        className={classes.journalAddIcon}
-                        justifyContent="flex-end"
-                      >
-                        <IconButton
-                          className={classes.journalIcon}
-                          style={{ zIndex: 1 }}
-                          onClick={() => togNewJournalDisplay()}
-                        >
-                          <AddCircleOutlineIcon />
-                        </IconButton>
-                      </Grid>
-                    </Grid>
-                    <Grid
-                      item
-                      container
-                      direction="row"
-                      className={classes.journalDesc}
-                      xs={12}
+                    <Typography variant="h6">{item.name}</Typography>
+                  </Grid>
+                  <Grid
+                    item
+                    container
+                    className={classes.journalAddIcon}
+                    justifyContent="flex-end"
+                  >
+                    <IconButton
+                      className={classes.journalIcon}
+                      style={{ zIndex: 1 }}
+                      onClick={() => togNewJournalDisplay()}
                     >
-                      <Grid item xs={12} style={{ marginBottom: "0.5em " }}>
-                        <Typography>{item.description}</Typography>
-                      </Grid>
-                      <Grid item container xs={6}>
-                        <Grid item xs={6}>
-                          <Typography>
-                            <span
-                              style={{ fontWeight: "bold", fontSize: "10pt" }}
-                            >
-                              Room Type
-                            </span>
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography>{item.roomType}</Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item container xs={6}>
-                        <Grid item xs={6}>
-                          <Typography>
-                            <span
-                              style={{ fontWeight: "bold", fontSize: "10pt" }}
-                            >
-                              Water Type
-                            </span>
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography>{item.waterType}</Typography>
-                        </Grid>
-                      </Grid>
-
-                      <Grid item container xs={6}>
-                        <Grid item xs={6}>
-                          <Typography>
-                            <span
-                              style={{ fontWeight: "bold", fontSize: "10pt" }}
-                            >
-                              Veg Watt
-                            </span>
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography> {item.vegWatt}</Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item container xs={6}>
-                        <Grid item xs={6}>
-                          <Typography>
-                            <span
-                              style={{ fontWeight: "bold", fontSize: "10pt" }}
-                            >
-                              Veg Light
-                            </span>
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography>{item.vegLight}</Typography>
-                        </Grid>
-                      </Grid>
-
-                      <Grid item container xs={6}>
-                        <Grid item xs={6}>
-                          <Typography>
-                            <span
-                              style={{ fontWeight: "bold", fontSize: "10pt" }}
-                            >
-                              Flower Watt
-                            </span>
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography>{item.flowerWatt}</Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item container xs={6}>
-                        <Grid item xs={6}>
-                          <Typography>
-                            <span
-                              style={{ fontWeight: "bold", fontSize: "10pt" }}
-                            >
-                              Flower Light
-                            </span>
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography>{item.flowLight}</Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Typography>
-                          <span
-                            style={{ fontWeight: "bold", fontSize: "10pt" }}
-                          >
-                            Grow Medium
-                          </span>{" "}
-                          {item.growMedium}
-                        </Typography>
-                      </Grid>
+                      <AddCircleOutlineIcon />
+                    </IconButton>
+                  </Grid>
+                </Grid>
+                <Grid
+                  item
+                  container
+                  direction="row"
+                  className={classes.journalDesc}
+                  xs={12}
+                >
+                  <Grid item xs={12} style={{ marginBottom: "0.5em " }}>
+                    <Typography>{item.description}</Typography>
+                  </Grid>
+                  <Grid item container xs={6}>
+                    <Grid item xs={6}>
+                      <Typography>
+                        <span style={{ fontWeight: "bold", fontSize: "10pt" }}>
+                          Room Type
+                        </span>
+                      </Typography>
                     </Grid>
-                    <Grid
-                      item
-                      container
-                      direction="container"
-                      justifyContent="center"
-                      xs={12}
-                    >
-                      <ButtonCust
-                        butName="Select"
-                        buttonWidth="75%"
-                        variant="contained"
-                        color="primary"
-                        onClick={() => selectJournal(index)}
-                      />
+                    <Grid item xs={6}>
+                      <Typography>{item.roomType}</Typography>
                     </Grid>
                   </Grid>
-                </Paper>
-              )
-            )
-          )}
+                  <Grid item container xs={6}>
+                    <Grid item xs={6}>
+                      <Typography>
+                        <span style={{ fontWeight: "bold", fontSize: "10pt" }}>
+                          Water Type
+                        </span>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography>{item.waterType}</Typography>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item container xs={6}>
+                    <Grid item xs={6}>
+                      <Typography>
+                        <span style={{ fontWeight: "bold", fontSize: "10pt" }}>
+                          Veg Watt
+                        </span>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography> {item.vegWatt}</Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item container xs={6}>
+                    <Grid item xs={6}>
+                      <Typography>
+                        <span style={{ fontWeight: "bold", fontSize: "10pt" }}>
+                          Veg Light
+                        </span>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography>{item.vegLight}</Typography>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item container xs={6}>
+                    <Grid item xs={6}>
+                      <Typography>
+                        <span style={{ fontWeight: "bold", fontSize: "10pt" }}>
+                          Flower Watt
+                        </span>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography>{item.flowerWatt}</Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item container xs={6}>
+                    <Grid item xs={6}>
+                      <Typography>
+                        <span style={{ fontWeight: "bold", fontSize: "10pt" }}>
+                          Flower Light
+                        </span>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography>{item.flowLight}</Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography>
+                      <span style={{ fontWeight: "bold", fontSize: "10pt" }}>
+                        Grow Medium
+                      </span>{" "}
+                      {item.growMedium}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid
+                  item
+                  container
+                  direction="container"
+                  justifyContent="center"
+                  xs={12}
+                >
+                  <ButtonCust
+                    butName="Select"
+                    buttonWidth="75%"
+                    variant="contained"
+                    color="primary"
+                    onClick={() => selectJournal(index)}
+                  />
+                </Grid>
+              </Grid>
+            </Paper>
+          ))}
         </Carousel>
       </Grid>
     </Grid>

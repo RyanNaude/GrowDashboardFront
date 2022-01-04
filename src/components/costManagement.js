@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -41,20 +41,100 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CostManagement(props) {
   const classes = useStyles();
+  const journalId = [];
+  const journalName = [];
 
-  //Local State
+  // Setup Local State
+  const fullJournal = {
+    jName: "",
+    jDesc: "",
+    roomType: "",
+    waterType: "",
+    vegLight: "",
+    flowLight: "",
+    growMedium: "",
+  };
+
+  const fullDevice = {
+    devName: "",
+    devAmps: "",
+    devVolt: "",
+    devHrs: "",
+    devRate: "",
+    journalId: "",
+  };
+  const [devices, setDevices] = useState([]);
+  const [activeJournals, setActiveJournals] = useState([]);
   const [dispNewDevice, setDispNewDevice] = useState(false);
   const [dispNewDeviceBut, setDispNewDeviceBut] = useState(false);
   const [dispCurDevice, setDispCurDevice] = useState(true);
+  const [journalOptions, setJournalOptions] = useState([]);
+  const [journalOptionsId, setJournalOptionsId] = useState([]);
+  const [idSelected, setIdSelected] = useState(null);
 
   //Get Global State
   const tokenState = useSelector(selectTokenState);
 
   const togNewDeviceDisplay = () => {
-    // setDispCurDevice(!dispCurDevice);
-    // setDispNewDevice(!dispNewDevice);
     setDispNewDeviceBut(!dispNewDeviceBut);
   };
+
+  //Requesting - All journals from backend
+  const getJournals = async () => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        journalNameField: fullJournal.jName,
+        journalDescField: fullJournal.jDesc,
+        journalRoomType: fullJournal.roomType,
+        journalWaterType: fullJournal.waterType,
+        journalVegLight: fullJournal.vegLight,
+        journalFlowLight: fullJournal.flowLight,
+        journalGrowMedium: fullJournal.growMedium,
+      }),
+    };
+    fetch("http://localhost:4000/journal/journalGet", requestOptions)
+      .then((response) => response.json())
+      .then((response) => {
+        setActiveJournals(response);
+        for (let index = 0; index < response.length; index++) {
+          journalId.push(response[index]._id);
+          journalName.push(response[index].description);
+        }
+        setJournalOptions(journalName);
+        setJournalOptionsId(journalId);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  //Requesting - All devices linked to selected journal
+  const getDevices = async () => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        devName: fullDevice.devName,
+        devAmps: fullDevice.devAmps,
+        devVolt: fullDevice.devVolt,
+        devHrs: fullDevice.devHrs,
+        devRate: fullDevice.devRate,
+        journalId: fullDevice.journalId,
+      }),
+    };
+
+    fetch("http://localhost:4000/costmanagement/getDevice", requestOptions)
+      .then((response) => response.json())
+      .then((response) => {
+        setDevices(response);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    getJournals();
+    getDevices();
+  }, []);
 
   return (
     <Grid container direction="column" className={classes.mainPageStyle}>
@@ -99,6 +179,9 @@ export default function CostManagement(props) {
                 setDispNewDevice={setDispNewDevice}
                 dispCurDevice={dispCurDevice}
                 setDispCurDevice={setDispCurDevice}
+                devices={devices}
+                setDevices={setDevices}
+                activeJournals={activeJournals}
               />
             </Grid>
           ) : null}
@@ -110,6 +193,10 @@ export default function CostManagement(props) {
                 setDispNewDevice={setDispNewDevice}
                 dispCurDevice={dispCurDevice}
                 setDispCurDevice={setDispCurDevice}
+                journalOptionsId={journalOptionsId}
+                journalOptions={journalOptions}
+                idSelected={idSelected}
+                setIdSelected={setIdSelected}
               />
             </Grid>
           ) : null}

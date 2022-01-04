@@ -350,7 +350,6 @@ export default function EditJournal(props) {
           <Grid item container className={classes.gridItemStyle} xs={12}>
             <InputMultiCust
               name="description"
-              inputWidth="100%"
               id={"entryNote"}
               label={"Journal Description"}
               helperText={""}

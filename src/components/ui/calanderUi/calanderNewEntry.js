@@ -47,6 +47,15 @@ const useStyles = makeStyles((theme) => ({
 export default function CalanderNewEntry(props) {
   const classes = useStyles();
 
+  // const calanderEntry = {
+  //   title: "",
+  //   date: "",
+  //   start: "",
+  //   end: "",
+  //   type: "",
+  //   notes: "",
+  // };
+
   // const [acceptDisable, setAcceptDisable] = useState(true);
   const [newEntryFields, setNewEntryFields] = useState({
     entryTitle: "",
@@ -57,11 +66,35 @@ export default function CalanderNewEntry(props) {
     entryNotes: "",
   });
 
-  const submitCalEntry = () => {
-    console.log("This is a test");
-    console.log(
-      "Submit data to backend here for new calander entry. All field have data but not validated"
-    );
+  // Create new calander entry on backend
+  const submitCalEntry = async () => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: newEntryFields.entryTitle,
+        date: newEntryFields.entryDate,
+        start: newEntryFields.entryStart,
+        end: newEntryFields.entryEnd,
+        type: newEntryFields.entryType,
+        notes: newEntryFields.entryNotes,
+      }),
+    };
+    // fetch("http://localhost:4000/calander/newEntry", requestOptions)
+    //   .then((response) => response.json())
+    //   .then(() => {
+    //     setFullDevice({
+    //       deviceName: "",
+    //       deviceAmps: "",
+    //       deviceVolts: "",
+    //       deviceWatts: "",
+    //       deviceHours: "",
+    //       deviceRate: "",
+    //       journalName: "",
+    //     });
+    //     setDeviceConf(!deviceConf);
+    //   })
+    //   .catch((error) => console.log(error));
   };
 
   const cancelCalEntry = () => {

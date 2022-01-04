@@ -1,7 +1,7 @@
-import userActionTypes from "./siteNav.types";
+// import userActionTypes from "./siteNav.types";
 
 const INITIAL_STATE = {
-  displayNewJournal: false,
+  // displayNewJournal: false,
   // signInState: false,
   // signUpState: false,
 };

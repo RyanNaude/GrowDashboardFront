@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 //Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -37,30 +37,51 @@ const useStyles = makeStyles((theme) => ({
   },
   tableFinalLine: {
     fontSize: "7pt",
-    alignItems: "left",
   },
 }));
 
-function createData(name, watt, hours, kwh, cost) {
-  return { name, watt, hours, kwh, cost };
-}
-
-//Test Data
-const elecRows = [
-  createData("Quantum Light", 220, 12, 81.84, "219.33"),
-  createData("Fan x2", 60, 12, 44.46, "119.64"),
-  createData("Extractor", 35, 12, 6.51, "17.45"),
-  createData("Air", 4, 12, 2.98, "7.98"),
-];
-
 export default function CostOFElec(props) {
   const classes = useStyles();
+  const elecRows = props.devices;
 
-  useEffect(() => {}, []);
+  var dt = new Date();
+  var month = dt.getMonth();
+  var year = dt.getFullYear();
+  var daysInMonth = new Date(year, month, 0).getDate();
 
   const dispNewDevice = () => {
     props.setDispNewDevice(!props.dispNewDevice);
     props.setDispCurDevice(!props.dispCurDevice);
+  };
+
+  var calcs;
+  var totalCost = 0;
+  var costRet = {
+    kwhDay: 0,
+    monthCost: 0,
+    totalCost: 0,
+  };
+
+  function calcTotals(devName, devWatt, devHrs, devRate) {
+    var kwhDay;
+    var kwhMonth;
+    var monthCost;
+
+    kwhDay = (devWatt * devHrs) / 1000;
+    kwhMonth = kwhDay * daysInMonth;
+    monthCost = Number((kwhMonth * devRate).toFixed(2));
+    totalCost = totalCost + monthCost;
+
+    costRet.kwhDay = kwhDay;
+    costRet.monthCost = monthCost;
+    costRet.totalCost = totalCost.toFixed(2);
+
+    return costRet;
+  }
+
+  const editDevice = (event) => {
+    console.log("Edit Device");
+    console.log(event.target.id);
   };
 
   return (
@@ -74,60 +95,83 @@ export default function CostOFElec(props) {
           >
             <TableHead>
               <TableRow className={classes.tableHeader}>
-                <TableCell align="center" className={classes.tableFinalLine}>
+                <TableCell align="left" className={classes.tableFinalLine}>
                   Device
                 </TableCell>
-                <TableCell align="center" className={classes.tableFinalLine}>
-                  Watts
+                <TableCell align="right" className={classes.tableFinalLine}>
+                  Wattage
                 </TableCell>
-                <TableCell align="center" className={classes.tableFinalLine}>
-                  Hours
+                <TableCell align="right" className={classes.tableFinalLine}>
+                  Hours On
                 </TableCell>
-                <TableCell align="center" className={classes.tableFinalLine}>
-                  kWh/M
+                <TableCell align="right" className={classes.tableFinalLine}>
+                  kWh/Day
                 </TableCell>
-                <TableCell align="center" className={classes.tableFinalLine}>
-                  {props.dispNewDeviceBut ? "Edit" : "Cost"}
+                <TableCell align="right" className={classes.tableFinalLine}>
+                  {props.dispNewDeviceBut ? "Edit" : "Monthly Cost"}
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody className={classes.tableBody}>
-              {elecRows.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    className={classes.tableFinalLine}
-                  >
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right" className={classes.tableFinalLine}>
-                    {row.watt}
-                  </TableCell>
-                  <TableCell align="right" className={classes.tableFinalLine}>
-                    {row.hours}
-                  </TableCell>
-                  <TableCell align="right" className={classes.tableFinalLine}>
-                    {row.kwh}
-                  </TableCell>
-                  <TableCell align="left" className={classes.tableFinalLine}>
-                    {props.dispNewDeviceBut ? (
-                      <IconButton>
-                        <EditIcon style={{ fontSize: "small" }} />
-                      </IconButton>
-                    ) : (
-                      row.cost
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {elecRows.map(
+                (row, index) => (
+                  (calcs = calcTotals(
+                    row.devName,
+                    row.devWatt,
+                    row.devHrs,
+                    row.devRate
+                  )),
+                  (
+                    <TableRow key={index}>
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        align="left"
+                        className={classes.tableFinalLine}
+                      >
+                        {row.devName}
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        className={classes.tableFinalLine}
+                      >
+                        {row.devWatt}
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        className={classes.tableFinalLine}
+                      >
+                        {row.devHrs}
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        className={classes.tableFinalLine}
+                      >
+                        {calcs.kwhDay}
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        className={classes.tableFinalLine}
+                      >
+                        {props.dispNewDeviceBut ? (
+                          <IconButton id={index} onClick={editDevice}>
+                            <EditIcon style={{ fontSize: "small" }} />
+                          </IconButton>
+                        ) : (
+                          "R" + calcs.monthCost
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  )
+                )
+              )}
 
               <TableRow className={classes.tableFinalRow}>
                 <TableCell
                   className={classes.tableFinalLine}
                   style={{ fontWeight: "bold" }}
                 >
-                  Total
+                  Total Cost
                 </TableCell>
                 <TableCell
                   align="right"
@@ -137,11 +181,12 @@ export default function CostOFElec(props) {
                   align="right"
                   className={classes.tableFinalLine}
                 ></TableCell>
+                <TableCell
+                  align="right"
+                  className={classes.tableFinalLine}
+                ></TableCell>
                 <TableCell align="right" className={classes.tableFinalLine}>
-                  135.79
-                </TableCell>
-                <TableCell align="right" className={classes.tableFinalLine}>
-                  364.4
+                  {calcs ? "R" + calcs.totalCost : null}
                 </TableCell>
               </TableRow>
             </TableBody>
