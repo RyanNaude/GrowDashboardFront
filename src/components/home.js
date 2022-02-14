@@ -99,7 +99,7 @@ export default function Home(props) {
     vegLight: "",
     vegWatt: "",
     waterType: "",
-    id: ""
+    id: "",
   });
 
   //useEffect - Getting journals loaded on database
@@ -108,16 +108,14 @@ export default function Home(props) {
   }, []);
 
   return (
-    <Grid container direction="row" className={classes.mainPageStyle}>
+    <Grid container direction="row" className={classes.mainPageStyle} style={{border: "0px solid"}}>
       {tokenState ? (
-        <Grid item container style={{ border: "0px solid" }}>
-          <Grid
-            item
-            style={{
-              border: "0px solid",
-              width: "100%",
-            }}
-          >
+        <Grid
+          item
+          container
+          xs={12}
+        >
+          <Grid item>
             {/* Display current journals as carousel */}
             {dispCarousel ? (
               <CurrentJournals

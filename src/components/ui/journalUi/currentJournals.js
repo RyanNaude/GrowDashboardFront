@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
   buttonGrid: { marginTop: "0.5em" },
 }));
 
-
 export default function CurrentJournals(props) {
   const classes = useStyles();
 
@@ -248,13 +247,12 @@ export default function CurrentJournals(props) {
                 <Grid
                   item
                   container
-                  direction="container"
+                  // direction="column"
                   justifyContent="center"
                   xs={12}
                 >
                   <ButtonCust
                     butName="Select"
-                    buttonWidth="75%"
                     variant="contained"
                     color="primary"
                     onClick={() => selectJournal(index)}

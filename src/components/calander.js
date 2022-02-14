@@ -17,7 +17,7 @@ import { selectTokenState } from "../redux/user/user.selector";
 //Custom useStyles
 const useStyles = makeStyles((theme) => ({
   mainPageStyle: {
-    marginTop: "6em",
+    marginTop: "6rem",
     width: "100%",
     border: "0px solid",
   },
